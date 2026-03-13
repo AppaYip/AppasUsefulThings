@@ -22,7 +22,7 @@ guiManager = new GuiManager();
 ### Basic Gui (No automatic event handling)
 
 Use `Gui` when you want to display an inventory with no pre-written handling.
-You will have to write **your own** event handlers, click events are **not** automatically caneled.
+You will have to write **your own** event handlers, click events are **not** automatically canceled.
 
 ```java
 public class ExampleGui implements Gui {
