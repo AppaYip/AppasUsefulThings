@@ -122,13 +122,6 @@ public class GuiManager implements Listener {
         openGuis.remove(player.getUniqueId());
     }
 
-    /*
-     *
-     * YO LATER ME. I got no idea what the heck onInteract even does. Listen for events separately
-     * Maybe even make own wrapper?
-     *
-     */
-
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
