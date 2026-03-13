@@ -78,7 +78,7 @@ guiManager.open(player, "example");
 
 The GUI manager already handles this.
 When an onInventoryClose event is fired, the player will have its current GUI closed.
-However, if you want to do this manually. Please note this will **not** close the player's inventory automatically.
+However, if you want, you can do this manually. Please note this will **not** close the player's inventory automatically.
 
 ```java
 guiManager.close(player);
