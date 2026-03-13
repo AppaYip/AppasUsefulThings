@@ -1,17 +1,18 @@
 # AppasUsefulThings
+
 A Paper plugin library providing utilities for GUI management, spell systems, and particle shapes.
 
 > This project is in early development. APIs may change.
 
-
 ## Requirements
+
 - Java 21+
 - Paper 1.21+
 
 ## Installation
 
-
 ### Add as a depency (Maven)
+
 ```xml
     org.appa
     appaUsefulThings
@@ -19,9 +20,11 @@ A Paper plugin library providing utilities for GUI management, spell systems, an
 ```
 
 ### Features
+
 - **GuiManager** - Interface-based GUI system with automatic asession management
 
 ### GuiManager
+
 ```java
 public class ExampleGui implements GuiInteractions {
     final TextComponent title = Component.text("Example GUI")
@@ -70,10 +73,13 @@ guiManager.open(player, "example");
 ```
 
 ## Documentation
-Full documentation available on the Wiki (Coming soon).
+
+- [GuiManager](docs/gui-manager.md)
 
 ## Contributing
+
 Contributions, issues, and feature requests are welcome! Feel free to open an issue or pull request.
 
 ## License
+
 [MIT](LICENSE)
