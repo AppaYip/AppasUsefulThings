@@ -1,7 +1,7 @@
 # Logger
 
-A simple wrapper around Paper's built in logger. 
-These docs are mainly here for completeness — this is primarily for internal use.
+A simple wrapper around Paper's built in logger.
+These docs are mainly here for completeness - this is primarily for internal use.
 
 ## Setup
 
