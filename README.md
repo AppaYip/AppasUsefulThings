@@ -74,6 +74,7 @@ guiManager.open(player, "example");
 
 ## Documentation
 
+- [Logger](docs/logger.md)
 - [GuiManager](docs/gui-manager.md)
 
 ## Contributing
