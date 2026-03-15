@@ -14,9 +14,11 @@ A Paper plugin library providing utilities for GUI management, spell systems, an
 ### Add as a depency (Maven)
 
 ```xml
-    org.appa
-    appaUsefulThings
-    VERSION
+    <dependency>
+        <groupId>org.appa</groupId>
+        <artifactId>AppasUsefulThings</artifactId>
+        <version>VERSION</version>
+    </dependency>
 ```
 
 ### Features
