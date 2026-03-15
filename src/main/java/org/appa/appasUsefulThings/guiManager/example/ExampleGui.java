@@ -33,8 +33,6 @@ public class ExampleGui implements GuiInteractions {
         }
     }
 
-
-
     @Override
     public String getId() {
         return "ExampleGui";

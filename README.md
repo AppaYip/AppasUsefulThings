@@ -76,6 +76,7 @@ guiManager.open(player, "example");
 
 - [Logger](docs/logger.md)
 - [GuiManager](docs/gui-manager.md)
+- [ItemBuilder](docs/item-builder.md)
 
 ## Contributing
 
