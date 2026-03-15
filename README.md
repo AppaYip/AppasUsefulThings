@@ -82,6 +82,8 @@ guiManager.registerGui(new ExampleGui());
 guiManager.open(player, "example");
 ```
 
+See [GUI Manager Dosc](docs/gui-manager.md) for more information.
+
 ### Item Builder
 
 ```java
