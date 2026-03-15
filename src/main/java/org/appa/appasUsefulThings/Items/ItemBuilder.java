@@ -1,6 +1,6 @@
 package org.appa.appasUsefulThings.Items;
 
-import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -18,9 +18,9 @@ public class ItemBuilder {
     private final Material material;
 
     // Main
-    private TextComponent name;
+    private Component name;
     private int amount = 1;
-    private ArrayList<TextComponent> lore = new ArrayList<>();
+    private List<Component> lore = new ArrayList<>();;
 
     // Appearance
     private Integer customModelData = null;
@@ -36,13 +36,13 @@ public class ItemBuilder {
     /*
      * Constructors
      */
-    public ItemBuilder(Material material, TextComponent name, int damage) {
+    public ItemBuilder(Material material, Component name, int damage) {
         this.material = material;
         this.name = name;
         this.damage = damage;
     }
 
-    public ItemBuilder(Material material, TextComponent name) {
+    public ItemBuilder(Material material, Component name) {
         this.material = material;
         this.name = name;
     }
@@ -62,7 +62,7 @@ public class ItemBuilder {
      * Main Things
      * Name, Amount, Lore
      */
-    public ItemBuilder setDisplayName(TextComponent name) {
+    public ItemBuilder setDisplayName(Component name) {
         this.name = name;
         return this;
     }
@@ -73,7 +73,7 @@ public class ItemBuilder {
     }
 
 
-    public ItemBuilder addLore(TextComponent... line) {
+    public ItemBuilder addLore(Component... line) {
         this.lore.addAll(Arrays.asList(line));
         return this;
     }
