@@ -47,7 +47,7 @@ public final class  AppasUsefulThings extends JavaPlugin {
         plugin = this;
         logger = new Logger(this);
         guiManager = new GuiManager();
-        logger.log(Logger.LogLevel.INFO, "Appa's useful things has loaded!");
+        logger.log("Appa's useful things has loaded!");
 
 
         Bukkit.getPluginManager().registerEvents(

@@ -21,7 +21,17 @@ A Paper plugin library providing utilities for GUI management, spell systems, an
 
 ### Features
 
+- **Logger** - A simple wrapper for paper's logger
 - **GuiManager** - Interface-based GUI system with automatic asession management
+- **ItemBuilder** - An Item builder designed to make ItemStack editing easier
+
+### Logger
+
+```java
+new Logger(this).log("Hi :3");
+```
+
+See [Logger Docs](docs/logger.md) for more information.
 
 ### GuiManager
 
@@ -71,6 +81,16 @@ public class ExampleGui implements GuiInteractions {
 guiManager.registerGui(new ExampleGui());
 guiManager.open(player, "example");
 ```
+
+### Item Builder
+
+```java
+ItemStack item = new ItemBuilder(Material.FIREFLY_BUSH)
+    .setDisplayName(Component.text("You would not believe your eyes..."))
+    .build();
+```
+
+See [ItemBuilder docs](docs/item-builder.md) for more information.
 
 ## Documentation
 
