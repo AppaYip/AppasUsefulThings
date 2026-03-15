@@ -6,7 +6,7 @@ This is a builder designed to remove some of the headache when trying to make it
 
 All constructors require a 'Material'. Name and damage can optionally be passed in, or set later via respective methods, see below.
 
-```javav
+```java
 new ItemBuilder(Material material)
 new ItemBuilder(Material material, Component name)
 new ItemBuilder(Material material, int damage)
