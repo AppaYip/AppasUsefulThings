@@ -1,7 +1,16 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-target/
+# Gradle
+.gradle/
+build/
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Compiled
 *.class
 *.jar
-.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
