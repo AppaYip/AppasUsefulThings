@@ -1,6 +1,7 @@
 package org.appa.appasUsefulThings.config;
 
 import org.appa.appasUsefulThings.AppasUsefulThings;
+import org.appa.appasUsefulThings.cooldowns.example.ExCooldownCommand;
 import org.appa.appasUsefulThings.guiManager.example.ExampleGui;
 import org.appa.appasUsefulThings.guiManager.GuiManager;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -30,6 +31,5 @@ public class Config {
         } else  {
             guiManager.unregisterGui(exampleGui);
         }
-
     }
 }

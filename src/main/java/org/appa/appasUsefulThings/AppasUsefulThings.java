@@ -2,6 +2,7 @@ package org.appa.appasUsefulThings;
 
 import org.appa.appasUsefulThings.commands.ConfigCommand;
 import org.appa.appasUsefulThings.config.Config;
+import org.appa.appasUsefulThings.cooldowns.CooldownManager;
 import org.appa.appasUsefulThings.guiManager.GuiManager;
 import org.appa.appasUsefulThings.guiManager.example.ExampleGuiCommand;
 import org.bukkit.Bukkit;
@@ -19,6 +20,8 @@ public final class  AppasUsefulThings extends JavaPlugin {
         return plugin;
     }
 
+    public static CooldownManager cooldownManager;
+    public static CooldownManager getCooldownManager() {return cooldownManager;}
 
     public static Logger logger;
     public static Logger getMyLogger() {
@@ -47,6 +50,7 @@ public final class  AppasUsefulThings extends JavaPlugin {
         plugin = this;
         logger = new Logger(this);
         guiManager = new GuiManager();
+        cooldownManager = new CooldownManager();
         logger.log("Appa's useful things has loaded!");
 
 
