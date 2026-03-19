@@ -4,6 +4,7 @@ import org.bukkit.entity.Entity;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class CooldownManager {
     private final HashMap<UUID, Long> cooldowns = new HashMap<>();
@@ -14,7 +15,7 @@ public class CooldownManager {
      * @param duration The duration in milliseconds.
      * Use TimeUnit for easy conversion
      */
-    public void setCooldown(Entity entity, Long duration) {
+    public void setCooldown(Entity entity, long duration) {
         long expiresAt = System.currentTimeMillis() + duration;
         cooldowns.put(entity.getUniqueId(), expiresAt);
     }
@@ -49,12 +50,20 @@ public class CooldownManager {
         return Math.max(0, expiresAt - System.currentTimeMillis());
     }
 
+    /**
+     * Gets the remaining time but in seconds
+     * This is just a wrapper to make it pretty
+     * @param entity The entity
+     * @return String, ex: "10"
+     */
+    public String getRemainingSeconds(Entity entity) {
+        long millis = getRemainingMillis(entity);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
+        return String.valueOf(seconds);
+    }
+
     // 1 tick = 50ms
     public long ticksToMillis(long ticks) {
         return ticks*50L;
     }
-    public long millisToSeconds(long millis) {
-        return millis / 1000L;
-    }
-
 }
