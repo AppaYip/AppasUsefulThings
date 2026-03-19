@@ -47,12 +47,11 @@ public class ExampleCooldownCommand implements CommandExecutor {
             return true;
         }
 
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(cooldownManager.getRemainingMillis(player));
 
         if (!(cooldownManager.isOver(player))) {
             player.sendMessage("Please wait " +
-                    seconds
-                    + " before executing this command again"
+                    cooldownManager.getRemainingSeconds(player)
+                    + " more seconds before executing this command again"
             );
             return true;
         }
