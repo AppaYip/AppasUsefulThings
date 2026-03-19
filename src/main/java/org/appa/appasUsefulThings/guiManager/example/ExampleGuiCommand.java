@@ -34,7 +34,7 @@ public class ExampleGuiCommand implements CommandExecutor {
         }
 
         if (!(config.getBoolean("GuiRoot.ExampleGuiEnabled"))) {
-            commandSender.sendMessage("ExCooldownCommand GUI is not enabled! To use this command, enable it in the config!");
+            commandSender.sendMessage("ExampleCooldownCommand GUI is not enabled! To use this command, enable it in the config!");
             return true;
         }
 

@@ -4,7 +4,6 @@ import org.appa.appasUsefulThings.AppasUsefulThings;
 import org.appa.appasUsefulThings.cooldowns.CooldownManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,16 +16,16 @@ import java.util.concurrent.TimeUnit;
 import static org.appa.appasUsefulThings.AppasUsefulThings.config;
 
 
-public class ExCooldownCommand implements CommandExecutor {
-    public static void register(JavaPlugin plugin) {
-        ExCooldownCommand cmd = new ExCooldownCommand();
+public class ExampleCooldownCommand implements CommandExecutor {
+    public void register(JavaPlugin plugin) {
+        ExampleCooldownCommand cmd = new ExampleCooldownCommand();
         Objects.requireNonNull(plugin.getCommand("CooldownExample")).setExecutor(cmd);
     }
 
     Random random = new Random();
     String[] quotes = {"", ""};
 
-    CooldownManager cooldownManager = AppasUsefulThings.getCooldownManager();
+    CooldownManager cooldownManager = new CooldownManager();
 
     @Override
     public boolean onCommand(
