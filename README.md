@@ -11,15 +11,9 @@ A Paper plugin library providing utilities for GUI management, spell systems, an
 
 ## Installation
 
-### Add as a depency (Maven)
+### Adding as a dependcy
 
-```xml
-    <dependency>
-        <groupId>org.appa</groupId>
-        <artifactId>AppasUsefulThings</artifactId>
-        <version>VERSION</version>
-    </dependency>
-```
+I highly suggst you use jitpack. [My jitpack url](https://jitpack.io/#AppaYip/AppasUsefulThings)
 
 ### Features
 
