@@ -94,6 +94,8 @@ ItemStack item = new ItemBuilder(Material.FIREFLY_BUSH)
 
 See [ItemBuilder docs](docs/item-builder.md) for more information.
 
+### Cooldown Manager
+
 ```java
 CooldownManager cooldownManager = new CooldownManager(); // Get an instance
 cooldownManager.setCooldown(player, TimeUnit.SECONDS.toMillis(5)); // Set cooldown to 5 seconds
