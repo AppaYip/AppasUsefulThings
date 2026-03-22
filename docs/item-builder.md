@@ -18,7 +18,7 @@ new ItemBuilder(Material material, Component name, int damage)
 All methods return the builder instance, allowing them to be chained together.
 Call 'build()' at the end to produce the final 'ItemStack'.
 
-## SImple Items
+## Simple Items
 
 ```java
 ItemStack item = new ItemBuilder(Material.DIAMOND)

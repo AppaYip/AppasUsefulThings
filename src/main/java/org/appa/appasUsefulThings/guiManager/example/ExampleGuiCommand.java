@@ -14,9 +14,8 @@ import java.util.Objects;
 import static org.appa.appasUsefulThings.AppasUsefulThings.config;
 
 public class ExampleGuiCommand implements CommandExecutor {
-    public void regsiter(JavaPlugin plugin) {
-        ExampleGuiCommand cmd = new ExampleGuiCommand();
-        Objects.requireNonNull(plugin.getCommand("ExampleGui")).setExecutor(cmd);
+    public void register(JavaPlugin plugin) {
+        Objects.requireNonNull(plugin.getCommand("ExampleGui")).setExecutor(this);
     }
 
     GuiManager guiManager = AppasUsefulThings.getGuiManager();
@@ -34,7 +33,7 @@ public class ExampleGuiCommand implements CommandExecutor {
         }
 
         if (!(config.getBoolean("GuiRoot.ExampleGuiEnabled"))) {
-            commandSender.sendMessage("Example GUI is not enabled! To use this command, enable it in the config!");
+            commandSender.sendMessage("ExampleCooldownCommand GUI is not enabled! To use this command, enable it in the config!");
             return true;
         }
 

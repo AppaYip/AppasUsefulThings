@@ -30,6 +30,5 @@ public class Config {
         } else  {
             guiManager.unregisterGui(exampleGui);
         }
-
     }
 }

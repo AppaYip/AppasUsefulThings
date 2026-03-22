@@ -2,6 +2,7 @@ package org.appa.appasUsefulThings;
 
 import org.appa.appasUsefulThings.commands.ConfigCommand;
 import org.appa.appasUsefulThings.config.Config;
+import org.appa.appasUsefulThings.cooldowns.example.ExampleCooldownCommand;
 import org.appa.appasUsefulThings.guiManager.GuiManager;
 import org.appa.appasUsefulThings.guiManager.example.ExampleGuiCommand;
 import org.bukkit.Bukkit;
@@ -19,12 +20,10 @@ public final class  AppasUsefulThings extends JavaPlugin {
         return plugin;
     }
 
-
     public static Logger logger;
     public static Logger getMyLogger() {
         return logger;
     } // Horrid name
-
 
     public static File configFile;
     public static File getConfigFile() {
@@ -55,7 +54,8 @@ public final class  AppasUsefulThings extends JavaPlugin {
         );
 
         new ConfigCommand().register(this);
-        new ExampleGuiCommand().regsiter(this);
+        new ExampleGuiCommand().register(this);
+        new ExampleCooldownCommand().register(this);
 
 
         configFile = new File(getDataFolder(), "config.yml");
