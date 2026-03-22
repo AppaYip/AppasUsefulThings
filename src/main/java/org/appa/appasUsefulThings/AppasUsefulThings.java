@@ -54,7 +54,7 @@ public final class  AppasUsefulThings extends JavaPlugin {
         );
 
         new ConfigCommand().register(this);
-        new ExampleGuiCommand().regsiter(this);
+        new ExampleGuiCommand().register(this);
         new ExampleCooldownCommand().register(this);
 
 

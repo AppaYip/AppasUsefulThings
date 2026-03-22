@@ -14,7 +14,7 @@ import java.util.Objects;
 import static org.appa.appasUsefulThings.AppasUsefulThings.config;
 
 public class ExampleGuiCommand implements CommandExecutor {
-    public void regsiter(JavaPlugin plugin) {
+    public void register(JavaPlugin plugin) {
         Objects.requireNonNull(plugin.getCommand("ExampleGui")).setExecutor(this);
     }
 
