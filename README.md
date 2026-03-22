@@ -4,6 +4,8 @@ A Paper plugin library providing utilities for GUI management, spell systems, an
 All "library" methods are java doced, if you need more information please look at them or open an issue.
 
 > This project is in early development. APIs may change.
+> **Dev Builds** are built from the latest commit to the dev branch. If you're using a dev build, be aware it may contain untested or incomplete code
+> It is **highly** recommended that you use the latest on the main branch.
 
 ## Requirements
 
