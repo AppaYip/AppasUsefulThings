@@ -2,7 +2,7 @@ package org.appa.appasUsefulThings;
 
 import org.appa.appasUsefulThings.commands.ConfigCommand;
 import org.appa.appasUsefulThings.config.Config;
-import org.appa.appasUsefulThings.cooldowns.example.ExampleCooldownCommand;
+import org.appa.appasUsefulThings.cooldownManager.example.ExampleCooldownCommand;
 import org.appa.appasUsefulThings.guiManager.GuiManager;
 import org.appa.appasUsefulThings.guiManager.example.ExampleGuiCommand;
 import org.bukkit.Bukkit;

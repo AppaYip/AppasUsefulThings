@@ -1,57 +1,69 @@
 package org.appa.appasUsefulThings.cooldownManager;
 
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
 
-import java.time.Instant;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class CooldownManager {
-    private final Map<UUID, Long> cooldowns = new HashMap<>();
+    private final HashMap<UUID, Long> cooldowns = new HashMap<>();
 
-    public void setCooldown(UUID uuid, long amount, TimeUnit unit) {
-        long expiresAt = Instant.now().toEpochMilli() + unit.toMills(amount);
-        cooldowns.put(uuid, expiresAt);
+    /**
+     * Sets a player cooldown
+     * @param entity The entity
+     * @param duration The duration in milliseconds.
+     * Use TimeUnit for easy conversion
+     */
+    public void setCooldown(Entity entity, long duration) {
+        long expiresAt = System.currentTimeMillis() + duration;
+        cooldowns.put(entity.getUniqueId(), expiresAt);
     }
 
-    public void setCooldown(Player player, long cooldown, TimeUnit timeUnit) {
-        cooldowns.put(player.getUniqueId(), timeUnit.toMills(cooldown));
+    /**
+     * Clears a cooldown
+     * @param entity The entity
+     */
+    public void clearCooldown(Entity entity) {
+        cooldowns.remove(entity.getUniqueId());
     }
 
-
-    public boolean isOver(UUID uuid) {
-        Long expiresAt = cooldowns.get(uuid);
+    /**
+     * Returns a boolean based on the state of the cooldown
+     * @param entity The entity
+     * @return True if the cooldown is over
+     */
+    public boolean isOver(Entity entity) {
+        Long expiresAt = cooldowns.get(entity.getUniqueId());
         if (expiresAt == null) return true;
-        return Instant.now().toEpochMilli() >= expiresAt;
+        return System.currentTimeMillis() >= expiresAt;
     }
 
-    public boolean isOver(Player player) {
-        return isOver(player.getUniqueId());
-    }
-
-
-    public long getRemainingMillis(UUID uuid) {
-        Long expiresAt = cooldowns.get(uuid);
+    /**
+     * Gets the remaining time left on the cooldown
+     * @param entity The entity
+     * @return The duration left in milliseconds
+     */
+    public long getRemainingMillis(Entity entity) {
+        Long expiresAt = cooldowns.get(entity.getUniqueId());
         if (expiresAt == null) return 0;
-        return Math.max(0, expiresAt - Instant.now().toEpochMilli());
+        return Math.max(0, expiresAt - System.currentTimeMillis());
     }
 
-    public long getRemainingMillis(Player player) {
-        return getRemainingMillis(player.getUniqueId());
+    /**
+     * Gets the remaining time but in seconds
+     * This is just a wrapper to make it easy
+     * @param entity The entity
+     * @return String, ex: "10"
+     */
+    public String getRemainingSeconds(Entity entity) {
+        long millis = getRemainingMillis(entity);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
+        return String.valueOf(seconds);
     }
 
-
-    public enum TimeUnit {
-        TICKS, SECONDS, MINUTES, HOURS;
-
-        public long toMills(long amount) {
-            return switch (this) {
-                case TICKS -> amount * 50L;
-                case SECONDS -> amount * 70L;
-                case MINUTES -> amount * 1000L;
-                case HOURS -> amount * 60000L;
-            };
-        }
+    // 1 tick = 50ms
+    public long ticksToMillis(long ticks) {
+        return ticks*50L;
     }
 }

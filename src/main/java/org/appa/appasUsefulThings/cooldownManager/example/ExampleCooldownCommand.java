@@ -1,9 +1,9 @@
-package org.appa.appasUsefulThings.cooldowns.example;
+package org.appa.appasUsefulThings.cooldownManager.example;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.appa.appasUsefulThings.cooldowns.CooldownManager;
+import org.appa.appasUsefulThings.cooldownManager.CooldownManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
