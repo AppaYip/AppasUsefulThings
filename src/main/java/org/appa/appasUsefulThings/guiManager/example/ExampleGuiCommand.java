@@ -15,8 +15,7 @@ import static org.appa.appasUsefulThings.AppasUsefulThings.config;
 
 public class ExampleGuiCommand implements CommandExecutor {
     public void regsiter(JavaPlugin plugin) {
-        ExampleGuiCommand cmd = new ExampleGuiCommand();
-        Objects.requireNonNull(plugin.getCommand("ExampleGui")).setExecutor(cmd);
+        Objects.requireNonNull(plugin.getCommand("ExampleGui")).setExecutor(this);
     }
 
     GuiManager guiManager = AppasUsefulThings.getGuiManager();

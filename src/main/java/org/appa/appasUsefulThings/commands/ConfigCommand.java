@@ -14,8 +14,7 @@ import java.util.Objects;
 
 public class ConfigCommand implements CommandExecutor {
     public void register(JavaPlugin plugin) {
-        ConfigCommand cmd = new ConfigCommand();
-        Objects.requireNonNull(plugin.getCommand("config")).setExecutor(cmd);
+        Objects.requireNonNull(plugin.getCommand("config")).setExecutor(this);
     }
 
 

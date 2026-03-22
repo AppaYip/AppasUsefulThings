@@ -52,7 +52,7 @@ public class CooldownManager {
 
     /**
      * Gets the remaining time but in seconds
-     * This is just a wrapper to make it pretty
+     * This is just a wrapper to make it easy
      * @param entity The entity
      * @return String, ex: "10"
      */
