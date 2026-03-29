@@ -4,8 +4,10 @@ A utiltiy library for Paper plugins providing common tools like GUI management, 
 
 > [!WARNING]
 > This project is in early development. APIs may change.
+
 > [!NOTE]
 > Dev builds are built from the latest commit to the `dev` branch and may contain untested or incomplete code. It is strongly recommended that you use the latest release on `main`.
+
 > [!NOTE]
 > This is the shadeable version of the plugin. You do **not** need to put this in your plugin folder
 
