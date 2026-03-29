@@ -4,7 +4,9 @@ main: org.appa.appasUsefulThings.AppasUsefulThings
 api-version: '1.21'
 prefix: AUT
 authors: [ Appa ]
-description: 'A Library'
+description: 'A Library containing many useful things for developers.'
+website: https://github.com/AppaYip/AppasUsefulThings
+
 commands:
   config:
     description: Plugin Configuration
