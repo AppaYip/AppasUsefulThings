@@ -10,7 +10,7 @@ website: https://github.com/AppaYip/AppasUsefulThings
 commands:
   config:
     description: Plugin Configuration
-    usage: /<command> [reload]
+    usage: /<command> [reload|regenerate]
     aliases: []
   exampleGui:
     description: Opens an example gui if enabled in config
