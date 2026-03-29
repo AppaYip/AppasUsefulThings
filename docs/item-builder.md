@@ -89,4 +89,5 @@ ItemStack wand = new ItemBuilder(Material.STICK)
 | `setUnbreakable(boolean)` | Sets whether the item is unbreakable |
 | `setDamage(int)` | Sets the item's damage value |
 | `enchant(Enchantment, int)` | Adds an enchantment with a level |
+| `hideToolTip(Boolean)`      | Whether or not to hide item tooltip | 
 | `build()` | Builds and returns the final `ItemStack` |
