@@ -30,6 +30,7 @@ public class ItemBuilder {
     private boolean unbreakable = false;
     private int damage = 0;
     private HashMap<Enchantment, Integer> enchants = new HashMap<>();
+    private boolean hideToolTip = false;
 
 
 
@@ -113,7 +114,10 @@ public class ItemBuilder {
         return this;
     }
 
-
+    public ItemBuilder hideToolTip(boolean hideToolTip) {
+        this.hideToolTip = hideToolTip;
+        return this;
+    }
 
 
     /*
@@ -137,10 +141,11 @@ public class ItemBuilder {
         // Misc
         itemMeta.setUnbreakable(this.unbreakable);
         if (itemMeta instanceof Damageable) {
-           ((Damageable) itemMeta).setDamage(this.damage);
+            ((Damageable) itemMeta).setDamage(this.damage);
         }
         item.addEnchantments(this.enchants);
 
+        itemMeta.setHideTooltip(this.hideToolTip);
 
         item.setItemMeta(itemMeta);
         return item;
