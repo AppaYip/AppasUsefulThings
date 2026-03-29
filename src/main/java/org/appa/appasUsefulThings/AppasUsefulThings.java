@@ -59,7 +59,6 @@ public final class  AppasUsefulThings extends JavaPlugin {
 
 
         configFile = new File(getDataFolder(), "config.yml");
-        this.saveResource("config.yml", false);
         config = Config.create(this, configFile, false);
 
         checkConfig();
