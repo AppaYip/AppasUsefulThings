@@ -1,5 +1,0 @@
-GuiRoot:
-  ExampleGuiEnabled: false
-
-CooldownRoot:
-  ExampleCommandEnabled: false
