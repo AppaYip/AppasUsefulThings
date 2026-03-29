@@ -1,7 +1,7 @@
 # AppasUsefulThings
 
 A Paper plugin library providing utilities for GUI management, spell systems, and particle shapes.
-All "library" methods are Javadoc'd — if you need more information, please check them or open an issue.
+All "library" methods are Javadoc'd. If you need more information, please check them or open an issue.
 
 > [!WARNING]
 > This project is in early development. APIs may change.
