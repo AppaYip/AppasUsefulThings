@@ -1,7 +1,6 @@
 # AppasUsefulThings
 
-A Paper plugin library providing utilities for GUI management, spell systems, and particle shapes.
-All "library" methods are Javadoc'd. If you need more information, please check them or open an issue.
+A utiltiy library for Paper plugins providing common tools like GUI management, cooldowns, and logging
 
 > [!WARNING]
 > This project is in early development. APIs may change.
@@ -9,120 +8,74 @@ All "library" methods are Javadoc'd. If you need more information, please check 
 > [!NOTE]
 > Dev builds are built from the latest commit to the `dev` branch and may contain untested or incomplete code. It is strongly recommended that you use the latest release on `main`.
 
-## Requirements
-
-- Java 21+
-- Paper 1.21+
-
-## Features
-
-- **Logger** — A simple wrapper for Paper's logger
-- **GuiManager** — Interface-based GUI system with automatic session management
-- **ItemBuilder** — Makes building and editing `ItemStack`s easier
-- **CooldownManager** — Makes managing per-player cooldowns easy
+> [!NOTE] 
+> This 
+>
 
 ## Installation
 
-### Adding as a dependency
+### Gradle
+Add jitpack to your repositories:
 
-It's recommended to use JitPack. [View on JitPack](https://jitpack.io/#AppaYip/AppasUsefulThings)
-
-In your `plugin.yml`, add AppasUsefulThings as a dependency:
-```yml
-depend:
-  - AppasUsefulThings
-```
-
-Or as a soft dependency if it's optional:
-```yml
-softdepend:
-  - AppasUsefulThings
-```
-
-## Usage
-
-### Logger
-```java
-new Logger(this).log("Hi :3");
-```
-
-See [Logger docs](docs/logger.md) for more information.
-
-### GuiManager
-```java
-public class ExampleGui implements GuiInteractions {
-
-    final TextComponent title = Component.text("Example GUI")
-        .color(NamedTextColor.LIGHT_PURPLE);
-
-    private final Inventory inventory = Bukkit.createInventory(
-        null,
-        9 * 3,
-        title
-    );
-
-    public ExampleGui() {
-        ItemStack border = new ItemStack(Material.PURPLE_STAINED_GLASS_PANE);
-        for (int i = 0; i < 9; i++) {
-            inventory.setItem(i, border);
-            inventory.setItem(i + 18, border);
-        }
-    }
-
-    @Override
-    public String getId() {
-        return "ExampleGui";
-    }
-
-    @Override
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    @Override
-    public void onInventoryClick(InventoryClickEvent event) {
-        event.setCancelled(true);
-    }
-
-    @Override
-    public void onInventoryDrag(InventoryDragEvent event) {
-        event.setCancelled(true);
-    }
-}
-
-// Register and open
-guiManager.registerGui(new ExampleGui());
-guiManager.open(player, "ExampleGui");
-```
-
-See [GuiManager docs](docs/gui-manager.md) for more information.
-
-### ItemBuilder
-```java
-ItemStack item = new ItemBuilder(Material.FIREFLY_BUSH)
-    .setDisplayName(Component.text("You would not believe your eyes..."))
-    .build();
-```
-
-See [ItemBuilder docs](docs/item-builder.md) for more information.
-
-### CooldownManager
-```java
-CooldownManager cooldownManager = new CooldownManager();
-cooldownManager.setCooldown(player, TimeUnit.SECONDS.toMillis(5)); // 5 seconds
-if (!cooldownManager.isOver(player)) {
-    player.sendMessage("The cooldown is not over!");
+```gradle
+repositories {
+        maven {url 'https://jitpack.io'}
 }
 ```
 
-See [CooldownManager docs](docs/cooldown-manager.md) for more information.
+Add the dependency:
 
-## Documentation
+```gradle
+dependencies {
+    implementation 'com.github.AppaYip:AppasUsefulThings:v2.0.0'
+}
+```
 
-- [Logger](docs/logger.md)
-- [GuiManager](docs/gui-manager.md)
-- [ItemBuilder](docs/item-builder.md)
-- [CooldownManager](docs/cooldown-manager.md)
+Then apply the Shadow Plugin and relocate to avoid conflicts with other plugins using this library:
+
+```gradle
+plugins {
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+shadowJar {
+    relocate `org.appa`, `your.plugin.package.appa`
+}
+```
+
+### Initialization
+
+Call AppasUsefulThings.initialize() in your plugin's onEnable:
+
+```java
+@Override
+public void onEnable() {
+    AppasUsefulThings.initalize(this);
+}
+```
+
+### Features
+
+* Logger — A simple wrapper for Paper's logger
+* GuiManager — Interface-based GUI system with automatic session management
+* ItemBuilder — Makes building and editing ItemStacks easier
+* CooldownManager — Makes managing per-player cooldowns easy
+
+### Doccumentation
+
+* [Logger](docs/logger.md)
+* [GuiManager](docs/gui-manager.md)
+* [ItemBuilder](docs/item-builder.md)
+* [CooldownManager](docs/cooldown-manager.md)
+
+
+### Requirements
+
+* Paper 1.21.8+
+* Java 21+
+
+> [!WARNING]
+> May work on older versions, however it is untested
 
 ## Contributing
 
