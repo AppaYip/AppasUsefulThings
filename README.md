@@ -18,6 +18,13 @@ All "library" methods are java doced, if you need more information please look a
 
 I highly suggst you use jitpack. [My jitpack url](https://jitpack.io/#AppaYip/AppasUsefulThings)
 
+### And in your plugin.yml add
+
+```yml
+depend:
+  - AppasUsefulThings
+```
+
 ### Features
 
 - **Logger** - A simple wrapper for paper's logger
