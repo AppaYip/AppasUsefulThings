@@ -1,63 +1,63 @@
 # AppasUsefulThings
 
 A Paper plugin library providing utilities for GUI management, spell systems, and particle shapes.
-All "library" methods are java doced, if you need more information please look at them or open an issue.
+All "library" methods are Javadoc'd — if you need more information, please check them or open an issue.
 
+> [!WARNING]
 > This project is in early development. APIs may change.
-> **Dev Builds** are built from the latest commit to the dev branch. If you're using a dev build, be aware it may contain untested or incomplete code
-> It is **highly** recommended that you use the latest on the main branch.
+
+> [!NOTE]
+> Dev builds are built from the latest commit to the `dev` branch and may contain untested or incomplete code. It is strongly recommended that you use the latest release on `main`.
 
 ## Requirements
 
 - Java 21+
 - Paper 1.21+
 
+## Features
+
+- **Logger** — A simple wrapper for Paper's logger
+- **GuiManager** — Interface-based GUI system with automatic session management
+- **ItemBuilder** — Makes building and editing `ItemStack`s easier
+- **CooldownManager** — Makes managing per-player cooldowns easy
+
 ## Installation
 
-### Adding as a dependcy
+### Adding as a dependency
 
-I highly suggest you use jitpack. [My jitpack url](https://jitpack.io/#AppaYip/AppasUsefulThings)
+It's recommended to use JitPack. [View on JitPack](https://jitpack.io/#AppaYip/AppasUsefulThings)
 
-And in your plugin.yml add
-
+In your `plugin.yml`, add AppasUsefulThings as a dependency:
 ```yml
 depend:
   - AppasUsefulThings
 ```
 
-Or optionally softdepend
-
+Or as a soft dependency if it's optional:
 ```yml
 softdepend:
-    - AppasUsefulThings
+  - AppasUsefulThings
 ```
 
-### Features
-
-- **Logger** - A simple wrapper for paper's logger
-- **GuiManager** - Interface-based GUI system with automatic asession management
-- **ItemBuilder** - An Item builder designed to make ItemStack editing easier
-- **CooldownManager** A cooldown manager desinged to make managing cooldowns easy
+## Usage
 
 ### Logger
-
 ```java
 new Logger(this).log("Hi :3");
 ```
 
-See [Logger Docs](docs/logger.md) for more information.
+See [Logger docs](docs/logger.md) for more information.
 
 ### GuiManager
-
 ```java
 public class ExampleGui implements GuiInteractions {
+
     final TextComponent title = Component.text("Example GUI")
         .color(NamedTextColor.LIGHT_PURPLE);
 
-
-    private final Inventory inventory =  Bukkit.createInventory(
+    private final Inventory inventory = Bukkit.createInventory(
         null,
-        9*3,
+        9 * 3,
         title
     );
 
@@ -65,10 +65,9 @@ public class ExampleGui implements GuiInteractions {
         ItemStack border = new ItemStack(Material.PURPLE_STAINED_GLASS_PANE);
         for (int i = 0; i < 9; i++) {
             inventory.setItem(i, border);
-            inventory.setItem(i+18, border);
+            inventory.setItem(i + 18, border);
         }
     }
-
 
     @Override
     public String getId() {
@@ -93,13 +92,12 @@ public class ExampleGui implements GuiInteractions {
 
 // Register and open
 guiManager.registerGui(new ExampleGui());
-guiManager.open(player, "example");
+guiManager.open(player, "ExampleGui");
 ```
 
-See [GUI Manager Dosc](docs/gui-manager.md) for more information.
+See [GuiManager docs](docs/gui-manager.md) for more information.
 
-### Item Builder
-
+### ItemBuilder
 ```java
 ItemStack item = new ItemBuilder(Material.FIREFLY_BUSH)
     .setDisplayName(Component.text("You would not believe your eyes..."))
@@ -108,17 +106,16 @@ ItemStack item = new ItemBuilder(Material.FIREFLY_BUSH)
 
 See [ItemBuilder docs](docs/item-builder.md) for more information.
 
-### Cooldown Manager
-
+### CooldownManager
 ```java
-CooldownManager cooldownManager = new CooldownManager(); // Get an instance
-cooldownManager.setCooldown(player, TimeUnit.SECONDS.toMillis(5)); // Set cooldown to 5 seconds
-if (!(cooldownManager.isOver(player))) {
+CooldownManager cooldownManager = new CooldownManager();
+cooldownManager.setCooldown(player, TimeUnit.SECONDS.toMillis(5)); // 5 seconds
+if (!cooldownManager.isOver(player)) {
     player.sendMessage("The cooldown is not over!");
 }
 ```
 
-See [CooldownManager](docs/cooldown-manager.md) for more information.
+See [CooldownManager docs](docs/cooldown-manager.md) for more information.
 
 ## Documentation
 
