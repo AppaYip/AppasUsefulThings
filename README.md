@@ -16,7 +16,7 @@ All "library" methods are java doced, if you need more information please look a
 
 ### Adding as a dependcy
 
-I highly suggst you use jitpack. [My jitpack url](https://jitpack.io/#AppaYip/AppasUsefulThings)
+I highly suggest you use jitpack. [My jitpack url](https://jitpack.io/#AppaYip/AppasUsefulThings)
 
 And in your plugin.yml add
 
