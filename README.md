@@ -1,6 +1,6 @@
 # AppasUsefulThings
 
-A utiltiy library for Paper plugins providing common tools like GUI management, cooldowns, and logging
+A utility library for Paper plugins providing common tools like GUI management, cooldowns, and logging
 
 > [!WARNING]
 > This project is in early development. APIs may change.
@@ -13,7 +13,7 @@ A utiltiy library for Paper plugins providing common tools like GUI management, 
 
 ## Installation
 
-Add jitpack to your repositories:
+Add JitPack to your repositories:
 
 ```gradle
 repositories {
@@ -40,7 +40,7 @@ Note, id `io.github.goooler.shadow` is a fork of `com.github.johnrengelman.shado
 java 21+.
 
 shadowJar {
-    relocate `org.appa`, `your.plugin.package.appa`
+    relocate 'org.appa', 'your.plugin.package.appa'
 }
 ```
 
@@ -61,18 +61,18 @@ AppasUsefulThings.builder() // Get the builder
 ### Configuration
 
 | Option | Default Value | Description |
-|--------|---------------|------------------------------------------------------|
-| `enableBuildLogging()` | false | Logging messages upon instance being built   |
-| `enableGuiManager`     | false | Registers GuiManager events for your pluigin |
+|--------|---------------|---------------------------------------------------|
+| `enableBuildLogging()` | false | Logging messages upon instance being built |
+| `enableGuiManager`     | false | Registers GuiManager events for your plugin |
 
 ### Features
 
-* Logger — A logger builder with the ability to do colors
-* GuiManager — Interface-based GUI system with automatic session management
-* ItemBuilder — Makes building and editing ItemStacks easier
-* CooldownManager — Makes managing per-player cooldowns easy
+* Logger -- A logger builder with the ability to do colors
+* GuiManager -- Interface-based GUI system with automatic session management
+* ItemBuilder -- Makes building and editing ItemStacks easier
+* CooldownManager -- Makes managing per-player cooldowns easy
 
-### Doccumentation
+### Documentation
 
 * [Logger](docs/logger.md)
 * [GuiManager](docs/gui-manager.md)
