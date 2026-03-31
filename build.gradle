@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.appa'
-version = '2.0.0'
+version = '2.0.1'
 
 repositories {
     mavenCentral()
@@ -19,9 +19,16 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
 }
 
+// Totally not example code I took from a website
 shadowJar {
     relocate 'org.appa', 'org.appa.relocated'
+    archiveClassifier.set('') // removes the '-all' suffix
 }
+
+jar {
+    enabled = false // disable the plain jar so there's no conflict
+}
+
 
 build {
     dependsOn shadowJar
