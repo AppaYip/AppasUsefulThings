@@ -43,18 +43,28 @@ shadowJar {
 
 ### Initialization
 
-Call AppasUsefulThings.initialize() in your plugin's onEnable:
+To use some features of AppasUsefulThings, you must get the builder and configure it.
 
 ```java
 @Override
 public void onEnable() {
-    AppasUsefulThings.initalize(this);
+AppasUsefulThings.builder() // Get the builder
+    .enableGuiManager() // (Optionally) Enable event listening for Gui Manager
+    .enableBuildLogging() // (Optionally) Enable logging messages when creating the instance.
+    .build(this); // Build it, `this` is your plugin instance
 }
 ```
 
+### Configuration
+
+| Option | Default Value | Description |
+|--------|---------------|------------------------------------------------------|
+| `enableBuildLogging()` | false | Logging messages upon instance being built   |
+| `enableGuiManager`     | false | Registers GuiManager events for your pluigin |
+
 ### Features
 
-* Logger — A simple wrapper for Paper's logger
+* Logger — A logger builder with the ability to do colors
 * GuiManager — Interface-based GUI system with automatic session management
 * ItemBuilder — Makes building and editing ItemStacks easier
 * CooldownManager — Makes managing per-player cooldowns easy
