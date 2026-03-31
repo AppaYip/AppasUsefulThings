@@ -1,6 +1,7 @@
 # Logger
 
-A logger builder with the ability to do colors. Note this is kind of scuffed.
+A logger builder with the ability to do colors. 
+Note this is kind of scuffed.
 
 > [!NOTE]
 > I **highly** recommend you check out [Paper Component docs](https://docs.papermc.io/adventure/text/) as this is how most styling will be done.
@@ -12,7 +13,7 @@ A logger builder with the ability to do colors. Note this is kind of scuffed.
 
 ## Setup
 
-Getting an instnace. To get an instance, you must you the builder.
+Getting an instance. To get an instance, you must use the builder.
 
 ```java
 Logger logger = Logger.builder(this)
@@ -25,8 +26,8 @@ All components can be colored.
 
 | Method | Description |
 |-------|-------------|
-| `setPrefix(Component prefix)` | Sets the prefix. Note this is **only** for the info log level. This will pull your prefix from plugin.yml if or a non- log level |
-| `defaultLogLevel(LogLevel)` | The default log Level (See enum below) |
+| `setPrefix(Component prefix)` | Sets the prefix. Note this is **only** for the info log level. This will pull your plugin's prefix from its plugin.yml if it's a non-log level |
+| `defaultLogLevel(LogLevel)` | The default log level (see enum below) |
 | `build()` | Returns the instance |
 
 ## Log Levels
@@ -34,8 +35,8 @@ All components can be colored.
 | Level | Description |
 |-------|-------------|
 | `INFO` | General information, white in console by default. |
-| `WARN` | Something unexpected, will unfortauntely force prefix color to be yellow |
-| `ERROR` | Something went wrong, will unfortauntely force prefix color to be red |
+| `WARN` | Something unexpected, will unfortauntely force the prefix color to be yellow |
+| `ERROR` | Something went wrong, will unfortauntely force the prefix color to be red |
 
 ## Example Usage
 
@@ -60,7 +61,7 @@ infoLogger.log(LogLevel.WARN, Component.text("You can also do text Components").
 
 | Method | Description |
 |--------|-------------|
-| `log(String)` | Sends a message to console with builder defined log level. (Dfeaults to info if null) |
-| `log(LogLevel, String)` | Sends a message to console with a specific log level. |
-| `log(Component)` | Sends a Component to console with builder defined log level. (Defaults to info if null) |
-| `log(LogLevel, Component)` | Sends a Component to console with specified defined log level.  |
+| `log(String)` | Sends a `String` to console with the builder-defined log level. (Defaults to info if null) |
+| `log(LogLevel, String)` | Sends a `String` to console with a specified log level. |
+| `log(Component)` | Sends a `Component` to console with the builder-defined log level. (Defaults to info if null) |
+| `log(LogLevel, Component)` | Sends a `Component` to console with a specified defined log level. |
