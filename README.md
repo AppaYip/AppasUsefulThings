@@ -33,8 +33,11 @@ Then apply the Shadow Plugin and relocate to avoid conflicts with other plugins 
 
 ```gradle
 plugins {
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.github.goooler.shadow' version '8.1.7'
 }
+
+Note, id `io.github.goooler.shadow` is a fork of `com.github.johnrengelman.shadow` that works with
+java 21+.
 
 shadowJar {
     relocate `org.appa`, `your.plugin.package.appa`
