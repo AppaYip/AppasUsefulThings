@@ -1,6 +1,6 @@
 # AppasUsefulThings
 
-A utility library for Paper plugins providing common tools like GUI management, cooldowns, and logging.
+A utility library for Paper plugins providing common tools like GUI management, cooldowns, and logging
 
 > [!WARNING]
 > This project is in early development. APIs may change.
@@ -36,6 +36,9 @@ plugins {
     id 'io.github.goooler.shadow' version '8.1.7'
 }
 
+Note, id `io.github.goooler.shadow` is a fork of `com.github.johnrengelman.shadow` that works with
+java 21+.
+
 shadowJar {
     relocate 'org.appa', 'your.plugin.package.appa'
 }
@@ -69,22 +72,19 @@ public void onEnable() {
 
 ## Methods
 
-| Method | Description |
-|--------|-------------|
-| `builder()` | Returns a new builder instance |
-| `enableGuiManager()` | Enables the GuiManager |
-| `enableBuildLogging()` | Enables build logging |
-| `getGuiManager()` | Returns the `GuiManager` instance, or `null` if not enabled |
-| `build(JavaPlugin)` | Builds the instance and returns it |
+| Option | Default Value | Description |
+|--------|---------------|---------------------------------------------------|
+| `enableBuildLogging()` | false | Logging messages upon instance being built |
+| `enableGuiManager`     | false | Registers GuiManager events for your plugin |
 
 ## Features
 
-- **Logger** — A colored console logger built on Adventure components
-- **GuiManager** — Interface-based GUI system with automatic event routing
-- **ItemBuilder** — Fluent builder for creating and editing `ItemStack`s
-- **CooldownManager** — Simple per-player cooldown management
+* Logger -- A logger builder with the ability to do colors
+* GuiManager -- Interface-based GUI system with automatic session management
+* ItemBuilder -- Makes building and editing ItemStacks easier
+* CooldownManager -- Makes managing per-player cooldowns easy
 
-## Documentation
+### Documentation
 
 - [Logger](docs/logger.md)
 - [GuiManager](docs/gui-manager.md)
