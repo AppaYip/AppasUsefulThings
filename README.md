@@ -1,6 +1,6 @@
 # AppasUsefulThings
 
-A utiltiy library for Paper plugins providing common tools like GUI management, cooldowns, and logging
+A utility library for Paper plugins providing common tools like GUI management, cooldowns, and logging.
 
 > [!WARNING]
 > This project is in early development. APIs may change.
@@ -9,15 +9,15 @@ A utiltiy library for Paper plugins providing common tools like GUI management, 
 > Dev builds are built from the latest commit to the `dev` branch and may contain untested or incomplete code. It is strongly recommended that you use the latest release on `main`.
 
 > [!NOTE]
-> This is the shadeable version of the plugin. You do **not** need to put this in your plugin folder
+> This is the shadeable version of the library. You do **not** need to put this in your plugins folder.
 
 ## Installation
 
-Add jitpack to your repositories:
+Add JitPack to your repositories:
 
 ```gradle
 repositories {
-    maven {url 'https://jitpack.io'}
+    maven { url 'https://jitpack.io' }
 }
 ```
 
@@ -25,64 +25,79 @@ Add the dependency:
 
 ```gradle
 dependencies {
-    implementation 'com.github.AppaYip:AppasUsefulThings:v2.0.0'
+    implementation 'com.github.AppaYip:AppasUsefulThings:v2.0.1'
 }
 ```
 
-Then apply the Shadow Plugin and relocate to avoid conflicts with other plugins using this library:
+Apply the Shadow plugin and relocate to avoid conflicts with other plugins using this library:
 
 ```gradle
 plugins {
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.github.goooler.shadow' version '8.1.7'
 }
 
 shadowJar {
-    relocate `org.appa`, `your.plugin.package.appa`
+    relocate 'org.appa', 'your.plugin.package.appa'
 }
 ```
 
-### Initialization
+> [!NOTE]
+> `io.github.goooler.shadow` is a community fork of `com.github.johnrengelman.shadow` that supports Java 21+.
 
-To use some features of AppasUsefulThings, you must get the builder and configure it.
+## Initialization
+
+`build()` returns the `AppasUsefulThings` instance. Hold onto it if you need access to things like `GuiManager`.
 
 ```java
+private AppasUsefulThings aut;
+
 @Override
 public void onEnable() {
-AppasUsefulThings.builder() // Get the builder
-    .enableGuiManager() // (Optionally) Enable event listening for Gui Manager
-    .enableBuildLogging() // (Optionally) Enable logging messages when creating the instance.
-    .build(this); // Build it, `this` is your plugin instance
+    aut = AppasUsefulThings.builder()
+        .enableGuiManager()      // (Optional) Enable event listening for GuiManager
+        .enableBuildLogging()    // (Optional) Log messages when the instance is built
+        .build(this);            // Build — `this` is your plugin instance
 }
 ```
 
-### Configuration
+## Configuration
 
-| Option | Default Value | Description |
-|--------|---------------|------------------------------------------------------|
-| `enableBuildLogging()` | false | Logging messages upon instance being built   |
-| `enableGuiManager`     | false | Registers GuiManager events for your pluigin |
+| Option | Default | Description |
+|--------|---------|-------------|
+| `enableGuiManager()` | `false` | Creates and registers a `GuiManager` instance for your plugin |
+| `enableBuildLogging()` | `false` | Logs a message to console when the instance is built |
 
-### Features
+## Methods
 
-* Logger — A logger builder with the ability to do colors
-* GuiManager — Interface-based GUI system with automatic session management
-* ItemBuilder — Makes building and editing ItemStacks easier
-* CooldownManager — Makes managing per-player cooldowns easy
+| Method | Description |
+|--------|-------------|
+| `builder()` | Returns a new builder instance |
+| `enableGuiManager()` | Enables the GuiManager |
+| `enableBuildLogging()` | Enables build logging |
+| `getGuiManager()` | Returns the `GuiManager` instance, or `null` if not enabled |
+| `build(JavaPlugin)` | Builds the instance and returns it |
 
-### Doccumentation
+## Features
 
-* [Logger](docs/logger.md)
-* [GuiManager](docs/gui-manager.md)
-* [ItemBuilder](docs/item-builder.md)
-* [CooldownManager](docs/cooldown-manager.md)
+- **Logger** — A colored console logger built on Adventure components
+- **GuiManager** — Interface-based GUI system with automatic event routing
+- **ItemBuilder** — Fluent builder for creating and editing `ItemStack`s
+- **CooldownManager** — Simple per-player cooldown management
 
-### Requirements
+## Documentation
 
-* Paper 1.21.8+
-* Java 21+
+- [Logger](docs/logger.md)
+- [GuiManager](docs/gui-manager.md)
+- [ItemBuilder](docs/item-builder.md)
+- [CooldownManager](docs/cooldown-manager.md)
+
+## Requirements
+
+- Paper 1.21.8+
+- Java 21+
 
 > [!WARNING]
-> May work on older versions, however it is untested
+> May work on older versions, however it is untested.
 
 ## Contributing
 
