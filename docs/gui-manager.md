@@ -1,96 +1,109 @@
 # GuiManager
 
-This is a GUI manager designed to remove some redundancy of creating guis. It also provides a helpful way to manage which player has what open.
+An interface-based GUI system that handles inventory event routing per player automatically.
 
 ## Setup
 
-Getting an instance. You will want to make a getter for this instance and pass it around
+`GuiManager` is created and registered by `AppasUsefulThings.builder()`. You should **not** create
+your own instance separately, as events will not route correctly if you do.
 
 ```java
-public static GuiManager guiManager;
-public static GuiManager getGuiManager() {
-    return guiManager;
+private AppasUsefulThings aut;
+
+@Override
+public void onEnable() {
+    aut = AppasUsefulThings.builder()
+        .enableGuiManager()
+        .build(this);
+}
+
+public GuiManager getGuiManager() {
+    return aut.getGuiManager();
 }
 ```
 
-And then in your on enable event,
+## Implementing a GUI
 
-```java
-guiManager = new GuiManager();
-```
+### Basic GUI
 
-### Basic Gui (No automatic event handling)
-
-Use `Gui` when you want to display an inventory with no pre-written handling.
-You will have to write **your own** event handlers, click events are **not** automatically canceled.
+Use `Gui` when you want to display an inventory with no built-in event handling.
+You will need to write your own event handlers — click events are **not** automatically cancelled.
 
 ```java
 public class ExampleGui implements Gui {
+    private final Inventory inventory = Bukkit.createInventory(null, 9, Component.text("Example"));
+
     @Override
     public String getId() { return "example"; }
 
     @Override
-    public Inventory getInventory() { ... }
+    public Inventory getInventory() { return inventory; }
 }
 ```
 
 ### Interactive GUI
 
 Use `GuiInteractions` when you need to handle clicks, opening, or closing.
-All methods in the GuiInteractions interface are optional, they have default implementations that do nothing.
+All methods have default no-op implementations — only override what you need.
 
 ```java
 public class ExampleGui implements GuiInteractions {
+    private final Inventory inventory = Bukkit.createInventory(null, 9, Component.text("Example"));
+
     @Override
     public String getId() { return "example"; }
 
     @Override
-    public Inventory getInventory() { ... }
+    public Inventory getInventory() { return inventory; }
 
     @Override
-    public void onClick(InventoryClickEvent event) {
+    public void onInventoryClick(InventoryClickEvent event) {
         event.setCancelled(true);
+    }
+
+    @Override
+    public void onClose(InventoryCloseEvent event) {
+        event.getPlayer().sendMessage(Component.text("Closed!"));
     }
 }
 ```
 
 ## Registering
 
-Gui registering allows you to open the gui, see below.
-Opening guis this way allows the GuiManager to direct events to each specific gui.
-Registering a GUI with the same ID as another in the same instance will throw an IllegalStateException. GUIs will **not** be overriden.
+Registering a GUI allows it to be opened by ID. Events are automatically routed to the correct GUI instance.
+
+> [!WARNING]
+> Registering a GUI with an ID already in use will throw an `IllegalStateException`. GUIs will not be silently overridden.
 
 ```java
-guiManager.registerGui(new ExampleGui());
+getGuiManager().registerGui(new ExampleGui());
 ```
 
 ## Opening
 
 ```java
 // By instance
-guiManager.open(player, gui);
+getGuiManager().open(player, gui);
 
-// By id
-guiManager.open(player, "example");
+// By registered ID
+getGuiManager().open(player, "example");
 ```
 
 ## Closing
 
-The GUI manager already handles this.
-When an onInventoryClose event is fired, the player will have its current GUI closed.
-However, if you want, you can do this manually. Please note this will **not** close the player's inventory automatically.
+`GuiManager` handles closing automatically when `InventoryCloseEvent` fires. You can also close manually — note this does **not** close the player's inventory client-side.
 
 ```java
-guiManager.close(player);
+getGuiManager().close(player);
 ```
 
 ## Available Methods
 
 | Method | Description |
 |--------|-------------|
-| `registerGui(Gui)` | Registers a GUI |
-| `unregisterGui(Gui)` | Removes a GUI from registry |
-| `open(Player, Gui)` | Opens a GUI for a player |
-| `open(Player, String)` | Open a GUI by id |
-| `close(Player)` | Closes the player's open GUI |
-| `isOpen(Player)` | Returns whether the player has a GUI open |
+| `registerGui(Gui)` | Registers a GUI by its ID |
+| `unregisterGui(Gui)` | Removes a GUI from the registry |
+| `open(Player, Gui)` | Opens a GUI instance for a player |
+| `open(Player, String)` | Opens a registered GUI by ID for a player |
+| `close(Player)` | Removes the player's active GUI from tracking |
+| `isOpen(Player)` | Returns `true` if the player currently has a GUI open |

@@ -9,7 +9,7 @@ A utility library for Paper plugins providing common tools like GUI management, 
 > Dev builds are built from the latest commit to the `dev` branch and may contain untested or incomplete code. It is strongly recommended that you use the latest release on `main`.
 
 > [!NOTE]
-> This is the shadeable version of the plugin. You do **not** need to put this in your plugin folder
+> This is the shadeable version of the library. You do **not** need to put this in your plugins folder.
 
 ## Installation
 
@@ -17,7 +17,7 @@ Add JitPack to your repositories:
 
 ```gradle
 repositories {
-    maven {url 'https://jitpack.io'}
+    maven { url 'https://jitpack.io' }
 }
 ```
 
@@ -25,11 +25,11 @@ Add the dependency:
 
 ```gradle
 dependencies {
-    implementation 'com.github.AppaYip:AppasUsefulThings:v2.0.0'
+    implementation 'com.github.AppaYip:AppasUsefulThings:v2.0.1'
 }
 ```
 
-Then apply the Shadow Plugin and relocate to avoid conflicts with other plugins using this library:
+Apply the Shadow plugin and relocate to avoid conflicts with other plugins using this library:
 
 ```gradle
 plugins {
@@ -44,28 +44,40 @@ shadowJar {
 }
 ```
 
-### Initialization
+> [!NOTE]
+> `io.github.goooler.shadow` is a community fork of `com.github.johnrengelman.shadow` that supports Java 21+.
 
-To use some features of AppasUsefulThings, you must get the builder and configure it.
+## Initialization
+
+`build()` returns the `AppasUsefulThings` instance. Hold onto it if you need access to things like `GuiManager`.
 
 ```java
+private AppasUsefulThings aut;
+
 @Override
 public void onEnable() {
-AppasUsefulThings.builder() // Get the builder
-    .enableGuiManager() // (Optionally) Enable event listening for Gui Manager
-    .enableBuildLogging() // (Optionally) Enable logging messages when creating the instance.
-    .build(this); // Build it, `this` is your plugin instance
+    aut = AppasUsefulThings.builder()
+        .enableGuiManager()      // (Optional) Enable event listening for GuiManager
+        .enableBuildLogging()    // (Optional) Log messages when the instance is built
+        .build(this);            // Build — `this` is your plugin instance
 }
 ```
 
-### Configuration
+## Configuration
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `enableGuiManager()` | `false` | Creates and registers a `GuiManager` instance for your plugin |
+| `enableBuildLogging()` | `false` | Logs a message to console when the instance is built |
+
+## Methods
 
 | Option | Default Value | Description |
 |--------|---------------|---------------------------------------------------|
 | `enableBuildLogging()` | false | Logging messages upon instance being built |
 | `enableGuiManager`     | false | Registers GuiManager events for your plugin |
 
-### Features
+## Features
 
 * Logger -- A logger builder with the ability to do colors
 * GuiManager -- Interface-based GUI system with automatic session management
@@ -74,18 +86,18 @@ AppasUsefulThings.builder() // Get the builder
 
 ### Documentation
 
-* [Logger](docs/logger.md)
-* [GuiManager](docs/gui-manager.md)
-* [ItemBuilder](docs/item-builder.md)
-* [CooldownManager](docs/cooldown-manager.md)
+- [Logger](docs/logger.md)
+- [GuiManager](docs/gui-manager.md)
+- [ItemBuilder](docs/item-builder.md)
+- [CooldownManager](docs/cooldown-manager.md)
 
-### Requirements
+## Requirements
 
-* Paper 1.21.8+
-* Java 21+
+- Paper 1.21.8+
+- Java 21+
 
 > [!WARNING]
-> May work on older versions, however it is untested
+> May work on older versions, however it is untested.
 
 ## Contributing
 

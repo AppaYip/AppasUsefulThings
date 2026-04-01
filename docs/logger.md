@@ -4,12 +4,13 @@ A logger builder with the ability to do colors.
 Note this is kind of scuffed.
 
 > [!NOTE]
-> I **highly** recommend you check out [Paper Component docs](https://docs.papermc.io/adventure/text/) as this is how most styling will be done.
+> I **highly** recommend checking out the [Paper Adventure docs](https://docs.papermc.io/adventure/text/) — this is how most styling is done.
 
 > [!NOTE]
-> If you **do not** use the log level info, it will pull your prefix from your plugin.yml and it will **not** be colored.
-> This is an unfortunate limitation I found by only being able to do prefix color using `Bukkit.getConsoleSender().sendMessage()`
-> If someone knows a better way, please open an issue or PR and let me know
+> Colored prefixes are only supported on the `INFO` log level. `WARN` and `ERROR` use Paper's built-in
+> `ComponentLogger` to ensure correct log level routing, which unfortunately forces the prefix color to
+> yellow and red respectively. This is intentional to avoid a double prefix. If you know a better way,
+> please open an issue or PR!
 
 ## Setup
 
@@ -21,8 +22,6 @@ Logger logger = Logger.builder(this)
 ```
 
 ## Builder Methods
-
-All components can be colored.
 
 | Method | Description |
 |-------|-------------|
@@ -41,23 +40,20 @@ All components can be colored.
 ## Example Usage
 
 ```java
-private Component prefix = Component.text("[", NamedTextColor.WHITE)
-        .append(Component.text("AUT", NamedTextColor.GOLD))
-        .append(Component.text("]", NamedTextColor.WHITE));
+Component prefix = Component.text("[", NamedTextColor.WHITE)
+    .append(Component.text("MyPlugin", NamedTextColor.GOLD))
+    .append(Component.text("]", NamedTextColor.WHITE));
 
-Logger infoLogger = Logger.builder(this)
+Logger logger = Logger.builder(this)
     .setPrefix(prefix)
+    .defaultLogLevel(LogLevel.INFO)
     .build();
 
-infoLogger.log("This will default to info.");
-infoLogger.log(Component.text("This is a text component").color(NamedTextColor.GREEN));
+// String shorthand
+logger.log("Plugin has started.");
 
-infoLogger.log(LogLevel.WARN, "This is a warning");
-infoLogger.log(LogLevel.WARN, Component.text("You can also do text Components").color(NamedTextColor.YELLOW));
-```
-
-
-## Logging Methods
+// Colored component
+logger.log(Component.text("Something happened!").color(NamedTextColor.GREEN));
 
 | Method | Description |
 |--------|-------------|
