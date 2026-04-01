@@ -134,7 +134,7 @@ public class ItemBuilder {
         if (!this.lore.isEmpty()) itemMeta.lore(this.lore);
 
         // Appearance
-        if (customModelData != null) itemMeta.setCustomModelData(customModelData);
+        //if (customModelData != null) itemMeta.setCustomModelData(customModelData);
         if (this.itemFlags != null) itemMeta.addItemFlags(this.itemFlags);
 
 
