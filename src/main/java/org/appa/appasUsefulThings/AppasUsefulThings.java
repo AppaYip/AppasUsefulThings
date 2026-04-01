@@ -8,14 +8,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AppasUsefulThings {
+    private GuiManager guiManager;
+
     private boolean enableBuildLogging = false;
     private boolean enableGuiManager = false;
 
-    private Component prefix = Component.text("[", NamedTextColor.WHITE)
+    private final Component prefix = Component.text("[", NamedTextColor.WHITE)
             .append(Component.text("AUT", NamedTextColor.GOLD))
             .append(Component.text("]", NamedTextColor.WHITE));
 
-    private TextColor enabledColor = TextColor.color(0,182,217);
+    private final TextColor enabledColor = TextColor.color(0,182,217);
 
     public static AppasUsefulThings builder() {
         return new AppasUsefulThings();
@@ -31,13 +33,16 @@ public final class AppasUsefulThings {
         return this;
     }
 
-    public void build(JavaPlugin plugin) {
+    public GuiManager getGuiManager() {
+        return guiManager;
+    }
+
+
+    public AppasUsefulThings build(JavaPlugin plugin) {
         if (enableGuiManager) {
-            Bukkit.getPluginManager().registerEvents(new GuiManager(), plugin);
+            guiManager = new GuiManager();
+            Bukkit.getPluginManager().registerEvents(guiManager, plugin);
         }
-
-
-        if (!(enableBuildLogging)) { return; }
 
         Logger logger = Logger.builder(plugin)
                 .setPrefix(prefix)
@@ -51,6 +56,7 @@ public final class AppasUsefulThings {
             );
         }
 
+        return this;
     }
 }
 
