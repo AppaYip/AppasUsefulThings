@@ -59,4 +59,3 @@ public final class AppasUsefulThings {
         return this;
     }
 }
-
