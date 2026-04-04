@@ -43,6 +43,7 @@ cooldownManager.setCooldown(player, TimeUnit.MINUTES.toMillis(2));
 ```
 
 ## Available Methods
+
 | Method | Description |
 |--------|-------------|
 | `setCooldown(Entity, long)` | Sets a cooldown in milliseconds |
