@@ -4,6 +4,7 @@ It is recommended to use Java's [TimeUnit](https://docs.oracle.com/javase/8/docs
 for easy conversions.
 
 ## Usage
+
 Each `CooldownManager` instance tracks its own set of cooldowns independently,
 so you can have separate managers for different abilities or systems.
 
@@ -21,7 +22,28 @@ cooldownManager.setCooldown(player, TimeUnit.SECONDS.toMillis(5));
 // do something
 ```
 
+### Formatting Remaining Time
+
+You can use [TimeFormatter](time-formatter.md) to display the remaining cooldown
+in easier to read format instead of raw millisecond count.
+
+```java
+CooldownManager cooldownManager = new CooldownManager();
+
+if (!cooldownManager.isOver(player)) {
+    long remaining = cooldownManager.getRemainingMillis(player);
+    String formatted = TimeFormatter.format(remaining, TimeFormatter.Format.LONG);
+
+    player.sendMessage(Component.text("Please wait " + formatted + " before using this again!"));
+    return;
+}
+
+cooldownManager.setCooldown(player, TimeUnit.MINUTES.toMillis(2));
+// do something
+```
+
 ## Available Methods
+
 | Method | Description |
 |--------|-------------|
 | `setCooldown(Entity, long)` | Sets a cooldown in milliseconds |
