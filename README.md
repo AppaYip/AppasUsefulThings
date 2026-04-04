@@ -83,6 +83,7 @@ public void onEnable() {
 * GuiManager -- Interface-based GUI system with automatic session management
 * ItemBuilder -- Makes building and editing ItemStacks easier
 * CooldownManager -- Makes managing per-player cooldowns easy
+* TimeFormatter -- Makes formatting milliseconds instaed easy to read text easy.
 
 ### Documentation
 
@@ -90,6 +91,7 @@ public void onEnable() {
 - [GuiManager](docs/gui-manager.md)
 - [ItemBuilder](docs/item-builder.md)
 - [CooldownManager](docs/cooldown-manager.md)
+- [TimeFormatter](docs/time-formatter.md)
 
 ## Requirements
 
