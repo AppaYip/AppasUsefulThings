@@ -44,7 +44,8 @@ public class TimeFormatter {
         appendUnit(sb, minutes, labels.minuteSingular(), labels.minutePlural(), separator);
 
         if(seconds > 0 || sb.isEmpty()) {
-            appendUnit(sb, seconds, labels.secondSingular, labels.secondPlural, separator);
+            if (!sb.isEmpty()) sb.append(separator);
+            sb.append(seconds).append(seconds == 1 ? labels.secondSingular() : labels.secondPlural());
         }
 
         return sb.toString();
