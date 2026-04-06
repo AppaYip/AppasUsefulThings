@@ -1,6 +1,6 @@
 # Logger
 
-A logger builder with the ability to do colors. 
+A logger builder with the ability to do colors.
 Note this is kind of scuffed.
 
 > [!NOTE]
@@ -14,28 +14,28 @@ Note this is kind of scuffed.
 
 ## Setup
 
-Getting an instance. To get an instance, you must use the builder.
+To get an instance, use the builder and pass your plugin instance into `.build()`.
 
 ```java
-Logger logger = Logger.builder(this)
-    .build();
+Logger logger = Logger.builder()
+    .build(this);
 ```
 
 ## Builder Methods
 
 | Method | Description |
-|-------|-------------|
-| `setPrefix(Component prefix)` | Sets the prefix. Note this is **only** for the info log level. This will pull your plugin's prefix from its plugin.yml if it's a non-log level |
-| `defaultLogLevel(LogLevel)` | The default log level (see enum below) |
-| `build()` | Returns the instance |
+|--------|-------------|
+| `setPrefix(Component prefix)` | Sets the prefix. Only applies to the `INFO` log level -- `WARN` and `ERROR` will fall back to your plugin's prefix from `plugin.yml`. |
+| `defaultLogLevel(LogLevel)` | Sets the default log level used when none is specified (see enum below). |
+| `build(JavaPlugin plugin)` | Finalizes the builder and returns a `Logger` instance. |
 
 ## Log Levels
 
 | Level | Description |
 |-------|-------------|
 | `INFO` | General information, white in console by default. |
-| `WARN` | Something unexpected, will unfortauntely force the prefix color to be yellow |
-| `ERROR` | Something went wrong, will unfortauntely force the prefix color to be red |
+| `WARN` | Something unexpected, prefix color will be forced to yellow. |
+| `ERROR` | Something went wrong, prefix color will be forced to red. |
 
 ## Example Usage
 
@@ -44,16 +44,19 @@ Component prefix = Component.text("[", NamedTextColor.WHITE)
     .append(Component.text("MyPlugin", NamedTextColor.GOLD))
     .append(Component.text("]", NamedTextColor.WHITE));
 
-Logger logger = Logger.builder(this)
+Logger logger = Logger.builder()
     .setPrefix(prefix)
     .defaultLogLevel(LogLevel.INFO)
-    .build();
+    .build(this);
 
 // String shorthand
 logger.log("Plugin has started.");
 
 // Colored component
 logger.log(Component.text("Something happened!").color(NamedTextColor.GREEN));
+```
+
+## Logging Methods
 
 | Method | Description |
 |--------|-------------|

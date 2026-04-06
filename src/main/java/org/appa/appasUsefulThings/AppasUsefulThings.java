@@ -49,7 +49,7 @@ public final class AppasUsefulThings {
         }
 
         Logger logger = Logger.builder()
-                .prefix(prefix)
+                .setPrefix(prefix)
                 .build(plugin);
 
         logger.log(Component.text("Appa's Useful Things is enabled."));

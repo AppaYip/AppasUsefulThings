@@ -27,7 +27,7 @@ public class Logger {
         private LogLevel logLevel = LogLevel.INFO;
         private Component prefix;
 
-        public Builder prefix(Component prefix) {
+        public Builder setPrefix(Component prefix) {
             this.prefix = prefix;
             return this;
         }
