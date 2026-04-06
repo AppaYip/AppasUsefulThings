@@ -44,6 +44,10 @@ public final class AppasUsefulThings {
             Bukkit.getPluginManager().registerEvents(guiManager, plugin);
         }
 
+        if (!(enableBuildLogging)) {
+            return this;
+        }
+
         Logger logger = Logger.builder(plugin)
                 .setPrefix(prefix)
                 .build();
