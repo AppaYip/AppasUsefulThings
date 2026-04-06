@@ -49,12 +49,13 @@ public class Logger {
     }
 
     // Colors
-    public void log(Component message, TextColor color) {
-        log(this.logLevel, message.color(color));
-    }
 
     public void log(String message, TextColor color) {
         log(this.logLevel, Component.text(message).color(color));
+    }
+
+    public void log(LogLevel logLevel, String message, TextColor color) {
+        log(logLevel, Component.text(message).color(color));
     }
 
     // Actual logging method
