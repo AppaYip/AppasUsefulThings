@@ -49,7 +49,6 @@ public class Logger {
     }
 
     // Colors
-
     public void log(String message, TextColor color) {
         log(this.logLevel, Component.text(message).color(color));
     }
