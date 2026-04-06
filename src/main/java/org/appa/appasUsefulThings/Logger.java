@@ -1,11 +1,13 @@
 package org.appa.appasUsefulThings;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings("unused")
 public class Logger {
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
 
     private LogLevel logLevel = LogLevel.INFO;
     private Component prefix;
@@ -32,7 +34,7 @@ public class Logger {
         return this;
     }
 
-
+    // Strings
     public void log(String message) {
         log(this.logLevel, Component.text(message));
     }
@@ -41,10 +43,21 @@ public class Logger {
         log(logLevel, Component.text(message));
     }
 
+    // Components
     public void log(Component message) {
         log(this.logLevel, message);
     }
 
+    // Colors
+    public void log(Component message, TextColor color) {
+        log(this.logLevel, message.color(color));
+    }
+
+    public void log(String message, TextColor color) {
+        log(this.logLevel, Component.text(message).color(color));
+    }
+
+    // Actual logging method
     public void log(LogLevel logLevel, Component message) {
         if (this.prefix == null) {
             this.prefix = Component.text(this.plugin.getPluginMeta().getLoggerPrefix());
