@@ -56,7 +56,7 @@ public final class AppasUsefulThings {
 
         if (enableGuiManager) {
             logger.log(Component.text("Gui Manager ").color(enabledColor)
-                    .append(Component.text(" successfully enabled")).color(NamedTextColor.GREEN)
+                    .append(Component.text("successfully enabled")).color(NamedTextColor.GREEN)
             );
         }
 
