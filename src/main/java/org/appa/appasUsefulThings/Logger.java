@@ -8,31 +8,41 @@ import org.bukkit.plugin.java.JavaPlugin;
 @SuppressWarnings("unused")
 public class Logger {
     private final JavaPlugin plugin;
-
-    private LogLevel logLevel = LogLevel.INFO;
+    private final LogLevel logLevel;
     private Component prefix;
 
-    public Logger(JavaPlugin plugin) {
-        this.plugin = plugin;
+    private Logger(Builder builder) {
+        this.plugin = builder.plugin;
+        this.logLevel = builder.logLevel;
+        this.prefix = builder.prefix;
     }
 
-    public static Logger builder(JavaPlugin plugin) {
-        return new Logger(plugin);
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public Logger setPrefix(Component prefix) {
-        this.prefix = prefix;
-        return this;
+
+    public static class Builder {
+        private JavaPlugin plugin;
+        private LogLevel logLevel = LogLevel.INFO;
+        private Component prefix;
+
+        public Builder prefix(Component prefix) {
+            this.prefix = prefix;
+            return this;
+        }
+
+        public Builder defaultLogLevel(LogLevel logLevel) {
+            this.logLevel = logLevel;
+            return this;
+        }
+
+        public Logger build(JavaPlugin plugin) {
+            this.plugin = plugin;
+            return new Logger(this);
+        }
     }
 
-    public Logger defaultLogLevel(LogLevel logLevel) {
-        this.logLevel = logLevel;
-        return this;
-    }
-
-    public Logger build() {
-        return this;
-    }
 
     // Strings
     public void log(String message) {
