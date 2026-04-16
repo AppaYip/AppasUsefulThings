@@ -1,6 +1,7 @@
 package org.appa.appasUsefulThings;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -73,7 +74,7 @@ public class Logger {
             this.prefix = Component.text(this.plugin.getPluginMeta().getLoggerPrefix());
         }
 
-        Component full = this.prefix.append(Component.text(" ").append(message));
+        Component full = this.prefix.append(Component.text(" ", NamedTextColor.WHITE).append(message));
 
         switch (logLevel) {
             case INFO -> Bukkit.getConsoleSender().sendMessage(full);
