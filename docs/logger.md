@@ -66,3 +66,4 @@ logger.log(Component.text("Something happened!").color(NamedTextColor.GREEN));
 | `log(LogLevel, Component)` | Sends a `Component` to console with a specified log level. |
 | `log(String message, TextColor color)` | Sends a colored String to console. |
 | `log(LogLevel logLevel, String message, TextColor color)` | Sends a colored string to console with a specified log level. (Defaults to info if null)|
+//
