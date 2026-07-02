@@ -11,10 +11,22 @@ import net.kyori.adventure.text.Component;
 @SuppressWarnings("unused")
 public class Random {
 
+    /**
+     * Adds a component to the start of a component.
+     * @param prefix The component to add to the start.
+     * @param original The original Component.
+     * @return A prefixed component
+     */
     public static Component prepend(Component prefix, Component original) {
         return prefix.append(original);
     }
 
+    /**
+     * Adds a string to the start of a component.
+     * @param prefix The string to add to the start.
+     * @param original The original Component.
+     * @return A prefixed component
+     */
     public static Component prepend(String prefix, Component original) {
         return prepend(Component.text(prefix), original);
     }
