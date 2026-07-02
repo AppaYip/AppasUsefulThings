@@ -48,7 +48,7 @@ public class GuiManager implements Listener {
         Inventory inventory = gui.getInventory();
         if  (inventory == null) {
             throw new IllegalStateException(
-                    "Player '" + player.getName() + "'tried to open GUI with id ' "
+                    "Player '" + player.getName() + "' tried to open GUI with id ' "
                     + gui.getId() + "' but inventory is null"
             );
         }
