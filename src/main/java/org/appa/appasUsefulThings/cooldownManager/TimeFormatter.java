@@ -40,7 +40,7 @@ public class TimeFormatter {
      * Formats a duration using a builtin preset
      * @param millis the duration in milliseconds
      * @param format the preset to use
-     * @return pretty string. "6 seconds, 2 minutes, 1 second"
+     * @return pretty string. "2 minutes, 6 seconds, 1 second"
      */
     public static String format(long millis, Format format) {
         return format(millis, format.labels, format.separator);
@@ -51,7 +51,7 @@ public class TimeFormatter {
      * @param millis the duration in milliseconds
      * @param labels the Label to use for unit strings
      * @param separator the string placed in between each unit.
-     * @return pretty string. ex: "6 seconds, 2 minutes, 1 second"
+     * @return pretty string. ex: "2 minutes, 6 seconds, 1 second"
      */
     public static String format(long millis, Labels labels, String separator) {
         if (millis < 0) {
