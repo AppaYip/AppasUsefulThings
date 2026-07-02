@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("unused")
 public class CooldownManager {
     private final HashMap<UUID, Long> cooldowns = new HashMap<>();
 

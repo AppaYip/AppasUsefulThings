@@ -7,6 +7,7 @@ import org.appa.appasUsefulThings.guiManager.GuiManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings("unused")
 public final class AppasUsefulThings {
     private GuiManager guiManager;
 

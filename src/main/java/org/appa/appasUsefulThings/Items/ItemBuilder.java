@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-
+@SuppressWarnings("unused")
 public class ItemBuilder {
     private final Material material;
 

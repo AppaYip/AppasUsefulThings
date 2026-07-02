@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class GuiManager implements Listener {
     private final Map<String, Gui> guis = new HashMap<>();
     private final Map<UUID, Gui> openGuis = new HashMap<>();

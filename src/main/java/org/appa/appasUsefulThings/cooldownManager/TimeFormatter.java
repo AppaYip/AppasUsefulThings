@@ -2,6 +2,7 @@ package org.appa.appasUsefulThings.cooldownManager;
 
 import java.time.Duration;
 
+@SuppressWarnings("unused")
 public class TimeFormatter {
 
     /**
@@ -46,10 +47,10 @@ public class TimeFormatter {
     }
 
     /**
-     * Formats duration using custom Label and a seperator string
+     * Formats duration using custom Label and a separator string
      * @param millis the duration in milliseconds
      * @param labels the Label to use for unit strings
-     * @param separator the string placed inbetween each unit.
+     * @param separator the string placed in between each unit.
      * @return pretty string. ex: "6 seconds, 2 minutes, 1 second"
      */
     public static String format(long millis, Labels labels, String separator) {
