@@ -68,7 +68,7 @@ public class TimeFormatter {
         appendUnit(sb, hours, labels.hourSingular(), labels.hourPlural(), separator);
         appendUnit(sb, minutes, labels.minuteSingular(), labels.minutePlural(), separator);
 
-        if(seconds > 0 || sb.isEmpty()) {
+        if (seconds > 0 || sb.isEmpty()) {
             if (!sb.isEmpty()) sb.append(separator);
             sb.append(seconds).append(seconds == 1 ? labels.secondSingular() : labels.secondPlural());
         }
