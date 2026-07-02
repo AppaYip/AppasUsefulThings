@@ -1,10 +1,10 @@
 package org.appa.appasUsefulThings;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 public class Logger {
@@ -28,17 +28,17 @@ public class Logger {
         private LogLevel logLevel = LogLevel.INFO;
         private Component prefix;
 
-        public Builder setPrefix(Component prefix) {
+        public Builder setPrefix(@NotNull Component prefix) {
             this.prefix = prefix;
             return this;
         }
 
-        public Builder defaultLogLevel(LogLevel logLevel) {
+        public Builder setDefaultLogLevel(LogLevel logLevel) {
             this.logLevel = logLevel;
             return this;
         }
 
-        public Logger build(JavaPlugin plugin) {
+        public Logger build(@NotNull JavaPlugin plugin) {
             this.plugin = plugin;
             return new Logger(this);
         }
@@ -74,7 +74,7 @@ public class Logger {
             this.prefix = Component.text(this.plugin.getPluginMeta().getLoggerPrefix());
         }
 
-        Component full = this.prefix.append(Component.text(" ", NamedTextColor.WHITE).append(message));
+        Component full = Component.empty().append(prefix).append(Component.text(" ").append(message));
 
         switch (logLevel) {
             case INFO -> Bukkit.getConsoleSender().sendMessage(full);
