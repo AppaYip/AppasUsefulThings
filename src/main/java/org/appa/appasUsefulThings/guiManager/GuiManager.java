@@ -16,7 +16,7 @@ public class GuiManager implements Listener {
     private final Map<UUID, Gui> openGuis = new HashMap<>();
     /**
      * Registers a gui
-     * @param gui, The gui
+     * @param gui The gui
      */
     public void registerGui(Gui gui) {
         if (guis.containsKey(gui.getId())) {
@@ -32,7 +32,7 @@ public class GuiManager implements Listener {
 
     /**
      * Removes a gui from registry
-     * @param gui, The gui
+     * @param gui The gui
      */
     public void unregisterGui(Gui gui) {
         guis.remove(gui.getId());
@@ -41,14 +41,14 @@ public class GuiManager implements Listener {
     /**
      * Adds the player to openGuis. This will override any previous gui silently.
      * I may eventually add logging for this.
-     * @param player, The player
-     * @param gui, The gui
+     * @param player The player
+     * @param gui The gui
      */
     public void open(Player player, Gui gui) {
         Inventory inventory = gui.getInventory();
         if  (inventory == null) {
             throw new IllegalStateException(
-                    "Player '" + player.getName() + "' tried to open GUI with id ' "
+                    "Player '" + player.getName() + "'tried to open GUI with id ' "
                     + gui.getId() + "' but inventory is null"
             );
         }
@@ -59,8 +59,8 @@ public class GuiManager implements Listener {
 
     /**
      * Opens a gui to a player via id
-     * @param player, The player
-     * @param guiId, The gui id
+     * @param player The player
+     * @param guiId The gui id
      */
     public void open(Player player, String guiId) {
         Gui gui = guis.get(guiId);
@@ -76,7 +76,7 @@ public class GuiManager implements Listener {
     /**
      * This is done automatically and is recommended that you don't do this.
      * Clears the players open gui.
-     * @param player, The player
+     * @param player The player
      */
     public void close(Player player) {
         openGuis.remove(player.getUniqueId());
@@ -84,7 +84,7 @@ public class GuiManager implements Listener {
 
     /**
      * Returns a bool based on if the player has an opened gui. (If opened, true, if not false)
-     * @param player, The player
+     * @param player The player
      * @return boolean based on opened gui state
      */
     public boolean isOpen(Player player) {
