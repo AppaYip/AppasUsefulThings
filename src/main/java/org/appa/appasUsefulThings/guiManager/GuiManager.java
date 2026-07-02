@@ -117,6 +117,7 @@ public class GuiManager implements Listener {
 
         GuiInteractions gui = getInteractions(player);
         if (gui == null) return;
+        if (event.getReason() == InventoryCloseEvent.Reason.OPEN_NEW) return;
         gui.onClose(event);
 
         openGuis.remove(player.getUniqueId());
