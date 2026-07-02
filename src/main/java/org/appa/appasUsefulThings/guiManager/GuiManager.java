@@ -13,7 +13,6 @@ import java.util.UUID;
 public class GuiManager implements Listener {
     private final Map<String, Gui> guis = new HashMap<>();
     private final Map<UUID, Gui> openGuis = new HashMap<>();
-
     /**
      * Registers a gui
      * @param gui, The gui
