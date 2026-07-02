@@ -22,7 +22,7 @@ public class GuiManager implements Listener {
         if (guis.containsKey(gui.getId())) {
             throw new IllegalStateException(
                     "GUI with id '" + gui.getId()
-                    + "' is already registered in this instance of GuiManager '"
+                    + "' is already registered in this instance of GuiManager"
             );
         }
 
