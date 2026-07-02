@@ -20,7 +20,7 @@ public class ItemBuilder {
     // Main
     private Component name;
     private int amount = 1;
-    private List<Component> lore = new ArrayList<>();;
+    private List<Component> lore = new ArrayList<>();
 
     // Appearance
     private Integer customModelData = null;
