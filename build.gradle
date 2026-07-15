@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.appa'
-version = '2.3.0'
+version = '2.4.0'
 
 repositories {
     mavenCentral()
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
 }
 
 // Totally not example code I took from a website
