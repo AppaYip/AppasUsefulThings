@@ -1,6 +1,7 @@
 package org.appa.appasUsefulThings;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,12 +11,21 @@ import org.jetbrains.annotations.NotNull;
 public class Logger {
     private final JavaPlugin plugin;
     private final LogLevel logLevel;
-    private Component prefix;
+    private final Component prefix;
 
     private Logger(Builder builder) {
         this.plugin = builder.plugin;
         this.logLevel = builder.logLevel;
-        this.prefix = builder.prefix;
+
+        if (builder.prefix != null) {
+            this.prefix = builder.prefix;
+            return;
+        }
+
+        String loggerPrefix = this.plugin.getPluginMeta().getLoggerPrefix();
+        this.prefix = loggerPrefix != null
+                ? Component.text(loggerPrefix)
+                : Component.empty();
     }
 
     public static Builder builder() {
@@ -45,39 +55,63 @@ public class Logger {
     }
 
 
-    // Strings
+    /**
+     * Logs a message using the default log level.
+     * @param message The message to send to console.
+     */
     public void log(String message) {
-        log(this.logLevel, Component.text(message));
+        log(Component.text(message));
     }
 
-    public void log(LogLevel logLevel, String message) {
-        log(logLevel, Component.text(message));
-    }
-
-    // Components
+    /**
+     * Logs a message using the default log level.
+     * @param message The message to send to console.
+     */
     public void log(Component message) {
         log(this.logLevel, message);
     }
 
-    // Colors
+    /**
+     * Logs a message using a specific log level.
+     * @param level The level to log at.
+     * @param message The message to send to console.
+     */
+    public void log(LogLevel level, String message) {
+        log(level, Component.text(message));
+    }
+
+    /**
+     * Logs a message using a specific color.
+     * @param message The message to send to console.
+     * @param color The color to use for the message.
+     */
     public void log(String message, TextColor color) {
         log(this.logLevel, Component.text(message).color(color));
     }
 
+    /**
+     * Logs a message to console using a specific log level and color.
+     * @param logLevel The log level to log at.
+     * @param message The message to send to console.
+     * @param color The color to use for the message.
+     */
     public void log(LogLevel logLevel, String message, TextColor color) {
         log(logLevel, Component.text(message).color(color));
     }
 
-    // Actual logging method
+    /**
+     * Logs a message to console using a specific log level.
+     * @param logLevel The log level to log at.
+     * @param message The message to send to console.
+     */
     public void log(LogLevel logLevel, Component message) {
-        if (this.prefix == null) {
-            this.prefix = Component.text(this.plugin.getPluginMeta().getLoggerPrefix());
-        }
-
-        Component full = Component.empty().append(prefix).append(Component.text(" ").append(message));
+        Component full = Component.empty()
+                .append(prefix)
+                .append(Component.space())
+                .append(message.colorIfAbsent(NamedTextColor.WHITE));
 
         switch (logLevel) {
-            case INFO -> Bukkit.getConsoleSender().sendMessage(full);
+            case INFO -> Bukkit.getConsoleSender().sendMessage(full); // TODO: Find a better way then this shit.
             case WARN -> this.plugin.getComponentLogger().warn(message);
             case ERROR -> this.plugin.getComponentLogger().error(message);
         }
