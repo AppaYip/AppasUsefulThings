@@ -10,5 +10,4 @@ public record PowerToolContext<T> (
         ItemStack item,
         PowerToolEventType type,
         @Nullable T eventData
-)
-{}
+) {}
