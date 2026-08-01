@@ -27,7 +27,7 @@ public GuiManager getGuiManager() {
 ### Basic GUI
 
 Use `Gui` when you want to display an inventory with no built-in event handling.
-You will need to write your own event handlers — click events are **not** automatically cancelled.
+You will need to write your own event handlers — click events are **not** automatically canceled.
 
 ```java
 public class ExampleGui implements Gui {

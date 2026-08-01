@@ -15,7 +15,7 @@ TimeFormatter.format(ms, TimeFormatter.Format.SHORT) // ""1h 31m 1s""
 
 ### Custom Labels
 
-If you want to change unit strings and or seperators, you can supply your own `Labels` instance.
+If you want to change unit strings and or separators, you can supply your own `Labels` instance.
 Label strings are appended directly after numeric values, so include a leading space if you want one.
 
 ```java

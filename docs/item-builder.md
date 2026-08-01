@@ -74,7 +74,7 @@ ItemStack wand = new ItemBuilder(Material.STICK)
 ```
 
 > **Note** `setCustomModelData` uses the legacy integer system, compatible with 1.21.1+
-> If you're on 1.21.3+ and need the new component syhstem, use Paper's
+> If you're on 1.21.3+ and need the new component system, use Paper's
 > `setCustomModelDataComponent` directly via `editMeta`.
 
 ## Available Methods
