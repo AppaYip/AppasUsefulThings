@@ -96,7 +96,7 @@ public void onEnable() {
 
 ## Requirements
 
-- Paper 1.21.8+
+- Paper 1.21.11+
 - Java 21+
 
 > [!WARNING]
