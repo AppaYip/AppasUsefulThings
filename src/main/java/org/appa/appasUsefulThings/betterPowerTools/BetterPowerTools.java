@@ -31,6 +31,7 @@ public class BetterPowerTools {
         this.powerToolRegistry = new PowerToolRegistry();
         this.itemStorage = new PowerToolItemStorage(plugin);
         this.playerSettingsManager = new PlayerSettingsManager(plugin);
+        new EventListeners(plugin, this);
     }
 
     /* Config */
