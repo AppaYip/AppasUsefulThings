@@ -9,7 +9,7 @@ A utility library for Paper plugins providing common tools like GUI management, 
 > Dev builds are built from the latest commit to the `dev` branch and may contain untested or incomplete code. It is strongly recommended that you use the latest release on `main`.
 
 > [!NOTE]
-> This is the shadeable version of the library. You do **not** need to put this in your plugins folder.
+> This is the shadeable version of the library. You do **not** need to put this in your plugin's folder.
 
 ## Installation
 
@@ -83,7 +83,7 @@ public void onEnable() {
 * GuiManager -- Interface-based GUI system with automatic session management
 * ItemBuilder -- Makes building and editing ItemStacks easier
 * CooldownManager -- Makes managing per-player cooldowns easy
-* TimeFormatter -- Makes formatting milliseconds instaed easy to read text easy.
+* TimeFormatter -- Makes formatting milliseconds instead easy to read text easy.
 
 ### Documentation
 
