@@ -23,19 +23,19 @@ Logger logger = Logger.builder()
 
 ## Builder Methods
 
-| Method | Description |
-|--------|-------------|
+| Method                        | Description                                                                                                                           |
+|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | `setPrefix(Component prefix)` | Sets the prefix. Only applies to the `INFO` log level -- `WARN` and `ERROR` will fall back to your plugin's prefix from `plugin.yml`. |
-| `defaultLogLevel(LogLevel)` | Sets the default log level used when none is specified (see enum below). |
-| `build(JavaPlugin plugin)` | Finalizes the builder and returns a `Logger` instance. |
+| `defaultLogLevel(LogLevel)`   | Sets the default log level used when none is specified (see enum below).                                                              |
+| `build(JavaPlugin plugin)`    | Finalizes the builder and returns a `Logger` instance.                                                                                |
 
 ## Log Levels
 
-| Level | Description |
-|-------|-------------|
-| `INFO` | General information, white in console by default. |
-| `WARN` | Something unexpected, prefix color will be forced to yellow. |
-| `ERROR` | Something went wrong, prefix color will be forced to red. |
+| Level   | Description                                                  |
+|---------|--------------------------------------------------------------|
+| `INFO`  | General information, white in console by default.            |
+| `WARN`  | Something unexpected, prefix color will be forced to yellow. |
+| `ERROR` | Something went wrong, prefix color will be forced to red.    |
 
 ## Example Usage
 
@@ -58,11 +58,11 @@ logger.log(Component.text("Something happened!").color(NamedTextColor.GREEN));
 
 ## Logging Methods
 
-| Method | Description |
-|--------|-------------|
-| `log(String)` | Sends a `String` to console with the builder-defined log level. (Defaults to info if null) |
-| `log(LogLevel, String)` | Sends a `String` to console with a specified log level. |
-| `log(Component)` | Sends a `Component` to console with the builder-defined log level. (Defaults to info if null) |
-| `log(LogLevel, Component)` | Sends a `Component` to console with a specified log level. |
-| `log(String message, TextColor color)` | Sends a colored String to console. |
-| `log(LogLevel logLevel, String message, TextColor color)` | Sends a colored string to console with a specified log level. (Defaults to info if null)|
+| Method                                                    | Description                                                                                   |
+|-----------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| `log(String)`                                             | Sends a `String` to console with the builder-defined log level. (Defaults to info if null)    |
+| `log(LogLevel, String)`                                   | Sends a `String` to console with a specified log level.                                       |
+| `log(Component)`                                          | Sends a `Component` to console with the builder-defined log level. (Defaults to info if null) |
+| `log(LogLevel, Component)`                                | Sends a `Component` to console with a specified log level.                                    |
+| `log(String message, TextColor color)`                    | Sends a colored String to console.                                                            |
+| `log(LogLevel logLevel, String message, TextColor color)` | Sends a colored string to console with a specified log level. (Defaults to info if null)      |
