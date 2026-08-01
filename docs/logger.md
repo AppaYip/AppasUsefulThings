@@ -58,7 +58,7 @@ logger.log(Component.text("Something happened!").color(NamedTextColor.GREEN));
 
 ## Logging Methods
 
-| Method                                                    | Description                                                                                   |
+ | Method                                                    | Description                                                                                   |
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | `log(String)`                                             | Sends a `String` to console with the builder-defined log level. (Defaults to info if null)    |
 | `log(LogLevel, String)`                                   | Sends a `String` to console with a specified log level.                                       |

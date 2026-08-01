@@ -40,14 +40,14 @@ TimeFormatter.format(0, Format.LONG)      // "0 seconds" -- fallback to seconds
 
 ## Available Methods
 
-| Method | Description |
-|--------|-------------|
-| `format(long, Format)` | Formats a duration using a built-in preset. |
+| Method                         | Description                                             |
+|--------------------------------|---------------------------------------------------------|
+| `format(long, Format)`         | Formats a duration using a built-in preset.             |
 | `format(long, Labels, String)` | Formats a duration using custom labels and a separator. |
 
 ## Formats
 
-| Preset | Example output |
-|--------|----------------|
-| `Format.LONG` | `"2 hours, 5 minutes, 1 second"` |
-| `Format.SHORT` | `"2h 5m 1s"` |
+| Preset         | Example output                   |
+|----------------|----------------------------------|
+| `Format.LONG`  | `"2 hours, 5 minutes, 1 second"` |
+| `Format.SHORT` | `"2h 5m 1s"`                     |

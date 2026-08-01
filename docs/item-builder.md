@@ -79,15 +79,15 @@ ItemStack wand = new ItemBuilder(Material.STICK)
 
 ## Available Methods
 
-| Method | Description |
-|--------|-------------|
-| `setDisplayName(Component)` | Sets the item's display name |
-| `setAmount(int)` | Sets the stack size |
-| `addLore(Component...)` | Adds one or more lines of lore |
-| `setCustomModelData(int)` | Sets custom model data |
-| `addItemFlags(ItemFlag...)` | Adds one or more item flags |
-| `setUnbreakable(boolean)` | Sets whether the item is unbreakable |
-| `setDamage(int)` | Sets the item's damage value |
-| `enchant(Enchantment, int)` | Adds an enchantment with a level |
-| `hideToolTip(Boolean)`      | Whether or not to hide item tooltip | 
-| `build()` | Builds and returns the final `ItemStack` |
+| Method                      | Description                              |
+|-----------------------------|------------------------------------------|
+| `setDisplayName(Component)` | Sets the item's display name             |
+| `setAmount(int)`            | Sets the stack size                      |
+| `addLore(Component...)`     | Adds one or more lines of lore           |
+| `setCustomModelData(int)`   | Sets custom model data                   |
+| `addItemFlags(ItemFlag...)` | Adds one or more item flags              |
+| `setUnbreakable(boolean)`   | Sets whether the item is unbreakable     |
+| `setDamage(int)`            | Sets the item's damage value             |
+| `enchant(Enchantment, int)` | Adds an enchantment with a level         |
+| `hideToolTip(Boolean)`      | Whether or not to hide item tooltip      | 
+| `build()`                   | Builds and returns the final `ItemStack` |

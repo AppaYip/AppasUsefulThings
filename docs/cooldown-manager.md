@@ -44,11 +44,11 @@ cooldownManager.setCooldown(player, TimeUnit.MINUTES.toMillis(2));
 
 ## Available Methods
 
-| Method | Description |
-|--------|-------------|
-| `setCooldown(Entity, long)` | Sets a cooldown in milliseconds |
-| `clearCooldown(Entity)` | Clears an entity's cooldown |
-| `isOver(Entity)` | Returns true if the cooldown has expired or was never set |
-| `getRemainingMillis(Entity)` | Returns the remaining cooldown in milliseconds |
+| Method                        | Description                                                    |
+|-------------------------------|----------------------------------------------------------------|
+| `setCooldown(Entity, long)`   | Sets a cooldown in milliseconds                                |
+| `clearCooldown(Entity)`       | Clears an entity's cooldown                                    |
+| `isOver(Entity)`              | Returns true if the cooldown has expired or was never set      |
+| `getRemainingMillis(Entity)`  | Returns the remaining cooldown in milliseconds                 |
 | `getRemainingSeconds(Entity)` | Returns the remaining cooldown in seconds as a string e.g. `5` |
-| `ticksToMillis(long)` | Converts ticks to milliseconds (1 tick = 50ms) |
+| `ticksToMillis(long)`         | Converts ticks to milliseconds (1 tick = 50ms)                 |

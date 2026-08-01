@@ -99,11 +99,11 @@ getGuiManager().close(player);
 
 ## Available Methods
 
-| Method | Description |
-|--------|-------------|
-| `registerGui(Gui)` | Registers a GUI by its ID |
-| `unregisterGui(Gui)` | Removes a GUI from the registry |
-| `open(Player, Gui)` | Opens a GUI instance for a player |
-| `open(Player, String)` | Opens a registered GUI by ID for a player |
-| `close(Player)` | Removes the player's active GUI from tracking |
-| `isOpen(Player)` | Returns `true` if the player currently has a GUI open |
+| Method                 | Description                                           |
+|------------------------|-------------------------------------------------------|
+| `registerGui(Gui)`     | Registers a GUI by its ID                             |
+| `unregisterGui(Gui)`   | Removes a GUI from the registry                       |
+| `open(Player, Gui)`    | Opens a GUI instance for a player                     |
+| `open(Player, String)` | Opens a registered GUI by ID for a player             |
+| `close(Player)`        | Removes the player's active GUI from tracking         |
+| `isOpen(Player)`       | Returns `true` if the player currently has a GUI open |
