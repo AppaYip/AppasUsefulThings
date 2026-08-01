@@ -65,17 +65,17 @@ public void onEnable() {
 
 ## Configuration
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `enableGuiManager()` | `false` | Creates and registers a `GuiManager` instance for your plugin |
-| `enableBuildLogging()` | `false` | Logs a message to console when the instance is built |
+| Option                 | Default | Description                                                   |
+|------------------------|---------|---------------------------------------------------------------|
+| `enableGuiManager()`   | `false` | Creates and registers a `GuiManager` instance for your plugin |
+| `enableBuildLogging()` | `false` | Logs a message to console when the instance is built          |
 
 ## Methods
 
-| Option | Default Value | Description |
-|--------|---------------|---------------------------------------------------|
-| `enableBuildLogging()` | false | Logging messages upon instance being built |
-| `enableGuiManager`     | false | Registers GuiManager events for your plugin |
+| Option                 | Default Value | Description                                 |
+|------------------------|---------------|---------------------------------------------|
+| `enableBuildLogging()` | false         | Logging messages upon instance being built  |
+| `enableGuiManager`     | false         | Registers GuiManager events for your plugin |
 
 ## Features
 
