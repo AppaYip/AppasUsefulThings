@@ -92,6 +92,7 @@ public void onEnable() {
 - [ItemBuilder](docs/item-builder.md)
 - [CooldownManager](docs/cooldown-manager.md)
 - [TimeFormatter](docs/time-formatter.md)
+- [Better Power Tools](docs/bettper-power-tools.md)
 
 ## Requirements
 
