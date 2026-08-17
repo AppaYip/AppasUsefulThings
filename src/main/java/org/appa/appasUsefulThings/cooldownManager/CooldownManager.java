@@ -1,11 +1,13 @@
 package org.appa.appasUsefulThings.cooldownManager;
 
 import org.bukkit.entity.Entity;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+@NullMarked
 @SuppressWarnings("unused")
 public class CooldownManager {
     private final HashMap<UUID, Long> cooldowns = new HashMap<>();
