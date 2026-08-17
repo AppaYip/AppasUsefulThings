@@ -9,7 +9,7 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked
 @SuppressWarnings("unused")
-public interface GuiInteractions extends Gui {
+public interface InteractiveGui extends Gui {
     default void onOpen(InventoryOpenEvent event) {}
     default void onClose(InventoryCloseEvent event) {}
     default void onInventoryClick(InventoryClickEvent event) {}
