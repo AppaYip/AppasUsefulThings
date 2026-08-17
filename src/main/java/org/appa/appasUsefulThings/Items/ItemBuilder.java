@@ -1,22 +1,20 @@
 package org.appa.appasUsefulThings.Items;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
- * A builder to make creating items simple. Methods should be self-explanatory
+ * A builder to make creating items simple. Methods have Javadocs, however they should be self-explanatory.
  */
 @NullMarked
 @SuppressWarnings("unused")
@@ -24,17 +22,22 @@ public class ItemBuilder {
     private final Material material;
 
     // Main
-    @Nullable private Component name = null;
+    private Component name = Component.empty();
     private int amount = 1;
     private final List<Component> lore = new ArrayList<>();
 
     // Appearance
     private ItemFlag[] itemFlags = new ItemFlag[0];
 
+    private final List<Float> customModelDataFloats = new ArrayList<>();
+    private final List<Boolean> customModelDataFlags = new ArrayList<>();
+    private final List<String> customModelDataStrings = new ArrayList<>();
+    private final List<Color> customModelDataColors = new ArrayList<>();
+
     // Misc
     private boolean unbreakable = false;
     private int damage = 0;
-    private final HashMap<Enchantment, Integer> enchants = new HashMap<>();
+    private final Map<Enchantment, Integer> enchants = new HashMap<>();
     private boolean hideToolTip = false;
 
 
@@ -117,13 +120,57 @@ public class ItemBuilder {
 
     /* Appearance: Custom Model Data, Item Flags */
 
+    /**
+     * Appends floats to the item's custom model data.
+     * @param values floats to add to the item's custom model data.
+     * @return Instance of the ItemBuilder.
+     */
+    public ItemBuilder customModelData(float... values) {
+        for (float value : values) {
+            this.customModelDataFloats.add(value);
+        }
+        return this;
+    }
+
+    /**
+     * Appends booleans to the item's custom model data.
+     * @param values booleans to add to the item's custom model data.
+     * @return Instance of the ItemBuilder.
+     */
+    public ItemBuilder customModelData(boolean... values) {
+        for (boolean value : values) {
+            this.customModelDataFlags.add(value);
+        }
+        return this;
+    }
+
+    /**
+     * Appends strings to the item's custom model data.
+     * @param values strings to add to the item's custom model data.
+     * @return Instance of the ItemBuilder.
+     */
+    public ItemBuilder customModelData(String... values) {
+        this.customModelDataStrings.addAll(Arrays.asList(values));
+        return this;
+    }
+
+    /**
+     * Appends floats to the item's custom model data.
+     * @param values floats to add to the item's custom model data.
+     * @return Instance of the ItemBuilder.
+     */
+    public ItemBuilder customModelData(Color... values) {
+        this.customModelDataColors.addAll(Arrays.asList(values));
+        return this;
+    }
+
 
     /**
      * Adds item flags to the item.
      * @param flags The flag[s] to add.
      * @return Instance of the ItemBuilder.
      */
-    public ItemBuilder addItemFlags(ItemFlag... flags) {
+    public ItemBuilder setItemFlags(ItemFlag... flags) {
         this.itemFlags = flags;
         return this;
     }
@@ -183,18 +230,28 @@ public class ItemBuilder {
         ItemMeta itemMeta = item.getItemMeta();
 
         // Main things
-        if (this.name != null) itemMeta.displayName(this.name);
+        if (this.name.equals(Component.empty())) itemMeta.displayName(this.name);
+
         item.setAmount(this.amount);
         if (!this.lore.isEmpty()) itemMeta.lore(this.lore);
 
         // Appearance
-        if (this.itemFlags.length == 0) itemMeta.addItemFlags(this.itemFlags);
+        if (this.itemFlags.length > 0) itemMeta.addItemFlags(this.itemFlags);
+
+        CustomModelDataComponent customModelDataComponent = itemMeta.getCustomModelDataComponent();
+
+        customModelDataComponent.setFloats(this.customModelDataFloats);
+        customModelDataComponent.setFlags(this.customModelDataFlags);
+        customModelDataComponent.setStrings(this.customModelDataStrings);
+        customModelDataComponent.setColors(this.customModelDataColors);
+
+        itemMeta.setCustomModelDataComponent(customModelDataComponent);
 
 
         // Misc
         itemMeta.setUnbreakable(this.unbreakable);
-        if (itemMeta instanceof Damageable) {
-            ((Damageable) itemMeta).setDamage(this.damage);
+        if (itemMeta instanceof Damageable damageable) {
+            damageable.setDamage(this.damage);
         }
         item.addEnchantments(this.enchants);
 
