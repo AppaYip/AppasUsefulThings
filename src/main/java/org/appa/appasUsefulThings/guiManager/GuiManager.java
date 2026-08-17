@@ -15,6 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * This class allows for registering a gui, opening/closing a gui, and many more things.
+ * Each method has Javadocs, and it is encouraged that you read them.
+ */
 @NullMarked
 @SuppressWarnings("unused")
 public class GuiManager implements Listener {
@@ -108,9 +112,9 @@ public class GuiManager implements Listener {
     /* Listeners */
 
     private @Nullable GuiInteractions getInteractions(Player player) {
-        Gui gui = openGuis.get(player.getUniqueId());
-        if (gui instanceof GuiInteractions interactions) return interactions;
-        return null;
+        return openGuis.get(player.getUniqueId()) instanceof GuiInteractions gui
+                ? gui
+                : null;
     }
 
     @EventHandler
@@ -118,8 +122,7 @@ public class GuiManager implements Listener {
         if (!(event.getPlayer() instanceof Player player)) return;
 
         GuiInteractions gui = getInteractions(player);
-        if (gui == null) return;
-        gui.onOpen(event);
+        if (gui != null) gui.onOpen(event);
     }
 
     @EventHandler
@@ -128,9 +131,10 @@ public class GuiManager implements Listener {
 
         GuiInteractions gui = getInteractions(player);
         if (gui == null) return;
-        if (event.getReason() == InventoryCloseEvent.Reason.OPEN_NEW) return;
-        gui.onClose(event);
 
+        if (event.getReason() == InventoryCloseEvent.Reason.OPEN_NEW) return;
+
+        gui.onClose(event);
         openGuis.remove(player.getUniqueId());
     }
 
@@ -139,8 +143,7 @@ public class GuiManager implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         GuiInteractions gui = getInteractions(player);
-        if (gui == null) return;
-        gui.onInventoryClick(event);
+        if (gui != null) gui.onInventoryClick(event);
     }
 
     @EventHandler
@@ -148,7 +151,6 @@ public class GuiManager implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         GuiInteractions gui = getInteractions(player);
-        if (gui == null) return;
-        gui.onInventoryDrag(event);
+        if (gui != null) gui.onInventoryDrag(event);
     }
 }
