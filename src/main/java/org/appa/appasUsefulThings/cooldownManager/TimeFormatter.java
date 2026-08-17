@@ -1,7 +1,10 @@
 package org.appa.appasUsefulThings.cooldownManager;
 
+import org.jspecify.annotations.NullMarked;
+
 import java.time.Duration;
 
+@NullMarked
 @SuppressWarnings("unused")
 public class TimeFormatter {
 
