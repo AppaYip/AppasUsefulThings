@@ -43,7 +43,7 @@ public class Logger {
             return this;
         }
 
-        public Builder setDefaultLogLevel(LogLevel logLevel) {
+        public Builder setDefaultLogLevel(@NotNull LogLevel logLevel) {
             this.logLevel = logLevel;
             return this;
         }
@@ -59,7 +59,7 @@ public class Logger {
      * Logs a message using the default log level.
      * @param message The message to send to console.
      */
-    public void log(String message) {
+    public void log(@NotNull String message) {
         log(Component.text(message));
     }
 
@@ -67,7 +67,7 @@ public class Logger {
      * Logs a message using the default log level.
      * @param message The message to send to console.
      */
-    public void log(Component message) {
+    public void log(@NotNull Component message) {
         log(this.logLevel, message);
     }
 
@@ -76,7 +76,7 @@ public class Logger {
      * @param level The level to log at.
      * @param message The message to send to console.
      */
-    public void log(LogLevel level, String message) {
+    public void log(@NotNull LogLevel level, @NotNull String message) {
         log(level, Component.text(message));
     }
 
@@ -85,7 +85,7 @@ public class Logger {
      * @param message The message to send to console.
      * @param color The color to use for the message.
      */
-    public void log(String message, TextColor color) {
+    public void log(@NotNull String message, @NotNull TextColor color) {
         log(this.logLevel, Component.text(message).color(color));
     }
 
@@ -95,7 +95,7 @@ public class Logger {
      * @param message The message to send to console.
      * @param color The color to use for the message.
      */
-    public void log(LogLevel logLevel, String message, TextColor color) {
+    public void log(@NotNull LogLevel logLevel, @NotNull String message, @NotNull TextColor color) {
         log(logLevel, Component.text(message).color(color));
     }
 
@@ -104,7 +104,7 @@ public class Logger {
      * @param logLevel The log level to log at.
      * @param message The message to send to console.
      */
-    public void log(LogLevel logLevel, Component message) {
+    public void log(@NotNull LogLevel logLevel, @NotNull Component message) {
         Component full = Component.empty()
                 .append(prefix)
                 .append(Component.space())
