@@ -47,6 +47,7 @@ public class GuiManager implements Listener {
                 "GUI with id '%s' is already registered in this instance of GuiManager".formatted(gui.getId())
             );
         }
+        guis.put(gui.getId(), gui);
     }
 
 
