@@ -1,13 +1,14 @@
 package org.appa.appasUsefulThings.random;
 
 import net.kyori.adventure.text.Component;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * This is a class filled with random utility methods
  * that don't exactly fit anywhere in the project as of writing them
  * Feel free to use them, they will be JavaDoced.
  */
-
+@NullMarked
 @SuppressWarnings("unused")
 public class Random {
 
