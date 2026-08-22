@@ -15,7 +15,7 @@ import java.util.List;
  */
 @NullMarked
 @SuppressWarnings("unused")
-public abstract class PagedGui implements Gui {
+public abstract class PaginatedGui implements Gui {
     private int currentPage;
 
     /**
