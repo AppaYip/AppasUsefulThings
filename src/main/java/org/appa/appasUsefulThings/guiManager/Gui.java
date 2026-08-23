@@ -9,7 +9,7 @@ import org.jspecify.annotations.NullMarked;
  * Defines a basic gui.
  *<p>
  * This **does not** have automatic event routing, you have to implement your own event handler.
- * If you want event routing, use {@link GuiInteractions}
+ * If you want event routing, use {@link InteractiveGui}
  */
 @NullMarked
 public interface Gui {

@@ -112,8 +112,8 @@ public class GuiManager implements Listener {
 
     /* Listeners */
 
-    private @Nullable GuiInteractions getInteractions(Player player) {
-        return openGuis.get(player.getUniqueId()) instanceof GuiInteractions gui
+    private @Nullable InteractiveGui getInteractions(Player player) {
+        return openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui
                 ? gui
                 : null;
     }
@@ -122,7 +122,7 @@ public class GuiManager implements Listener {
     private void onInventoryOpen(InventoryOpenEvent event) {
         if (!(event.getPlayer() instanceof Player player)) return;
 
-        GuiInteractions gui = getInteractions(player);
+        InteractiveGui gui = getInteractions(player);
         if (gui != null) gui.onOpen(event);
     }
 
@@ -130,7 +130,7 @@ public class GuiManager implements Listener {
     private void onInventoryClose(InventoryCloseEvent event) {
         if (!(event.getPlayer() instanceof Player player)) return;
 
-        GuiInteractions gui = getInteractions(player);
+        InteractiveGui gui = getInteractions(player);
         if (gui == null) return;
 
         if (event.getReason() == InventoryCloseEvent.Reason.OPEN_NEW) return;
@@ -143,7 +143,7 @@ public class GuiManager implements Listener {
     private void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        GuiInteractions gui = getInteractions(player);
+        InteractiveGui gui = getInteractions(player);
         if (gui != null) gui.onInventoryClick(event);
     }
 
@@ -151,7 +151,7 @@ public class GuiManager implements Listener {
     private void onInventoryDrag(InventoryDragEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        GuiInteractions gui = getInteractions(player);
+        InteractiveGui gui = getInteractions(player);
         if (gui != null) gui.onInventoryDrag(event);
     }
 }
