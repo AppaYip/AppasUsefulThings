@@ -1,7 +1,6 @@
 package org.appa.appasUsefulThings.guiManager;
 
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 
@@ -13,9 +12,8 @@ import java.util.List;
  * <p>Subclasses are responsible for providing the inventory content slots and items to display.
  * The items are placed into the content slots in order.</p>
  */
-@NullMarked
 @SuppressWarnings("unused")
-public abstract class PaginatedGui implements Gui {
+public abstract class PaginatedGui extends Gui {
     private int currentPage;
 
     /**
