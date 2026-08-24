@@ -1,15 +1,9 @@
 package org.appa.appasUsefulThings.guiManager;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -107,51 +101,5 @@ public class GuiManager implements Listener {
      */
     public boolean isOpen(Player player) {
         return openGuis.containsKey(player.getUniqueId());
-    }
-
-
-    /* Listeners */
-
-    private @Nullable InteractiveGui getInteractions(Player player) {
-        return openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui
-                ? gui
-                : null;
-    }
-
-    @EventHandler
-    private void onInventoryOpen(InventoryOpenEvent event) {
-        if (!(event.getPlayer() instanceof Player player)) return;
-
-        InteractiveGui gui = getInteractions(player);
-        if (gui != null) gui.onOpen(event);
-    }
-
-    @EventHandler
-    private void onInventoryClose(InventoryCloseEvent event) {
-        if (!(event.getPlayer() instanceof Player player)) return;
-
-        InteractiveGui gui = getInteractions(player);
-        if (gui == null) return;
-
-        if (event.getReason() == InventoryCloseEvent.Reason.OPEN_NEW) return;
-
-        gui.onClose(event);
-        openGuis.remove(player.getUniqueId());
-    }
-
-    @EventHandler
-    private void onInventoryClick(InventoryClickEvent event) {
-        if (!(event.getWhoClicked() instanceof Player player)) return;
-
-        InteractiveGui gui = getInteractions(player);
-        if (gui != null) gui.onInventoryClick(event);
-    }
-
-    @EventHandler
-    private void onInventoryDrag(InventoryDragEvent event) {
-        if (!(event.getWhoClicked() instanceof Player player)) return;
-
-        InteractiveGui gui = getInteractions(player);
-        if (gui != null) gui.onInventoryDrag(event);
     }
 }
