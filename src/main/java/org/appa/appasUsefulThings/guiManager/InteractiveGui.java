@@ -1,17 +1,18 @@
 package org.appa.appasUsefulThings.guiManager;
 
-import org.bukkit.event.inventory.*;
-import org.jspecify.annotations.NullMarked;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 
 /**
  * {@inheritDoc}
  * Events from this interface are bound to the specific gui. You do not need to check for your gui.
  */
-@NullMarked
 @SuppressWarnings("unused")
-public interface InteractiveGui extends Gui {
-    default void onOpen(InventoryOpenEvent event) {}
-    default void onClose(InventoryCloseEvent event) {}
-    default void onInventoryClick(InventoryClickEvent event) {}
-    default void onInventoryDrag(InventoryDragEvent event) {}
+public abstract class InteractiveGui extends Gui {
+    public abstract void onOpen(InventoryOpenEvent event);
+    public abstract void onClose(InventoryCloseEvent event);
+    public abstract void onInventoryClick(InventoryClickEvent event);
+    public abstract void onInventoryDrag(InventoryDragEvent event);
 }
