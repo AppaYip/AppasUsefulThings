@@ -6,7 +6,6 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 /**
- * {@inheritDoc}
  * Events from this interface are bound to the specific gui. You do not need to check for your gui.
  */
 @SuppressWarnings("unused")
