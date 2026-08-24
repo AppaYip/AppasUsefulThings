@@ -18,8 +18,7 @@ import java.util.Optional;
  * <p>For advanced functionality, the underlying managers can be accessed
  * through their respective getter methods.</p>
  */
-@SuppressWarnings("unused")
-public class BetterPowerTools {
+public abstract class BetterPowerTools {
     @Getter private final PowerToolRegistry powerToolRegistry;
     @Getter private final PowerToolItemStorage itemStorage;
     @Getter private final PlayerSettingsManager playerSettingsManager;
