@@ -39,6 +39,11 @@ public class CooldownManager {
     public boolean isOver(Entity entity) {
         Long expiresAt = cooldowns.get(entity.getUniqueId());
         if (expiresAt == null) return true;
+
+        if (System.currentTimeMillis() >= expiresAt) {
+            cooldowns.remove(entity.getUniqueId());
+            return true;
+        }
         return System.currentTimeMillis() >= expiresAt;
     }
 
