@@ -1,7 +1,10 @@
 package org.appa.appasUsefulThings.guiManager;
 
+import lombok.NonNull;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +18,8 @@ import java.util.List;
 @SuppressWarnings("unused")
 public abstract class PaginatedGui extends Gui {
     private int currentPage;
+    private int[] slots;
+    private List<ItemStack> items;
 
     /**
      * @return The index of the currently selected page.
@@ -24,26 +29,41 @@ public abstract class PaginatedGui extends Gui {
     }
 
     /**
-     * Gets the inventory slots used for page content.
+     * Sets the inventory slots used for page content.
      *
      * <p>Items are placed into these slots in the order they are returned.
      * The number of slots determines how many items can be displayed on each page.
      * </p>
-     *
-     * @return The slots used for page contents.
      */
-    public abstract int[] getContentSlots();
+    public final void setContentSlots(int[] slots) {
+        this.slots = slots;
+    }
 
     /**
-     * Gets the items displayed across pages of this GUI.
+     * @return The slots used for page contents.
+     */
+    public final int[] getContentSlots() {
+        return this.slots;
+    }
+
+    /**
+     *  @return The items displayed by this GUI.
+     */
+    public final @NotNull List<ItemStack> getItems() {
+        return this.items;
+    }
+
+    /**
+     * Sets the items displayed across pages of this GUI.
      *
      * <p>Items are distributed across pages in the order they are returned.
      * The number of items that can be displayed on each page is determined by {@link #getContentSlots()}
      * </p>
      *
-     * @return The items displayed by this GUI.
      */
-    public abstract List<ItemStack> getItems();
+    public final void setItems(@NonNull ArrayList<ItemStack> items) {
+        this.items = items;
+    }
 
     /**
      * Gets the total number of pages available.

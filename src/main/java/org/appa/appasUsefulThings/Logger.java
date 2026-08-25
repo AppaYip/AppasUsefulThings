@@ -1,5 +1,6 @@
 package org.appa.appasUsefulThings;
 
+import lombok.NonNull;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -38,17 +39,17 @@ public class Logger {
         private LogLevel logLevel = LogLevel.INFO;
         private Component prefix;
 
-        public Builder setPrefix(@NotNull Component prefix) {
+        public @NotNull Builder setPrefix(@NonNull Component prefix) {
             this.prefix = prefix;
             return this;
         }
 
-        public Builder setDefaultLogLevel(@NotNull LogLevel logLevel) {
+        public @NotNull Builder setDefaultLogLevel(@NonNull LogLevel logLevel) {
             this.logLevel = logLevel;
             return this;
         }
 
-        public Logger build(@NotNull JavaPlugin plugin) {
+        public @NotNull Logger build(@NonNull JavaPlugin plugin) {
             this.plugin = plugin;
             return new Logger(this);
         }
@@ -59,7 +60,7 @@ public class Logger {
      * Logs a message using the default log level.
      * @param message The message to send to console.
      */
-    public void log(@NotNull String message) {
+    public void log(@NonNull String message) {
         log(Component.text(message));
     }
 
@@ -67,7 +68,7 @@ public class Logger {
      * Logs a message using the default log level.
      * @param message The message to send to console.
      */
-    public void log(@NotNull Component message) {
+    public void log(@NonNull Component message) {
         log(this.logLevel, message);
     }
 
@@ -76,27 +77,8 @@ public class Logger {
      * @param level The level to log at.
      * @param message The message to send to console.
      */
-    public void log(@NotNull LogLevel level, @NotNull String message) {
+    public void log(@NonNull LogLevel level, @NonNull String message) {
         log(level, Component.text(message));
-    }
-
-    /**
-     * Logs a message using a specific color.
-     * @param message The message to send to console.
-     * @param color The color to use for the message.
-     */
-    public void log(@NotNull String message, @NotNull TextColor color) {
-        log(this.logLevel, Component.text(message).color(color));
-    }
-
-    /**
-     * Logs a message to console using a specific log level and color.
-     * @param logLevel The log level to log at.
-     * @param message The message to send to console.
-     * @param color The color to use for the message.
-     */
-    public void log(@NotNull LogLevel logLevel, @NotNull String message, @NotNull TextColor color) {
-        log(logLevel, Component.text(message).color(color));
     }
 
     /**
@@ -104,7 +86,7 @@ public class Logger {
      * @param logLevel The log level to log at.
      * @param message The message to send to console.
      */
-    public void log(@NotNull LogLevel logLevel, @NotNull Component message) {
+    public void log(@NonNull LogLevel logLevel, @NonNull Component message) {
         Component full = Component.empty()
                 .append(prefix)
                 .append(Component.space())
