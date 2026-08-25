@@ -1,13 +1,14 @@
 package org.appa.appasUsefulThings.cooldownManager;
 
+import lombok.NonNull;
 import org.bukkit.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-@NullMarked
 @SuppressWarnings("unused")
 public class CooldownManager {
     private final HashMap<UUID, Long> cooldowns = new HashMap<>();
@@ -16,9 +17,9 @@ public class CooldownManager {
      * Sets a player cooldown
      * @param entity The entity
      * @param duration The duration in milliseconds.
-     * Use TimeUnit for easy conversion
+     * Use {@link TimeUnit} for easy conversion
      */
-    public void setCooldown(Entity entity, long duration) {
+    public void setCooldown(@NonNull Entity entity, long duration) {
         long expiresAt = System.currentTimeMillis() + duration;
         cooldowns.put(entity.getUniqueId(), expiresAt);
     }
@@ -27,7 +28,7 @@ public class CooldownManager {
      * Clears a cooldown
      * @param entity The entity
      */
-    public void clearCooldown(Entity entity) {
+    public void clearCooldown(@NonNull Entity entity) {
         cooldowns.remove(entity.getUniqueId());
     }
 
@@ -36,7 +37,7 @@ public class CooldownManager {
      * @param entity The entity
      * @return True if the cooldown is over
      */
-    public boolean isOver(Entity entity) {
+    public boolean isOver(@NonNull Entity entity) {
         Long expiresAt = cooldowns.get(entity.getUniqueId());
         if (expiresAt == null) return true;
 
@@ -52,25 +53,17 @@ public class CooldownManager {
      * @param entity The entity
      * @return The duration left in milliseconds
      */
-    public long getRemainingMillis(Entity entity) {
+    public long getRemainingMillis(@NonNull Entity entity) {
         Long expiresAt = cooldowns.get(entity.getUniqueId());
         if (expiresAt == null) return 0;
         return Math.max(0, expiresAt - System.currentTimeMillis());
     }
 
     /**
-     * Gets the remaining time but in seconds
-     * This is just a wrapper to make it easy
-     * @param entity The entity
-     * @return String, ex: "10"
+     * Converts ticks to milliseconds.
+     * @param ticks The number of ticks.
+     * @return The number of milliseconds in ticks.
      */
-    public String getRemainingSeconds(Entity entity) {
-        long millis = getRemainingMillis(entity);
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
-        return String.valueOf(seconds);
-    }
-
-    // 1 tick = 50ms
     public long ticksToMillis(long ticks) {
         return ticks*50L;
     }
