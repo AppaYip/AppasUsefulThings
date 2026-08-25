@@ -102,4 +102,44 @@ public class GuiManager implements Listener {
     public boolean isOpen(Player player) {
         return openGuis.containsKey(player.getUniqueId());
     }
+
+    /* Events */
+
+    @EventHandler
+    private void onInventoryOpen(InventoryOpenEvent event) {
+        if (!(event.getPlayer() instanceof Player player)) return;
+
+        if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
+            gui.onOpen(event);
+        }
+    }
+
+    @EventHandler
+    private void onInventoryClose(InventoryCloseEvent event) {
+        if (!(event.getPlayer() instanceof Player player)) return;
+        if (event.getReason() == InventoryCloseEvent.Reason.OPEN_NEW) return;
+
+        if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
+            gui.onClose(event);
+            openGuis.remove(player.getUniqueId());
+        }
+    }
+
+    @EventHandler
+    private void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+
+        if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
+            gui.onInventoryClick(event);
+        }
+    }
+
+    @EventHandler
+    private void onInventoryDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+
+        if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
+            gui.onInventoryDrag(event);
+        }
+    }
 }
