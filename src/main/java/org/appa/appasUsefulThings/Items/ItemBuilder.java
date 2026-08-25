@@ -17,7 +17,7 @@ import java.util.*;
  * A builder to make creating items simple. Methods have Javadocs, however they should be self-explanatory.
  */
 @NullMarked
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnstableApiUsage"})
 public class ItemBuilder {
     private final Material material;
 
