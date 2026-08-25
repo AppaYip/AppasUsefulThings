@@ -126,8 +126,8 @@ public class GuiManager implements Listener {
 
         if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
             gui.onClose(event);
-            openGuis.remove(player.getUniqueId());
         }
+        openGuis.remove(player.getUniqueId());
     }
 
     @EventHandler
