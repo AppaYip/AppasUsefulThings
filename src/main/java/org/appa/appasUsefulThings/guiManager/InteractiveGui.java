@@ -6,12 +6,17 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
 /**
- * Events from this interface are bound to the specific gui. You do not need to check for your gui.
+ * Handles inventory events for a GUI.
+ *
+ * <p>Events passed to this interface are already bound to the GUI instance.
+ * Implementations do not need to check whether an event belongs to their gui.</p>
+ *
+ * Implementing this interface on a class that **does not** extend {@link Gui} has no effect.
  */
 @SuppressWarnings("unused")
-public abstract class InteractiveGui extends Gui {
-    public abstract void onOpen(InventoryOpenEvent event);
-    public abstract void onClose(InventoryCloseEvent event);
-    public abstract void onInventoryClick(InventoryClickEvent event);
-    public abstract void onInventoryDrag(InventoryDragEvent event);
+public interface InteractiveGui {
+    default void onOpen(InventoryOpenEvent event) {}
+    default void onClose(InventoryCloseEvent event) {}
+    default void onInventoryClick(InventoryClickEvent event) {}
+    default void onInventoryDrag(InventoryDragEvent event) {}
 }
