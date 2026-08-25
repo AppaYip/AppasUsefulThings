@@ -1,10 +1,10 @@
 package org.appa.appasUsefulThings.cooldownManager;
 
-import org.jspecify.annotations.NullMarked;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 
-@NullMarked
 @SuppressWarnings("unused")
 public class TimeFormatter {
 
@@ -45,7 +45,7 @@ public class TimeFormatter {
      * @param format the preset to use
      * @return pretty string. "2 minutes, 6 seconds, 1 second"
      */
-    public static String format(long millis, Format format) {
+    public static @NotNull String format(long millis, @NonNull Format format) {
         return format(millis, format.labels, format.separator);
     }
 
@@ -56,7 +56,7 @@ public class TimeFormatter {
      * @param separator the string placed in between each unit.
      * @return pretty string. ex: "2 minutes, 6 seconds, 1 second"
      */
-    public static String format(long millis, Labels labels, String separator) {
+    public static @NotNull String format(long millis, @NonNull Labels labels, @NonNull String separator) {
         if (millis < 0) {
             millis = 0;
         }
