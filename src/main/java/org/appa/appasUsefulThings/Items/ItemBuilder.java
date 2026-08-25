@@ -230,7 +230,7 @@ public class ItemBuilder {
         ItemMeta itemMeta = item.getItemMeta();
 
         // Main things
-        if (this.name.equals(Component.empty())) itemMeta.displayName(this.name);
+        if (!this.name.equals(Component.empty())) itemMeta.displayName(this.name);
 
         item.setAmount(this.amount);
         if (!this.lore.isEmpty()) itemMeta.lore(this.lore);
