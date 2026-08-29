@@ -251,7 +251,7 @@ public class ItemBuilder {
                 return this;
             }
 
-            public ModelData color(Color... color) {
+            public ModelData colors(Color... color) {
                 this.customModelDataColors.addAll(Arrays.asList(color));
                 return this;
             }
