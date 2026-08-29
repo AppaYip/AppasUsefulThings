@@ -14,7 +14,7 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
  * Implementing this interface on a class that **does not** extend {@link Gui} has no effect.
  */
 @SuppressWarnings("unused")
-public interface InteractiveGui {
+public interface InteractiveGui extends Gui {
     default void onOpen(InventoryOpenEvent event) {}
     default void onClose(InventoryCloseEvent event) {}
     default void onInventoryClick(InventoryClickEvent event) {}

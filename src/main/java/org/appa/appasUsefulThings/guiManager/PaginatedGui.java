@@ -4,7 +4,6 @@ import lombok.NonNull;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,9 +15,9 @@ import java.util.List;
  * The items are placed into the content slots in order.</p>
  */
 @SuppressWarnings("unused")
-public abstract class PaginatedGui extends Gui {
+public abstract class PaginatedGui implements Gui {
     private int currentPage;
-    private int[] slots;
+    private int[] contentSlots;
     private List<ItemStack> items;
 
     /**
@@ -30,28 +29,22 @@ public abstract class PaginatedGui extends Gui {
 
     /**
      * Sets the inventory slots used for page content.
-     *
-     * <p>Items are placed into these slots in the order they are returned.
+     * <p></p>
+     * Items are placed into these slots in the order they are returned.
      * The number of slots determines how many items can be displayed on each page.
-     * </p>
      */
-    public final void setContentSlots(int[] slots) {
-        this.slots = slots;
+    protected final void setContentSlots(int[] slots) {
+        this.contentSlots = slots.clone();
     }
 
     /**
      * @return The slots used for page contents.
      */
     public final int[] getContentSlots() {
-        return this.slots;
+        return this.contentSlots;
     }
 
-    /**
-     *  @return The items displayed by this GUI.
-     */
-    public final @NotNull List<ItemStack> getItems() {
-        return this.items;
-    }
+
 
     /**
      * Sets the items displayed across pages of this GUI.
@@ -60,10 +53,19 @@ public abstract class PaginatedGui extends Gui {
      * The number of items that can be displayed on each page is determined by {@link #getContentSlots()}
      * </p>
      *
+     * @param items The List of items. This list will be copied.
      */
-    public final void setItems(@NonNull ArrayList<ItemStack> items) {
-        this.items = items;
+    protected final void setItems(@NonNull List<ItemStack> items) {
+        this.items = List.copyOf(items);
     }
+
+    /**
+     * @return The items displayed by this GUI.
+     */
+    public final @NotNull List<ItemStack> getItems() {
+        return this.items;
+    }
+
 
     /**
      * Gets the total number of pages available.
