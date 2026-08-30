@@ -29,7 +29,7 @@ public final class LanguageManager {
     private static final String DEFAULT_INVALID_KEY = "<red>Invalid Key <grey>'<white><key><grey>'";
     private static final String INVALID_KEY_PATH = "errors.invalid_key";
 
-    private YamlConfiguration yamlFile;
+    private YamlConfiguration configuration;
     private final MiniMessage miniMessage;
     private final Path filePath;
 
@@ -59,7 +59,7 @@ public final class LanguageManager {
             YamlConfiguration configuration = new YamlConfiguration();
             configuration.load(filePath.toFile());
 
-            this.yamlFile = configuration;
+            this.configuration = configuration;
         } catch (IOException | InvalidConfigurationException exception) {
             throw new IllegalStateException(
                     "Failed to load language file: " + filePath, exception
@@ -75,14 +75,14 @@ public final class LanguageManager {
      * @return The value in the file from the key.
      */
     public @NotNull Component get(@NonNull String key, @NonNull TagResolver... resolvers) {
-        String value = yamlFile.getString(key);
+        String value = configuration.getString(key);
 
         if (value != null) {
             return miniMessage.deserialize(value, resolvers);
         }
 
         if (!key.equals(INVALID_KEY_PATH)) {
-            String error = yamlFile.getString(INVALID_KEY_PATH);
+            String error = configuration.getString(INVALID_KEY_PATH);
 
             if (error != null) {
                 return miniMessage.deserialize(
@@ -92,7 +92,7 @@ public final class LanguageManager {
             }
         }
 
-        return miniMessage.deserialize(DEFAULT_INVALID_KEY);
+        return miniMessage.deserialize(DEFAULT_INVALID_KEY, Placeholder.unparsed("key", key));
     }
 
     /**
