@@ -10,8 +10,6 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
  *
  * <p>Events passed to this interface are already bound to the GUI instance.
  * Implementations do not need to check whether an event belongs to their gui.</p>
- *
- * Implementing this interface on a class that **does not** extend {@link Gui} has no effect.
  */
 @SuppressWarnings("unused")
 public interface InteractiveGui extends Gui {
