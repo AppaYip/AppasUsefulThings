@@ -34,8 +34,10 @@ public class EventListeners implements Listener {
 
         if (event.getAction().isRightClick()) {
             type = PowerToolEventType.RIGHT;
-        } else{
+        } else if (event.getAction().isLeftClick()) {
             type = PowerToolEventType.LEFT;
+        } else {
+            return;
         }
 
         boolean cancel = this.betterPowerTools.dispatch(
