@@ -16,9 +16,9 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public abstract class PaginatedGui implements Gui {
-    private int currentPage;
-    private int[] contentSlots;
-    private List<ItemStack> items;
+    private int currentPage = 0;
+    private int[] contentSlots = new int[0];
+    private List<ItemStack> items = List.of();
 
     /**
      * @return The index of the currently selected page.
@@ -41,7 +41,7 @@ public abstract class PaginatedGui implements Gui {
      * @return The slots used for page contents.
      */
     public final int[] getContentSlots() {
-        return this.contentSlots;
+        return this.contentSlots.clone();
     }
 
 
