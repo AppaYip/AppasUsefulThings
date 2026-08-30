@@ -38,8 +38,8 @@ public class PowerToolItemStorage {
     }
 
     /**
-     * @param itemStack The itemstack.
-     * @return whether the itemstack ahs a callback id.
+     * @param itemStack The ItemStack.
+     * @return whether the ItemStack ahs a callback id.
      */
     public boolean hasId(ItemStack itemStack) {
         return itemStack.getPersistentDataContainer().has(key, PersistentDataType.STRING);
