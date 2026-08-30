@@ -21,7 +21,7 @@ import java.nio.file.Path;
  * This allows you to use <a href="https://docs.papermc.io/adventure/minimessage/format/">MiniMessages</a> directly in the file.
  * <p>
  * Note: Bukkit's {@link YamlConfiguration} api **is** blocking and will stall the main thread.
- * Using methods such as {@link reload} will stall the main thread for now.
+ * Using methods such as {@link LanguageManager#reload()} will stall the main thread for now.
  * This will *hopefully* change in a future update.
  */
 @SuppressWarnings("unused")
