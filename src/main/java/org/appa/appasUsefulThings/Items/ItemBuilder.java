@@ -29,8 +29,12 @@ public class ItemBuilder {
      * @param material The material of the item.
      * @param consumer The item configuration.
      * @return the built item.
+     * @throws IllegalArgumentException if material is not an item.
      */
     public static ItemStack of(@NonNull Material material, @NonNull Consumer<Item> consumer) {
+        if (!material.isItem())
+            throw new IllegalArgumentException("Material %s cannot be used as an ItemStack.".formatted(material));
+
         return new Item(material)
                 .apply(consumer)
                 .build();
@@ -85,8 +89,12 @@ public class ItemBuilder {
         /**
          * Sets the count of the item.
          * @param amount The amount of the item.
+         * @throws IllegalArgumentException if amount is less than one.
          */
         public Item amount(int amount) {
+            if (amount < 1)
+                throw new IllegalArgumentException("Amount must be at least 1");
+
             this.amount = amount;
             return this;
         }
@@ -139,9 +147,13 @@ public class ItemBuilder {
 
         /**
          * Sets the damage to the item.
+         *
          * @param damage The amount of damage.
+         * @throws IllegalArgumentException if damage is < 0.
          */
         public Item damage(int damage) {
+            if  (damage < 0)
+                throw new IllegalArgumentException("Damage must be at least 0");
             this.damage = damage;
             return this;
         }
@@ -181,6 +193,10 @@ public class ItemBuilder {
         private void applyBasicAppearance(@NonNull ItemMeta meta) {
             if (this.appearance.itemFlags.length > 0) {
                 meta.addItemFlags(this.appearance.itemFlags);
+            }
+
+            if (!this.appearance.modelData.hasData()) {
+                return;
             }
 
             CustomModelDataComponent customModelData =
@@ -236,22 +252,29 @@ public class ItemBuilder {
             private final List<String> customModelDataStrings = new ArrayList<>();
             private final List<Color> customModelDataColors = new ArrayList<>();
 
-            public ModelData floats(Float... floats) {
+            private boolean hasData() {
+                return !customModelDataFloats.isEmpty()
+                        || !customModelDataFlags.isEmpty()
+                        || !customModelDataStrings.isEmpty()
+                        || !customModelDataColors.isEmpty();
+            }
+
+            public ModelData floats(@NonNull Float... floats) {
                 this.customModelDataFloats.addAll(Arrays.asList(floats));
                 return this;
             }
 
-            public ModelData flags(Boolean... flags) {
+            public ModelData flags(@NonNull Boolean... flags) {
                 this.customModelDataFlags.addAll(Arrays.asList(flags));
                 return this;
             }
 
-            public ModelData strings(String... strings) {
+            public ModelData strings(@NonNull String... strings) {
                 this.customModelDataStrings.addAll(Arrays.asList(strings));
                 return this;
             }
 
-            public ModelData colors(Color... color) {
+            public ModelData colors(@NonNull Color... color) {
                 this.customModelDataColors.addAll(Arrays.asList(color));
                 return this;
             }
