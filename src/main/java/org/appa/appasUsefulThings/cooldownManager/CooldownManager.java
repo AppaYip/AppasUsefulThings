@@ -56,7 +56,7 @@ public class CooldownManager {
      * If no cooldown is present, this will return true.
      *
      * @param entity The entity.
-     * @return Whether the cooldown of an entity is over.
+     * @return true if the entity currently has an active cooldown.
      */
     public boolean isOnCooldown(@NonNull Entity entity) {
         UUID uuid = entity.getUniqueId();
