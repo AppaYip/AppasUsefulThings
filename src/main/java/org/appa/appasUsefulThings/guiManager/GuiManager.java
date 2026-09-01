@@ -1,5 +1,7 @@
 package org.appa.appasUsefulThings.guiManager;
 
+import lombok.NonNull;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,7 +10,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
-import org.jspecify.annotations.NullMarked;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +20,6 @@ import java.util.UUID;
  * This class allows for registering a gui, opening/closing a gui, and many more things.
  * Each method has Javadocs, and it is encouraged that you read them.
  */
-@NullMarked
 @SuppressWarnings("unused")
 public class GuiManager implements Listener {
     private final Map<String, Gui> guis = new HashMap<>();
@@ -27,7 +28,7 @@ public class GuiManager implements Listener {
      * Registers a gui. See {@link Gui} for more information.
      * @param gui The gui
      */
-    public void registerGui(Gui gui) {
+    public void registerGui(@NonNull Gui gui) {
         registerGui(gui, false);
     }
 
@@ -35,7 +36,7 @@ public class GuiManager implements Listener {
      * Registers a gui. See {@link Gui} for more information.
      * @param overwrite Whether to override an already existing gui.
      */
-    public void registerGui(Gui gui, boolean overwrite) {
+    public void registerGui(@NonNull Gui gui, boolean overwrite) {
         if (overwrite) {
             guis.put(gui.getId(), gui);
             return;
@@ -63,11 +64,21 @@ public class GuiManager implements Listener {
      * @param player The player
      * @param gui An instance of a {@link Gui}
      */
-    public void open(Player player, Gui gui) {
+    public void open(@NonNull Player player, @NonNull Gui gui) {
         Inventory inventory = gui.getInventory();
 
+        // Paper sucks. Why can't I get the title of an inventory using its object without using bukkit internals.
+        Inventory clone = Bukkit.createInventory(null, inventory.getSize(), gui.getTitle());
+
+        ItemStack[] content = inventory.getContents();
+        for (int i = 0; i < content.length; i++) {
+            ItemStack item = content[i];
+            if (item == null) continue;
+            clone.setItem(i, item.clone());
+        }
+
+        player.openInventory(clone);
         openGuis.put(player.getUniqueId(), gui);
-        player.openInventory(inventory);
     }
 
     /**
@@ -75,7 +86,7 @@ public class GuiManager implements Listener {
      * @param player The player
      * @param guiId The id of a {@link Gui}
      */
-    public void open(Player player, String guiId) {
+    public void open(@NonNull Player player, @NonNull String guiId) {
         Gui gui = guis.get(guiId);
         if (gui == null) {
             throw new IllegalStateException(
