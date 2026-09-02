@@ -1,12 +1,12 @@
 package org.appa.appasUsefulThings.cooldownManager;
 
 import lombok.NonNull;
-import org.bukkit.entity.Entity;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This class is a helper that provides utility for storing and tracking cooldowns for entities.
@@ -16,90 +16,59 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("unused")
 public class CooldownManager {
-    private final Map<UUID, Long> cooldowns = new HashMap<>();
+    private final Map<CooldownKey, Long> cooldowns = new HashMap<>();
+    private final Map<String, Cooldown> handles = new HashMap<>();
+
 
     /**
-     * Sets the cooldown of an entity.
-     * @param entity The entity.
-     * @param duration The duration of the cooldown.
-     * @param unit The {@link TimeUnit} for the cooldown.
-     */
-    public void setCooldown(@NonNull Entity entity, long duration, @NonNull TimeUnit unit) {
-        setCooldown(entity, unit.toMillis(duration));
-    }
-
-    /**
-     * Sets the cooldown of an entity.
-     * @param entity The entity.
-     * @param duration The duration in milliseconds.
-     * @throws IllegalArgumentException if the duration is negative.
-     * Use {@link TimeUnit} for easy conversion.
-     */
-    public void setCooldown(@NonNull Entity entity, long duration) {
-        if (duration < 0) throw new IllegalArgumentException("Cooldown duration cannot be negative");
-        if (duration == 0) return; // We don't need to care about 0 duration cooldowns.
-
-        cooldowns.put(entity.getUniqueId(), System.currentTimeMillis() + duration);
-    }
-
-    /**
-     * Clears an entity's cooldown.
+     * Gets a named cooldown.
      *
-     * @param entity The entity.
+     * <p>Calls with the same ID will return the same cooldown handle.</p>
+     *
+     * @param id The unique cooldown ID.
+     * @return The cooldown handle.
      */
-    public void clearCooldown(@NonNull Entity entity) {
-        cooldowns.remove(entity.getUniqueId());
+    public @NotNull Cooldown cooldown(@NonNull String id ) {
+        if (id.isBlank())
+            throw new IllegalArgumentException("Cooldown ID cannot be blank");
+
+        return handles.computeIfAbsent(id, key -> new Cooldown(this, key));
     }
 
     /**
-     * Checks if an entity's cooldown is over.
-     * If no cooldown is present, this will return true.
+     * Sets the expiration time for an entity's cooldown.
      *
-     * @param entity The entity.
-     * @return true if the entity currently has an active cooldown.
+     * @param id The cooldown ID.
+     * @param uuid The entity UUID.
+     * @param expiresAt The expiration time in ms.
      */
-    public boolean isOnCooldown(@NonNull Entity entity) {
-        UUID uuid = entity.getUniqueId();
-        Long expiresAt = cooldowns.get(uuid);
-
-       if (expiresAt == null) return false;
-
-       if (System.currentTimeMillis() >= expiresAt) {
-            cooldowns.remove(uuid);
-            return false;
-        }
-
-        return true;
+    void set(@NonNull String id, @NonNull UUID uuid, long expiresAt) {
+        cooldowns.put(new CooldownKey(id, uuid), expiresAt);
     }
 
     /**
-     * Gets the remaining time left on the cooldown.
+     * Gets the expiration time for an entity's cooldown.
      *
-     * @param entity The entity
-     * @return Remaining time in milliseconds, or 0 if no cooldown is active.
+     * @param id The cooldown ID.
+     * @param uuid The entity UUID.
+     * @return The expiration time, or {@code null} if no cooldown exists.
      */
-    public long getRemainingMillis(@NonNull Entity entity) {
-        UUID uuid = entity.getUniqueId();
-        Long expiresAt = cooldowns.get(uuid);
-        if (expiresAt == null) return 0;
-
-        long remaining = expiresAt - System.currentTimeMillis();
-
-        if (remaining <= 0) {
-            cooldowns.remove(uuid);
-            return 0;
-        }
-
-        return remaining;
+    @Nullable Long get(@NonNull String id, @NonNull UUID uuid) {
+       return cooldowns.get(new CooldownKey(id, uuid));
     }
 
     /**
-     * Converts Minecraft ticks to milliseconds.
+     * Removes an entity's cooldown
      *
-     * @param ticks The number of ticks.
-     * @return The milliseconds in ticks.
+     * @param id The down ID.
+     * @param uuid The entity UUID.
      */
-    public static long ticksToMillis(long ticks) {
-        return ticks * 50L;
+    void remove(@NonNull String id,  @NonNull UUID uuid) {
+        cooldowns.remove(new CooldownKey(id, uuid));
     }
+
+    private record CooldownKey (
+        @NonNull String id,
+        @NonNull UUID uuid
+    ) {}
 }
