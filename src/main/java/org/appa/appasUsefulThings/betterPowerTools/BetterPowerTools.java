@@ -18,10 +18,12 @@ import java.util.Optional;
  * through their respective getter methods.</p>
  */
 @SuppressWarnings("unused")
-public abstract class BetterPowerTools {
+public class BetterPowerTools {
     @Getter private final PowerToolRegistry powerToolRegistry;
     @Getter private final PowerToolItemStorage itemStorage;
     @Getter private final PlayerSettingsManager playerSettingsManager;
+
+
 
     public BetterPowerTools(JavaPlugin plugin) {
         this.powerToolRegistry = new PowerToolRegistry();
