@@ -27,8 +27,6 @@ public class Cooldown {
         this.id = id;
     }
 
-
-
     /**
      * Sets the cooldown of an entity.
      *
@@ -55,13 +53,9 @@ public class Cooldown {
 
         UUID uuid = entity.getUniqueId();
 
-        if (duration == 0) {
-            cooldownManager.remove(id, uuid);
-        }
+        if (duration == 0) cooldownManager.remove(id, uuid);
 
-        long expiresAt = System.currentTimeMillis() + duration;
-
-        cooldownManager.set(id, uuid, expiresAt);
+        cooldownManager.set(id, uuid, System.currentTimeMillis() + duration);
     }
 
     /**
