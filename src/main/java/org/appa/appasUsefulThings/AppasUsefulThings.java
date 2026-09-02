@@ -1,13 +1,12 @@
 package org.appa.appasUsefulThings;
 
-import lombok.Getter;
 import lombok.NonNull;
 import org.appa.appasUsefulThings.guiManager.GuiManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AppasUsefulThings {
-    @Getter private static JavaPlugin plugin;
+    private static JavaPlugin plugin;
     private static GuiManager guiManager;
 
     public AppasUsefulThings(@NonNull JavaPlugin plugin) {
@@ -22,7 +21,7 @@ public final class AppasUsefulThings {
     public static GuiManager getGuiManager() {
         if (guiManager == null) {
             guiManager = new GuiManager();
-            Bukkit.getPluginManager().registerEvents(guiManager, plugin);
+            Bukkit.getPluginManager().registerEvents(guiManager, AppasUsefulThings.plugin);
         }
 
         return guiManager;

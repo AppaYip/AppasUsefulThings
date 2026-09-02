@@ -1,7 +1,6 @@
 package org.appa.appasUsefulThings.betterPowerTools;
 
 import lombok.Getter;
-import org.appa.appasUsefulThings.AppasUsefulThings;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,8 +23,7 @@ public abstract class BetterPowerTools {
     @Getter private final PowerToolItemStorage itemStorage;
     @Getter private final PlayerSettingsManager playerSettingsManager;
 
-    public BetterPowerTools() {
-        JavaPlugin plugin = AppasUsefulThings.getPlugin();
+    public BetterPowerTools(JavaPlugin plugin) {
         this.powerToolRegistry = new PowerToolRegistry();
         this.itemStorage = new PowerToolItemStorage(plugin);
         this.playerSettingsManager = new PlayerSettingsManager(plugin);
