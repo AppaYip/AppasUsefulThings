@@ -18,9 +18,9 @@ import java.util.function.Consumer;
  * A builder to make creating items simple. Methods have Javadocs, however they should be self-explanatory.
  */
 @SuppressWarnings({"UnstableApiUsage", "unused"})
-public class ItemBuilder {
+public abstract class ItemBuilder {
     private ItemBuilder() {
-        // Utility Class
+        // Utility Class.
     }
 
     /**

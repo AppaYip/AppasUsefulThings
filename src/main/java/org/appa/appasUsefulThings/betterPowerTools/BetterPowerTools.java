@@ -1,9 +1,11 @@
 package org.appa.appasUsefulThings.betterPowerTools;
 
 import lombok.Getter;
+import org.appa.appasUsefulThings.AppasUsefulThings;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Optional;
 
@@ -23,8 +25,14 @@ public class BetterPowerTools {
     @Getter private final PowerToolItemStorage itemStorage;
     @Getter private final PlayerSettingsManager playerSettingsManager;
 
-
-
+    /**
+     * Gets an instance of BetterPowerTools.
+     * This is internal and should not be called by another plugin.
+     * If you want an instance, use {@link AppasUsefulThings#getBetterPowerTools()}.
+     *
+     * @param plugin An instance of a JavaPlugin.
+     */
+    @ApiStatus.Internal
     public BetterPowerTools(JavaPlugin plugin) {
         this.powerToolRegistry = new PowerToolRegistry();
         this.itemStorage = new PowerToolItemStorage(plugin);

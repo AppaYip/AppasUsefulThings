@@ -1,6 +1,7 @@
 package org.appa.appasUsefulThings.guiManager;
 
 import lombok.NonNull;
+import org.appa.appasUsefulThings.AppasUsefulThings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +26,16 @@ import java.util.UUID;
 public class GuiManager implements Listener {
     private final Map<String, Gui> guis = new HashMap<>();
     private final Map<UUID, Gui> openGuis = new HashMap<>();
+
+    /**
+     * This class should not be instantized by another plugin.
+     * This is meant for internal usage only.
+     *
+     * <p>If you are trying to use the gui manager, see {@link AppasUsefulThings#getGuiManager()}.</p>
+     */
+    @ApiStatus.Internal
+    public GuiManager() {}
+
     /**
      * Registers a gui. See {@link Gui} for more information.
      * @param gui The gui
