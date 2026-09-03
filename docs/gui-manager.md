@@ -1,6 +1,7 @@
 # GuiManager
 
 An interface-based GUI system that handles inventory event routing per player automatically.
+GUI inventories and all items are cloned when opened to a player. 
 
 ## Setup
 
@@ -69,6 +70,13 @@ public class ExampleGui implements GuiInteractions {
 }
 ```
 
+### PaginatedGui
+
+`PaginatedGui` is an abstract class for GUIs. It provides utility methods to make managing multi-paged GUIs.
+All of this is still untested and in early development. None of the code is tested, expect bugs, syntax changes, and other things.
+
+Code ex coming soon:tm:
+
 ## Registering
 
 Registering a GUI allows it to be opened by ID or optionally an instance of it. 
@@ -80,7 +88,7 @@ Events are automatically routed to the correct GUI instance.
 
 ```java
 AppasUsefulThings.getGuiManager().registerGui(new ExampleGui());
-AppasUsefulThings.getGuiManager().registerGui(new ExampleGui(), true); // Overrides gui
+AppasUsefulThings.getGuiManager().registerGui(new ExampleGui(), true); // Overrides gui, does not throw.
 ```
 
 ## Opening

@@ -13,6 +13,9 @@ import java.util.List;
  *
  * <p>Subclasses are responsible for providing the inventory content slots and items to display.
  * The items are placed into the content slots in order.</p>
+ *
+ * <p>This class is in early development. Expect bugs, method rewrites, etc.
+ * **None** of this code has been tested.</p>
  */
 @SuppressWarnings("unused")
 public abstract class PaginatedGui implements Gui {
