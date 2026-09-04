@@ -59,7 +59,48 @@ public class Cooldown {
     }
 
     /**
-     * Clears an entity's cooldown.
+     * Attempts to set a cooldown for the entity.
+     *
+     * <p>If the entity already has an active cooldown, no changes are made
+     * and this method returns {@code false}.</p>
+     *
+     * @param entity The entity.
+     * @param duration The duration in milliseconds.
+     * @return {@code true} if the cooldown was set; {@code false} if the
+     *          entity already has an active cooldown.
+     */
+    public boolean trySet(@NonNull Entity entity, long duration) {
+        if (this.isActive(entity)) {
+            return false;
+        }
+
+        this.setCooldown(entity, duration);
+        return true;
+    }
+
+    /**
+     * Attempts to set a cooldown for the entity.
+     *
+     * <p>If the entity already has an active cooldown, no changes are made
+     * and this method returns {@code false}.</p>
+     *
+     * @param entity The entity.
+     * @param duration The duration.
+     * @param unit The {@link TimeUnit} for the cooldown.
+     * @return {@code true} if the cooldown was set; {@code false} if the
+     *          entity already has an active cooldown.
+     */
+    public boolean trySet(@NonNull Entity entity, long duration, TimeUnit unit) {
+        if (this.isActive(entity)) {
+            return false;
+        }
+
+        this.setCooldown(entity, duration, unit);
+        return true;
+    }
+
+    /**
+     * Checks if an entity's cooldown is active.
      *
      * @param entity The entity.
      */
