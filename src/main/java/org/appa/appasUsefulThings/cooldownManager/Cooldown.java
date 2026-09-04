@@ -35,7 +35,7 @@ public class Cooldown {
      * @param unit The {@link TimeUnit} for the cooldown.
      */
     public void setCooldown(@NonNull Entity entity, long duration, @NonNull TimeUnit unit) {
-        cooldownManager.set(this.id, entity.getUniqueId(), unit.toMillis(duration));
+        setCooldown(entity, unit.toMillis(duration));
     }
 
     /**
@@ -53,7 +53,10 @@ public class Cooldown {
 
         UUID uuid = entity.getUniqueId();
 
-        if (duration == 0) cooldownManager.remove(id, uuid);
+        if (duration == 0) {
+            cooldownManager.remove(id, uuid);
+            return;
+        }
 
         cooldownManager.set(id, uuid, System.currentTimeMillis() + duration);
     }
@@ -90,7 +93,7 @@ public class Cooldown {
      * @return {@code true} if the cooldown was set; {@code false} if the
      *          entity already has an active cooldown.
      */
-    public boolean trySet(@NonNull Entity entity, long duration, TimeUnit unit) {
+    public boolean trySet(@NonNull Entity entity, long duration, @NonNull TimeUnit unit) {
         if (this.isActive(entity)) {
             return false;
         }
