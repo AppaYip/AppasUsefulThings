@@ -39,7 +39,7 @@ public final class AppasUsefulThings {
      *
      * @return An instance of {@link GuiManager}.
      */
-    public static @NotNull  GuiManager getGuiManager() {
+    public static @NotNull GuiManager getGuiManager() {
         ensureInit();
 
         if (guiManager == null) {
