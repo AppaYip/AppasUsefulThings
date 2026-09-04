@@ -1,10 +1,11 @@
 package org.appa.appasUsefulThings.betterPowerTools;
 
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.Getter;
+import org.appa.appasUsefulThings.AppasUsefulThings;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Optional;
 
@@ -24,79 +25,152 @@ public class BetterPowerTools {
     @Getter private final PowerToolItemStorage itemStorage;
     @Getter private final PlayerSettingsManager playerSettingsManager;
 
-    private final JavaPlugin plugin;
-
+    /**
+     * Gets an instance of BetterPowerTools.
+     * This is internal and should not be called by another plugin.
+     * If you want an instance, use {@link AppasUsefulThings#getBetterPowerTools()}.
+     *
+     * @param plugin An instance of a JavaPlugin.
+     */
+    @ApiStatus.Internal
     public BetterPowerTools(JavaPlugin plugin) {
-        this.plugin = plugin;
         this.powerToolRegistry = new PowerToolRegistry();
         this.itemStorage = new PowerToolItemStorage(plugin);
         this.playerSettingsManager = new PlayerSettingsManager(plugin);
         new EventListeners(plugin, this);
     }
 
-    /* Config */
-
-    /**
-     * Whether to enable a debug command. TODO: Better docs.
-     */
-    public void enableCommand() {
-        this.plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands ->
-                commands.registrar().register(
-                        new BetterPowerToolsCommand(this).createCommand()
-                ));
-    }
 
     /* Player Settings */
 
+    /**
+     * Checks if the player has Better Power Tools enabled.
+     *
+     * @param player The player.
+     * @return Whether the play can use Power Tools.
+     */
     public boolean isEnabled(Player player) {
         return playerSettingsManager.isEnabled(player);
     }
 
+    /**
+     * Toggles the player's state for using Power Tools.
+     * If this returns false, power tool events **will not** fire for the player.
+     *
+     * @param player The player.
+     * @return Whether the player can use Power Tools.
+     */
     public boolean toggle(Player player) {
         return playerSettingsManager.toggle(player);
     }
 
-    public void setEnabled(Player player, boolean enabled) {
-        playerSettingsManager.setEnabled(player, enabled);
+    /**
+     * Sets the player's state for using Power Tools.
+     *
+     * @param player The player.
+     * @param state The state.
+     */
+    public void setEnabled(Player player, boolean state) {
+        playerSettingsManager.setEnabled(player, state);
     }
 
     /* ItemManager */
 
+    /**
+     * Binds an ItemStack to a PowerTool id.
+     * This will modify the inputted ItemStack.
+     *
+     * @param itemStack The ItemStack.
+     * @param id The id.
+     */
     public void bind(ItemStack itemStack, String id) {
         itemStorage.bindId(itemStack, id);
     }
 
+    /**
+     * Removes a PowerTool id from an ItemStack.
+     * This will modify the inputted ItemStack.
+     *
+     * @param itemStack The ItemStack.
+     */
     public void clear(ItemStack itemStack) {
         itemStorage.clearId(itemStack);
     }
 
+    /**
+     * Gets the PowerTool id from an ItemStack.
+     *
+     * @param itemStack The ItemStack.
+     * @return Items aren't guaranteed to have an id bound to them, so this returns an optional.
+     */
     public Optional<String> getId(ItemStack itemStack) {
         return itemStorage.getId(itemStack);
     }
 
+    /**
+     * Checks whether the provided ItemStack has a PowerTool id.
+     *
+     * @param itemStack The ItemStack.
+     * @return Whether the ItemStack has an id.
+     */
     public boolean hasPowerTool(ItemStack itemStack) {
         return itemStorage.hasId(itemStack);
     }
 
-    /* Power Tool Register */
+    /* PowerTool Register */
 
+    /**
+     * Registers a new PowerTool.
+     *
+     * @param id The id.
+     * @param tool The PowerTool Call Back.
+     * @throws IllegalStateException If there is an existing PowerTool registered under the id.
+     */
     public void register(String id, PowerTool tool) {
         powerToolRegistry.registerIfAbsent(id, tool);
     }
 
+    /**
+     * Unregisters a PowerTool.
+     *
+     * @param id The id.
+     */
     public void unregister(String id) {
         powerToolRegistry.unregister(id);
     }
 
+    /**
+     * Gets the PowerTools callback.
+     * This is mostly for internal usage.
+     *
+     * @param id The id.
+     * @return There is no guaranteed a callback will exist under the id, so we return an optional.
+     */
     public Optional<PowerTool> get(String id) {
         return powerToolRegistry.get(id);
     }
 
+    /**
+     * Checks if a PowerTool callback exists.
+     *
+     * @param id The id.
+     * @return Whether a PowerTool callback exists.
+     */
     public boolean exists(String id) {
         return powerToolRegistry.exists(id);
     }
 
     /* Event Handler */
+
+    /**
+     * This is mostly for Internal usage.
+     *
+     * @param player The player using the PowerTool.
+     * @param item The PowerTool.
+     * @param type The type of PowerTool.
+     * @param eventData Extra Data
+     * @return Whether the Bukkit event should be canceled.
+     */
     public <T> boolean dispatch (
             Player player,
             ItemStack item,

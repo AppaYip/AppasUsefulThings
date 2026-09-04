@@ -1,72 +1,74 @@
 package org.appa.appasUsefulThings.cooldownManager;
 
-import org.bukkit.entity.Entity;
-import org.jspecify.annotations.NullMarked;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
-@NullMarked
+/**
+ * This class is a helper that provides utility for storing and tracking cooldowns for entities.
+ * Cooldowns are per {@link CooldownManager} instance based.
+ * Methods do use {@link System#currentTimeMillis()} for tracking time.
+ * This means these methods **do not** take into account lag/server tps drops.
+ */
 @SuppressWarnings("unused")
 public class CooldownManager {
-    private final HashMap<UUID, Long> cooldowns = new HashMap<>();
+    private final Map<CooldownKey, Long> cooldowns = new HashMap<>();
+    private final Map<String, Cooldown> handles = new HashMap<>();
+
 
     /**
-     * Sets a player cooldown
-     * @param entity The entity
-     * @param duration The duration in milliseconds.
-     * Use TimeUnit for easy conversion
+     * Gets a named cooldown.
+     *
+     * <p>Calls with the same ID will return the same cooldown handle.</p>
+     *
+     * @param id The unique cooldown ID.
+     * @return The cooldown handle.
      */
-    public void setCooldown(Entity entity, long duration) {
-        long expiresAt = System.currentTimeMillis() + duration;
-        cooldowns.put(entity.getUniqueId(), expiresAt);
-    }
+    public @NotNull Cooldown cooldown(@NonNull String id ) {
+        if (id.isBlank())
+            throw new IllegalArgumentException("Cooldown ID cannot be blank");
 
-    /**
-     * Clears a cooldown
-     * @param entity The entity
-     */
-    public void clearCooldown(Entity entity) {
-        cooldowns.remove(entity.getUniqueId());
+        return handles.computeIfAbsent(id, key -> new Cooldown(this, key));
     }
 
     /**
-     * Returns a boolean based on the state of the cooldown
-     * @param entity The entity
-     * @return True if the cooldown is over
+     * Sets the expiration time for an entity's cooldown.
+     *
+     * @param id The cooldown ID.
+     * @param uuid The entity UUID.
+     * @param expiresAt The expiration time in ms.
      */
-    public boolean isOver(Entity entity) {
-        Long expiresAt = cooldowns.get(entity.getUniqueId());
-        if (expiresAt == null) return true;
-        return System.currentTimeMillis() >= expiresAt;
+    void set(@NonNull String id, @NonNull UUID uuid, long expiresAt) {
+        cooldowns.put(new CooldownKey(id, uuid), expiresAt);
     }
 
     /**
-     * Gets the remaining time left on the cooldown
-     * @param entity The entity
-     * @return The duration left in milliseconds
+     * Gets the expiration time for an entity's cooldown.
+     *
+     * @param id The cooldown ID.
+     * @param uuid The entity UUID.
+     * @return The expiration time, or {@code null} if no cooldown exists.
      */
-    public long getRemainingMillis(Entity entity) {
-        Long expiresAt = cooldowns.get(entity.getUniqueId());
-        if (expiresAt == null) return 0;
-        return Math.max(0, expiresAt - System.currentTimeMillis());
+    @Nullable Long get(@NonNull String id, @NonNull UUID uuid) {
+       return cooldowns.get(new CooldownKey(id, uuid));
     }
 
     /**
-     * Gets the remaining time but in seconds
-     * This is just a wrapper to make it easy
-     * @param entity The entity
-     * @return String, ex: "10"
+     * Removes an entity's cooldown
+     *
+     * @param id The down ID.
+     * @param uuid The entity UUID.
      */
-    public String getRemainingSeconds(Entity entity) {
-        long millis = getRemainingMillis(entity);
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
-        return String.valueOf(seconds);
+    void remove(@NonNull String id,  @NonNull UUID uuid) {
+        cooldowns.remove(new CooldownKey(id, uuid));
     }
 
-    // 1 tick = 50ms
-    public long ticksToMillis(long ticks) {
-        return ticks*50L;
-    }
+    private record CooldownKey (
+        @NonNull String id,
+        @NonNull UUID uuid
+    ) {}
 }

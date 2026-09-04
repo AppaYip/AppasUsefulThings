@@ -9,8 +9,8 @@ Two presets are available out of the box via `TimeFormatter.Format`.
 ```java
 long ms = 5461000; // 1 hour, 31 minutes, 1 second
 
-TimeFormatter.format(ms, TimeFormatter.Format.LONG) // "1 hour, 31 minutes, 1 second"
-TimeFormatter.format(ms, TimeFormatter.Format.SHORT) // ""1h 31m 1s""
+TimeFormatter.format(ms, TimeFormatter.Format.LONG); // "1 hour, 31 minutes, 1 second"
+TimeFormatter.format(ms, TimeFormatter.Format.SHORT); // ""1h 31m 1s""
 ```
 
 ### Custom Labels
@@ -25,7 +25,7 @@ TimeFormatter.Labels labels = new TimeFormatter.Labels(
     " sec", " secs"
 );
 
-TimeFormatter.format(ms, labels, ", ") // "1 hr, 31 mins, 1 sec"
+TimeFormatter.format(ms, labels, ", "); // "1 hr, 31 mins, 1 sec"
 ```
 
 ### Zero-value units
@@ -34,8 +34,8 @@ Units with a value of zero are omitted automatically. Seconds are always shown
 if no larger unit is present, output is never empty.
 
 ```java
-TimeFormatter.format(120000, Format.LONG) // "2 minutes" -- seconds omitted
-TimeFormatter.format(0, Format.LONG)      // "0 seconds" -- fallback to seconds
+TimeFormatter.format(120000, Format.LONG); // "2 minutes" -- seconds omitted
+TimeFormatter.format(0, Format.LONG);      // "0 seconds" -- fallback to seconds
 ```
 
 ## Available Methods

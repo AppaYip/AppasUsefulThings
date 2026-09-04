@@ -1,5 +1,8 @@
 package org.appa.appasUsefulThings.guiManager;
 
+import lombok.NonNull;
+import org.appa.appasUsefulThings.AppasUsefulThings;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,8 +11,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
-import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,16 +22,25 @@ import java.util.UUID;
  * This class allows for registering a gui, opening/closing a gui, and many more things.
  * Each method has Javadocs, and it is encouraged that you read them.
  */
-@NullMarked
 @SuppressWarnings("unused")
 public class GuiManager implements Listener {
     private final Map<String, Gui> guis = new HashMap<>();
     private final Map<UUID, Gui> openGuis = new HashMap<>();
+
+    /**
+     * This class should not be instantized by another plugin.
+     * This is meant for internal usage only.
+     *
+     * <p>If you are trying to use the gui manager, see {@link AppasUsefulThings#getGuiManager()}.</p>
+     */
+    @ApiStatus.Internal
+    public GuiManager() {}
+
     /**
      * Registers a gui. See {@link Gui} for more information.
      * @param gui The gui
      */
-    public void registerGui(Gui gui) {
+    public void registerGui(@NonNull Gui gui) {
         registerGui(gui, false);
     }
 
@@ -36,7 +48,7 @@ public class GuiManager implements Listener {
      * Registers a gui. See {@link Gui} for more information.
      * @param overwrite Whether to override an already existing gui.
      */
-    public void registerGui(Gui gui, boolean overwrite) {
+    public void registerGui(@NonNull Gui gui, boolean overwrite) {
         if (overwrite) {
             guis.put(gui.getId(), gui);
             return;
@@ -64,11 +76,21 @@ public class GuiManager implements Listener {
      * @param player The player
      * @param gui An instance of a {@link Gui}
      */
-    public void open(Player player, Gui gui) {
+    public void open(@NonNull Player player, @NonNull Gui gui) {
         Inventory inventory = gui.getInventory();
 
+        // Paper sucks. Why can't I get the title of an inventory using its object without using bukkit internals.
+        Inventory clone = Bukkit.createInventory(null, inventory.getSize(), gui.getTitle());
+
+        ItemStack[] content = inventory.getContents();
+        for (int i = 0; i < content.length; i++) {
+            ItemStack item = content[i];
+            if (item == null) continue;
+            clone.setItem(i, item.clone());
+        }
+
+        player.openInventory(clone);
         openGuis.put(player.getUniqueId(), gui);
-        player.openInventory(inventory);
     }
 
     /**
@@ -76,7 +98,7 @@ public class GuiManager implements Listener {
      * @param player The player
      * @param guiId The id of a {@link Gui}
      */
-    public void open(Player player, String guiId) {
+    public void open(@NonNull Player player, @NonNull String guiId) {
         Gui gui = guis.get(guiId);
         if (gui == null) {
             throw new IllegalStateException(
@@ -109,33 +131,25 @@ public class GuiManager implements Listener {
         return openGuis.containsKey(player.getUniqueId());
     }
 
-
-    /* Listeners */
-
-    private @Nullable InteractiveGui getInteractions(Player player) {
-        return openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui
-                ? gui
-                : null;
-    }
+    /* Events */
 
     @EventHandler
     private void onInventoryOpen(InventoryOpenEvent event) {
         if (!(event.getPlayer() instanceof Player player)) return;
 
-        InteractiveGui gui = getInteractions(player);
-        if (gui != null) gui.onOpen(event);
+        if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
+            gui.onOpen(event);
+        }
     }
 
     @EventHandler
     private void onInventoryClose(InventoryCloseEvent event) {
         if (!(event.getPlayer() instanceof Player player)) return;
-
-        InteractiveGui gui = getInteractions(player);
-        if (gui == null) return;
-
         if (event.getReason() == InventoryCloseEvent.Reason.OPEN_NEW) return;
 
-        gui.onClose(event);
+        if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
+            gui.onClose(event);
+        }
         openGuis.remove(player.getUniqueId());
     }
 
@@ -143,15 +157,17 @@ public class GuiManager implements Listener {
     private void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        InteractiveGui gui = getInteractions(player);
-        if (gui != null) gui.onInventoryClick(event);
+        if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
+            gui.onInventoryClick(event);
+        }
     }
 
     @EventHandler
     private void onInventoryDrag(InventoryDragEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        InteractiveGui gui = getInteractions(player);
-        if (gui != null) gui.onInventoryDrag(event);
+        if (openGuis.get(player.getUniqueId()) instanceof InteractiveGui gui) {
+            gui.onInventoryDrag(event);
+        }
     }
 }

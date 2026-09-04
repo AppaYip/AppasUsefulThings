@@ -1,7 +1,8 @@
 package org.appa.appasUsefulThings.guiManager;
 
+import lombok.NonNull;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NullMarked;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -12,11 +13,15 @@ import java.util.List;
  *
  * <p>Subclasses are responsible for providing the inventory content slots and items to display.
  * The items are placed into the content slots in order.</p>
+ *
+ * <p>This class is in early development. Expect bugs, method rewrites, etc.
+ * **None** of this code has been tested.</p>
  */
-@NullMarked
 @SuppressWarnings("unused")
 public abstract class PaginatedGui implements Gui {
-    private int currentPage;
+    private int currentPage = 0;
+    private int[] contentSlots = new int[0];
+    private List<ItemStack> items = List.of();
 
     /**
      * @return The index of the currently selected page.
@@ -26,26 +31,44 @@ public abstract class PaginatedGui implements Gui {
     }
 
     /**
-     * Gets the inventory slots used for page content.
-     *
-     * <p>Items are placed into these slots in the order they are returned.
+     * Sets the inventory slots used for page content.
+     * <p></p>
+     * Items are placed into these slots in the order they are returned.
      * The number of slots determines how many items can be displayed on each page.
-     * </p>
-     *
-     * @return The slots used for page contents.
      */
-    public abstract int[] getContentSlots();
+    protected final void setContentSlots(int[] slots) {
+        this.contentSlots = slots.clone();
+    }
 
     /**
-     * Gets the items displayed across pages of this GUI.
+     * @return The slots used for page contents.
+     */
+    public final int[] getContentSlots() {
+        return this.contentSlots.clone();
+    }
+
+
+
+    /**
+     * Sets the items displayed across pages of this GUI.
      *
      * <p>Items are distributed across pages in the order they are returned.
      * The number of items that can be displayed on each page is determined by {@link #getContentSlots()}
      * </p>
      *
+     * @param items The List of items. This list will be copied.
+     */
+    protected final void setItems(@NonNull List<ItemStack> items) {
+        this.items = List.copyOf(items);
+    }
+
+    /**
      * @return The items displayed by this GUI.
      */
-    public abstract List<ItemStack> getItems();
+    public final @NotNull List<ItemStack> getItems() {
+        return this.items;
+    }
+
 
     /**
      * Gets the total number of pages available.

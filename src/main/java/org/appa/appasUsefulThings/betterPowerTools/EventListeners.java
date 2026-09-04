@@ -8,10 +8,12 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.ApiStatus;
 
 public class EventListeners implements Listener {
     private final BetterPowerTools betterPowerTools;
 
+    @ApiStatus.Internal
     public EventListeners(JavaPlugin plugin, BetterPowerTools betterPowerTools) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.betterPowerTools = betterPowerTools;
@@ -34,8 +36,10 @@ public class EventListeners implements Listener {
 
         if (event.getAction().isRightClick()) {
             type = PowerToolEventType.RIGHT;
-        } else{
+        } else if (event.getAction().isLeftClick()) {
             type = PowerToolEventType.LEFT;
+        } else {
+            return;
         }
 
         boolean cancel = this.betterPowerTools.dispatch(

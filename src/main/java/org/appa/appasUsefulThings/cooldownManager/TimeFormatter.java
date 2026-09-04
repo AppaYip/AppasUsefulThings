@@ -1,15 +1,16 @@
 package org.appa.appasUsefulThings.cooldownManager;
 
-import org.jspecify.annotations.NullMarked;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 
-@NullMarked
 @SuppressWarnings("unused")
 public class TimeFormatter {
 
     /**
-     * Holds the singular and plural display strings for hours, minutes, and seconds
+     * Holds the singular and plural display strings for hours, minutes, and seconds.
+     *
      * @param hourSingular      label for exactly 1 hour
      * @param hourPlural        label for any other count
      * @param minuteSingular    label for exactly 1 minute
@@ -40,23 +41,25 @@ public class TimeFormatter {
     }
 
     /**
-     * Formats a duration using a builtin preset
+     * Formats a duration using a builtin preset.
+     *
      * @param millis the duration in milliseconds
      * @param format the preset to use
-     * @return pretty string. "2 minutes, 6 seconds, 1 second"
+     * @return pretty string. "2 minutes, 6 seconds"
      */
-    public static String format(long millis, Format format) {
+    public static @NotNull String format(long millis, @NonNull Format format) {
         return format(millis, format.labels, format.separator);
     }
 
     /**
-     * Formats duration using custom Label and a separator string
-     * @param millis the duration in milliseconds
-     * @param labels the Label to use for unit strings
-     * @param separator the string placed in between each unit.
-     * @return pretty string. ex: "2 minutes, 6 seconds, 1 second"
+     * Formats duration using custom Label and a separator string.
+     *
+     * @param millis The duration in milliseconds
+     * @param labels The Label to use for unit strings
+     * @param separator The string placed in between each unit.
+     * @return Pretty string. ex: "2 minutes, 6 seconds"
      */
-    public static String format(long millis, Labels labels, String separator) {
+    public static @NotNull String format(long millis, @NonNull Labels labels, @NonNull String separator) {
         if (millis < 0) {
             millis = 0;
         }
@@ -82,11 +85,12 @@ public class TimeFormatter {
 
     /**
      * Appends singular time unit to builder if value is greater than zero.
+     *
      * @param sb The string builder
      * @param value The value of the unit
-     * @param singular the label to use when value == 1
-     * @param plural the label to use when value != 1
-     * @param separator the separator between appends if builder is non-empty
+     * @param singular The label to use when value == 1
+     * @param plural The label to use when value != 1
+     * @param separator The separator between appends if builder is non-empty
      */
     private static void appendUnit(StringBuilder sb, long value, String singular, String plural, String separator) {
         if (value > 0) {

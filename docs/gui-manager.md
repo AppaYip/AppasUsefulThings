@@ -1,24 +1,20 @@
 # GuiManager
 
 An interface-based GUI system that handles inventory event routing per player automatically.
+GUI inventories and all items are cloned when opened to a player. 
 
 ## Setup
 
-`GuiManager` is created and registered by `AppasUsefulThings.builder()`. You should **not** create
-your own instance separately, as events will not route correctly if you do.
+To get an instance of GuiManager, use `AppasUsefulThings.getGuiManager()` after registering.
+If you make your own instance, then you have to register the class as a Bukkit event listener yourself. 
+Using `getGuiManager();` does this for you.
+Calling this method return the same instance every call.
 
 ```java
-private AppasUsefulThings aut;
-
 @Override
 public void onEnable() {
-    aut = AppasUsefulThings.builder()
-        .enableGuiManager()
-        .build(this);
-}
-
-public GuiManager getGuiManager() {
-    return aut.getGuiManager();
+    AppasUsefulThings.initialize(this);
+    GuiManger guiManager = AppasUsefulThings.getGuiManager();
 }
 ```
 
@@ -27,28 +23,34 @@ public GuiManager getGuiManager() {
 ### Basic GUI
 
 Use `Gui` when you want to display an inventory with no built-in event handling.
-You will need to write your own event handlers — click events are **not** automatically canceled.
+Inventory names are ignored. This is due to Paper not providing a way to get an inventory's name without a player viewing it.
+It is recommended you provide an empty component due to the string method being deprecated.
 
 ```java
 public class ExampleGui implements Gui {
-    private final Inventory inventory = Bukkit.createInventory(null, 9, Component.text("Example"));
+    private final Inventory inventory = Bukkit.createInventory(null, 9, Component.empty());
 
     @Override
     public String getId() { return "example"; }
 
     @Override
     public Inventory getInventory() { return inventory; }
+    
+    @Override // Defaulted method. This will return an empty component. You do not need to override if you do not want a title.
+    public Component getTitle() {
+        return Commponent.text("Example");
+    }
 }
 ```
 
 ### Interactive GUI
 
-Use `GuiInteractions` when you need to handle clicks, opening, or closing.
-All methods have default no-op implementations — only override what you need.
+Use `InteractiveGui` when you need to handle clicks, opening, or closing.
+All methods have default implementations that do nothing.
 
 ```java
 public class ExampleGui implements GuiInteractions {
-    private final Inventory inventory = Bukkit.createInventory(null, 9, Component.text("Example"));
+    private final Inventory inventory = Bukkit.createInventory(null, 9, Component.empty());
 
     @Override
     public String getId() { return "example"; }
@@ -68,25 +70,35 @@ public class ExampleGui implements GuiInteractions {
 }
 ```
 
+### PaginatedGui
+
+`PaginatedGui` is an abstract class for GUIs. It provides utility methods to make managing multi-paged GUIs.
+All of this is still untested and in early development. None of the code is tested, expect bugs, syntax changes, and other things.
+
+Code ex coming soon:tm:
+
 ## Registering
 
-Registering a GUI allows it to be opened by ID. Events are automatically routed to the correct GUI instance.
+Registering a GUI allows it to be opened by ID or optionally an instance of it. 
+Events are automatically routed to the correct GUI instance.
 
 > [!WARNING]
-> Registering a GUI with an ID already in use will throw an `IllegalStateException`. GUIs will not be silently overridden.
+> Registering a GUI with an ID already in use will throw an `IllegalStateException`. 
+> GUIs will not be silently overridden unless you provide true to registerGui(Gui, boolean)
 
 ```java
-getGuiManager().registerGui(new ExampleGui());
+AppasUsefulThings.getGuiManager().registerGui(new ExampleGui());
+AppasUsefulThings.getGuiManager().registerGui(new ExampleGui(), true); // Overrides gui, does not throw.
 ```
 
 ## Opening
 
 ```java
 // By instance
-getGuiManager().open(player, gui);
+AppasUsefulThings.getGuiManager().open(player, gui);
 
 // By registered ID
-getGuiManager().open(player, "example");
+AppasUsefulThings.getGuiManager().open(player, "example");
 ```
 
 ## Closing
@@ -94,16 +106,17 @@ getGuiManager().open(player, "example");
 `GuiManager` handles closing automatically when `InventoryCloseEvent` fires. You can also close manually — note this does **not** close the player's inventory client-side.
 
 ```java
-getGuiManager().close(player);
+AppasUsefulThings.getGuiManager().close(player);
 ```
 
 ## Available Methods
 
-| Method                 | Description                                           |
-|------------------------|-------------------------------------------------------|
-| `registerGui(Gui)`     | Registers a GUI by its ID                             |
-| `unregisterGui(Gui)`   | Removes a GUI from the registry                       |
-| `open(Player, Gui)`    | Opens a GUI instance for a player                     |
-| `open(Player, String)` | Opens a registered GUI by ID for a player             |
-| `close(Player)`        | Removes the player's active GUI from tracking         |
-| `isOpen(Player)`       | Returns `true` if the player currently has a GUI open |
+| Method                      | Description                                                      |
+|-----------------------------|------------------------------------------------------------------|
+| `registerGui(Gui)`          | Registers a GUI by its ID                                        |
+| `registerGui(Gui, boolean)` | Registers a GUI by its ID, optionally overwrite an existing gui. |
+| `unregisterGui(Gui)`        | Removes a GUI from the registry                                  |
+| `open(Player, Gui)`         | Opens a GUI instance for a player                                |
+| `open(Player, String)`      | Opens a registered GUI by ID for a player                        |
+| `close(Player)`             | Removes the player's active GUI from tracking                    |
+| `isOpen(Player)`            | Returns `true` if the player currently has a GUI open            |

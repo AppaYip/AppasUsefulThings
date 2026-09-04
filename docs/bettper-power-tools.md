@@ -7,14 +7,16 @@ When A player interacts with the item via, dropping, swapping, or clicking, the 
 
 ## Setup
 
-Create a `BetterPowerTools` instance using your plugin instance.
+Get a `BetterPowerTools` instance by doing `AppasUsefulThings.getBetterPowerTools();`
+Calling this method will always return the same instance.
 
 ```java
 private BetterPowerTools betterPowerTools;
 
 @Override
 public void onEnable() {
-    betterPowerTools = new BetterPowerTools(this);
+    AppasUsefulThings.initialize(this);
+    betterPowerTools = AppasUsefulThings.getBetterPowerTools();
 }
 ```
 
