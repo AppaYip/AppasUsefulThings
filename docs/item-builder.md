@@ -2,92 +2,100 @@
 
 This is a builder designed to remove some of the headache when trying to make items.
 
-## Constructors
+All methods return an instance of themselves, thus allowing for fluid/builder api.
+Some methods may be broken up into nested consumers.
 
-All constructors require a 'Material'. Name and damage can optionally be passed in, or set later via respective methods, see below.
+
+## Creating an item
+
+Items are created through the static `ItemBuilder.of(...)` method:
 
 ```java
-new ItemBuilder(Material material)
-new ItemBuilder(Material material, Component name)
-new ItemBuilder(Material material, int damage)
-new ItemBuilder(Material material, Component name, int damage)
+ItemBuilder.of(Material.STICK, item -> item
+        .name("Wand")
+        .lore("You", "Shall not", "Pass"); // Each string is a new line. Can optionally use Components.
+);
 ```
 
-## Usage
+The first argument is the `Material` to use, the second argument is a `Consumer<Item>` used to configure the item.
 
-All methods return the builder instance, allowing them to be chained together.
-Call 'build()' at the end to produce the final 'ItemStack'.
+`Material` must be a valid item material. Attempting to use a non-item material, an IllegalArgumentException will be thrown.
 
-## Simple Items
+## Basic Properties
+
+Basic item properties are configured directly on the `Item` builder.
+
+| Method             | What it does                                    |
+|--------------------|-------------------------------------------------|
+| name(String)       | Chagnes the item's name                         |
+| name(Component)    | Changes the item's name                         |
+| amount(integer)    | Sets the amount of item's. This defaults to one |
+| lore(String...)    | Adds one or more Strings to the item's lore     |
+| lore(Component...) | Adds one or more Components to the item's lore  |
+
+## Appearance
+
+Appearance related item properties.
 
 ```java
-ItemStack item = new ItemBuilder(Material.DIAMOND)
-    .setDisplayName(Component.text("Le Shiny Diamond").color(NamedTextColor.AQUA))
-    .build();
-```
-
-### Item with lore
-
-```java
-ItemStack item = new ItemBuilder(Material.APPLE)
-    .setDisplayName(Component.text("First Apple").color(NamedTextColor.RED))
-    .addLore(
-        Component.text("They say giving it to a sky bison can make a friendship that lasts a life time").color(NamedTextColor.WHITE),
-        Component.text("(What, were you expecting a bible reference?)").color(NamedTextColor.GRAY)
+ItemBuilder.of(Material.STICK, item -> item
+        .appearance(a -> a
+            .flags(ItemFlags.HIDE_ENCHANTS)
     )
-    .build();
+);
 ```
+
+| Method              | What it does                 |
+|---------------------|------------------------------|
+| flags(ItemFlags...) | Adds one or more item flags. |
+| modelData()         | Gets the meta data Object    |
+
+
+```java
+Itemuilder.of(Material.STICK, item -> item
+        .appearance(a -> a
+            .modelData(d -> d 
+                d.strings("Wand")
+        )
+    )
+);
+```
+
+| Method           | What it does                                        |
+|------------------|-----------------------------------------------------|
+| floats(float...) | Adds one or more floats to the custom model data.   |
+| flags(...)       | Adds one or more booleans to the custom model data. |
+| strings(...)     | Adds one or more strings to the custom model data.  |
+| colors(...)      | Adds one or more colors the custom model data.      |
+
+
+
 
 ### Enchanted item
 
 ```java
-ItemStack item = new ItemBuilder(Material.SADDLE)
-    .setDisplayName(Component.text("A simple saddle...").color(NamedTextColor.GRAY))
-    .enchant(Enchantment.UNBREAKING, 3)
-    .addItemFlags(ItemFlag.HIDE_ENCHANTS)
-    .setUnbreakable(true)
-    .addLore(
-        Component.text("Yip. Yip.").color(NamedTextColor(NamedTextColor.GRAY)),
-        Component.text("(What does it mean?)")
-    )
-    .build();
+ItemStack item = ItemBuilder.of(Material.SADDKLE, item -> item
+        .name("Wand")
+            .lore("", "")
+
+            .enchantments(e -> e
+                .add(Enchantment.UNBREAKING, 3)
+                .add(Enchantment.SHARPNESS, 5)
+            )
+
+            .appearance(a -> a
+                .flags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_STORED_ENCHANTS)
+            )
+);
 ```
 
-### GUI border item
 
-```java
-ItemStack border = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE)
-    .setDisplayName(Component.text(""))
-    .build();
-```
+### Other Properties
 
-### Custom model data
+Several other properties can be configured. These can be used directly with the item configuration.
 
-```java
-ItemStack wand = new ItemBuilder(Material.STICK)
-    .setDisplayName(Component.text("Magic Wand").color(NamedTextColor.LIGHT_PURPLE))
-    .setCustomModelData(1)
-    .addLore(
-        Component.text("It's Leviosa, not Leviosa!")
-    )
-    .build();
-```
-
-> **Note** `setCustomModelData` uses the legacy integer system, compatible with 1.21.1+
-> If you're on 1.21.3+ and need the new component system, use Paper's
-> `setCustomModelDataComponent` directly via `editMeta`.
-
-## Available Methods
-
-| Method                      | Description                              |
-|-----------------------------|------------------------------------------|
-| `setDisplayName(Component)` | Sets the item's display name             |
-| `setAmount(int)`            | Sets the stack size                      |
-| `addLore(Component...)`     | Adds one or more lines of lore           |
-| `setCustomModelData(int)`   | Sets custom model data                   |
-| `addItemFlags(ItemFlag...)` | Adds one or more item flags              |
-| `setUnbreakable(boolean)`   | Sets whether the item is unbreakable     |
-| `setDamage(int)`            | Sets the item's damage value             |
-| `enchant(Enchantment, int)` | Adds an enchantment with a level         |
-| `hideToolTip(Boolean)`      | Whether or not to hide item tooltip      | 
-| `build()`                   | Builds and returns the final `ItemStack` |
+| Method        | What it does                          |
+|---------------|---------------------------------------|
+| unbreakable() | Makes the item unbreakable.           |
+| damage(int)   | Adds damage to the item's durability. |
+| hideToolTip() | Hides the item's tooltip.             |
