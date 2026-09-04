@@ -69,6 +69,8 @@ public final class AppasUsefulThings {
     /**
      * Gets an instance of {@link CooldownManager}.
      * This will return the same instance every call.
+     * This technically does not need a plugin instance, therefore initalize isn't confirmed.
+     * This may change for newer versions.
      *
      * @return An instance of {@link CooldownManager}
      */
