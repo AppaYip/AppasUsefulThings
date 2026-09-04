@@ -1,6 +1,6 @@
 # AppasUsefulThings
 
-A utility library for Paper plugins providing common tools like GUI management, cooldowns, and logging
+**AppasUsefulThings** is a utility library for Paper plugins that provides reusuable tools for common tasks.
 
 > [!WARNING]
 > This project is in early development. APIs may change.
@@ -13,7 +13,9 @@ A utility library for Paper plugins providing common tools like GUI management, 
 
 ## Installation
 
-Add JitPack to your repositories:
+### 1. Add JitPack
+
+Add JitPack to your Gradle Repositories:
 
 ```gradle
 repositories {
@@ -21,19 +23,25 @@ repositories {
 }
 ```
 
-Add the dependency:
+### 2. Add AppasUsefulThings
+
+Add the library as an implementation dependency:
 
 ```gradle
 dependencies {
-    implementation 'com.github.AppaYip:AppasUsefulThings:v2.0.1'
+    implementation 'com.github.AppaYip:AppasUsefulThings:v<version>'
 }
 ```
 
-Apply the Shadow plugin and relocate to avoid conflicts with other plugins using this library:
+### 3. Shade and relocate.
+
+Because this library is designed to be shaded into your plugin, relocate its packages to avoid conflicts with other plugins using AppasUsefulThings.
+
+For example:
 
 ```gradle
 plugins {
-    id 'com.gradleup.shadow' version '9.4.1'
+    id("com.gradleup.shadow") version "9.4.1"
 }
 
 shadowJar {
@@ -42,47 +50,83 @@ shadowJar {
 ```
 
 > [!NOTE]
-> `io.github.goooler.shadow` is a community fork of `com.github.johnrengelman.shadow` that supports Java 21+.
+> Make sure the relocation package matches the package used by the library version you are building against.
 
 ## Initialization
 
-`build()` returns the `AppasUsefulThings` instance. Hold onto it if you need access to things like `GuiManager`.
+Before using managers that depend on a plugin instance, initialize AppasUsefulThings from your plugin's onEnable() method:
 
 ```java
-private AppasUsefulThings aut;
-
 @Override
 public void onEnable() {
-    aut = AppasUsefulThings.builder()
-        .enableGuiManager()      // (Optional) Enable event listening for GuiManager
-        .enableBuildLogging()    // (Optional) Log messages when the instance is built
-        .build(this);            // Build — `this` is your plugin instance
+    AppasUsefulThings.initialize(this);
 }
 ```
 
-## Configuration
+initialize() may only be called once. 
+Calling it again after the library has already been initialized will throw an IllegalStateException.
 
-| Option                 | Default | Description                                                   |
-|------------------------|---------|---------------------------------------------------------------|
-| `enableGuiManager()`   | `false` | Creates and registers a `GuiManager` instance for your plugin |
-| `enableBuildLogging()` | `false` | Logs a message to console when the instance is built          |
+## Managers
 
-## Methods
+AppasUsefulThings exposes several managers through static accessor methods.
+Managers are initialized only when first requested, so you only need to access the utilities your plugin actually uses.
 
-| Option                 | Default Value | Description                                 |
-|------------------------|---------------|---------------------------------------------|
-| `enableBuildLogging()` | false         | Logging messages upon instance being built  |
-| `enableGuiManager`     | false         | Registers GuiManager events for your plugin |
+### GuiManager
 
-## Features
+Use `getGuiManager()` to access the GUI system:
 
-* Logger -- A logger builder with the ability to do colors
-* GuiManager -- Interface-based GUI system with automatic session management
-* ItemBuilder -- Makes building and editing ItemStacks easier
-* CooldownManager -- Makes managing per-player cooldowns easy
-* TimeFormatter -- Makes formatting milliseconds instead easy to read text easy.
+```java
+GuiManager guiManager = AppasUsefulThings.getGuiManager();
+```
+
+The manager is created lazily the first time it is requested. 
+Its event listener is automatically registered with Bukkit.
+
+The same GuiManager instance is returned on subsequent calls.
+
+#### Initialization required: Yes.
+
+### Better Power Tools
+
+Use `getBetterPowerTools()` to access the Better Power Tools functionality:
+
+```java
+BetterPowerTools powerTools = AppasUsefulThings.getBetterPowerTools();
+```
+
+The manager is created lazily and automatically handles its event registration.
+The same BetterPowerTools instance is returned on subsequent calls.
+
+#### Initialization required: Yes.
+
+### CooldownManager
+
+Use `getCooldownManager()` to access the cooldown system:
+
+```java
+CooldownManager cooldowns = AppasUsefulThings.getCooldownManager();
+```
+
+CooldownManager is created lazily and the same instance is returned on subsequent calls.
+Unlike the other managers, CooldownManager currently does not require AppasUsefulThings.initialize() to be called first.
+
+> [!Note]
+> This behavior may change in a future version.
+
+
+
+## Available Utilities
+
+* **Logger** -- A logging utility with support for colored messages.
+* **GuiManager** -- An interface-based GUI system with automatic session management.
+* **ItemBuilder** -- Utilities for creating `ItemStack`s.
+* **CooldownManager** -- Simple per-player cooldown management.
+* **TimeFormatter** -- Utilities for converting milliseconds into human-readable text.
+* **Better Power Tools** -- Utilities for assigning callbacks to item events.
 
 ### Documentation
+
+More detailed documentation is available for each major component:
 
 - [Logger](docs/logger.md)
 - [GuiManager](docs/gui-manager.md)
@@ -91,18 +135,38 @@ public void onEnable() {
 - [TimeFormatter](docs/time-formatter.md)
 - [Better Power Tools](docs/bettper-power-tools.md)
 
+However mostly all methods will be JavaDoced.
+
 ## Requirements
 
 - Paper 1.21.11+
 - Java 21+
 
 > [!WARNING]
-> May work on older versions, however it is untested.
+> Older Paper versions may work, but they are not currently tested or fully supported.
+
+## Example
+
+A basic plugin using AppasUsefulThings might look like:
+
+```java
+public final class MyPlugin extends JavaPlugin {
+    
+    @Override
+    public void onEnable() {
+        AppasUsefulThings.initalize(this);
+        
+        GuiManager guiManager = AppasUsefulThings.getGuiManager();
+    }
+}
+```
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to open an issue or pull request.
+Contributions, bug reports, and feature requests are welcome.
+
+Feel free to open an issue or submit a pull request on GitHub.
 
 ## License
 
-[MIT](LICENSE)
+This project is licensed under the [MIT](LICENSE)
