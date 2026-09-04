@@ -2,14 +2,17 @@ package org.appa.appasUsefulThings;
 
 import lombok.NonNull;
 import org.appa.appasUsefulThings.betterPowerTools.BetterPowerTools;
+import org.appa.appasUsefulThings.cooldownManager.CooldownManager;
 import org.appa.appasUsefulThings.guiManager.GuiManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public final class AppasUsefulThings {
     private static JavaPlugin plugin;
     private static GuiManager guiManager;
     private static BetterPowerTools betterPowerTools;
+    private static CooldownManager cooldownManager;
 
     private AppasUsefulThings() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
@@ -36,7 +39,7 @@ public final class AppasUsefulThings {
      *
      * @return An instance of {@link GuiManager}.
      */
-    public static GuiManager getGuiManager() {
+    public static @NotNull  GuiManager getGuiManager() {
         ensureInit();
 
         if (guiManager == null) {
@@ -53,7 +56,7 @@ public final class AppasUsefulThings {
      *
      * @return An instance of {@link BetterPowerTools}
      */
-    public static BetterPowerTools getBetterPowerTools() {
+    public static @NotNull BetterPowerTools getBetterPowerTools() {
         ensureInit();
 
         if (betterPowerTools == null) {
@@ -61,6 +64,20 @@ public final class AppasUsefulThings {
         }
 
         return betterPowerTools;
+    }
+
+    /**
+     * Gets an instance of {@link CooldownManager}.
+     * This will return the same instance every call.
+     *
+     * @return An instance of {@link CooldownManager}
+     */
+    public static @NotNull CooldownManager getCooldownManager() {
+        if (cooldownManager == null) {
+            cooldownManager = new CooldownManager();
+        }
+
+        return cooldownManager;
     }
 
     private static void ensureInit() {
