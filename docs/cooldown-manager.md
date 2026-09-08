@@ -155,10 +155,10 @@ ___
 | Method                               | Description                                                                                                |
 |--------------------------------------|------------------------------------------------------------------------------------------------------------|
 | `setCooldown(Entity, long)`          | Sets a cooldown in milliseconds                                                                            |
-| `setCooldown(Entity, long, TimeUnit) | Sets a cooldown using a specific time unit.                                                                |
+| `setCooldown(Entity, long, TimeUnit)` | Sets a cooldown using a specific time unit.                                                                |
 | `trySet(Entity, long)`               | Sets a cooldown if the entity does not already have an active cooldown. Returns whether it was successful. |
 | `trySet(Entity, long, TimeUnit`      | Sets a cooldown if the entity does not already have an active cooldown. Returns whether it was successful. |
 | `isActive(Entity)`                   | Returns whether the entity currently has an active cooldown.                                               |
 | `remaining(Entity)`                  | Returns the remaining cooldown time in milliseconds.                                                       |
 | `clear(Entity)`                      | Removes the entity's cooldown.                                                                             |
-| `getId(Entity)                       | Returns the cooldown's unique ID.                                                                          |
+| `getId(Entity)`                       | Returns the cooldown's unique ID.                                                                          |
