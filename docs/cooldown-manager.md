@@ -1,6 +1,6 @@
 # CooldownManager
 
-`CooldownManager` provides a simple way to manage named. pre-entity cooldowns.
+`CooldownManager` provides a simple way to manage named. pre-entity cooldowns. Cooldowns **are not** persistent across restarts.
 
 Each `CooldownManager` instance maintains its own cooldown data. 
 A manager can contain multiple named cooldowns, and each track its state separately for each entity.
