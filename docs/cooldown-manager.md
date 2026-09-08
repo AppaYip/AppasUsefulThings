@@ -161,4 +161,4 @@ ___
 | `isActive(Entity)`                   | Returns whether the entity currently has an active cooldown.                                               |
 | `remaining(Entity)`                  | Returns the remaining cooldown time in milliseconds.                                                       |
 | `clear(Entity)`                      | Removes the entity's cooldown.                                                                             |
-| `getId(Entity)`                       | Returns the cooldown's unique ID.                                                                          |
+| `getId()`                       | Returns the cooldown's unique ID.
