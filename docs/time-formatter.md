@@ -10,7 +10,7 @@ Two presets are available out of the box via `TimeFormatter.Format`.
 long ms = 5461000; // 1 hour, 31 minutes, 1 second
 
 TimeFormatter.format(ms, TimeFormatter.Format.LONG); // "1 hour, 31 minutes, 1 second"
-TimeFormatter.format(ms, TimeFormatter.Format.SHORT); // ""1h 31m 1s""
+TimeFormatter.format(ms, TimeFormatter.Format.SHORT); // "1h 31m 1s"
 ```
 
 ### Custom Labels
