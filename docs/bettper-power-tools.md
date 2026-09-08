@@ -257,34 +257,6 @@ betterPowerTools.bind(wand, "lightning");
 
 Any player holding that item can now trigger the registered power tool.
 
-## Optional Command
-
-Better Power Tools includes an optional `/betterpowertools` command for testing.
-
-The command is **not enabled by default, and currently doesn't check if another plugin has already registered it.** (This may change)
-
-Enable it when constructing your plugin:
-
-```java
-@Override
-public void onEnable() {
-    betterPowerTools = new BetterPowerTools(this);
-    
-    betterPowerTools.enableCommand();
-}
-```
-
-The current command has the following:
-
-| Argument                    | Description                                  |
-|-----------------------------|----------------------------------------------|
-| `/betterpowertools set <id> | Binds the held item to a power tool ID       |
-| `/betterpowertools get`     | Displays the power tool ID on the held item  |
-| `/betterpowertools clear`   | Removes the power tool ID from the held item |
-| `/betterpowertools toggle`  | Toggles the player's power tool setting      |
-
-Power tool IDs are suggested automatically for the set command.
-
 ## Available Methods
 
 | Method                                               | Description                                                         |
@@ -298,7 +270,7 @@ Power tool IDs are suggested automatically for the set command.
 | `clear(ItemStack)`                                   | Removes a power tool ID from an item                                |
 | `getId(ItemStack)`                                   | Gets the power tool ID from an item                                 |
 | `hasPowerTool(ItemStack)`                            | Returns whether an item has a power tool ID                         |
-| `isEnabled(Player)                                   | Returns whether power tools are enabled for a player                |
+| `isEnabled(Player)`                                   | Returns whether power tools are enabled for a player                |
 | `toggle(Player)`                                     | Toggles power tools for a player                                    |
 | `setEnabled(Player, boolean)`                        | Enables or disables power tools for a player                        |
 | `dispatch(Player, ItemStack, PowerToolEventType, T)` | Executes a matching power tool                                      |
