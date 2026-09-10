@@ -6,10 +6,49 @@
 > This project is in early development. APIs may change.
 
 > [!NOTE]
-> The `main` branch and may contain untested or incomplete code. It is strongly recommended that you use the latest release.
-
-> [!NOTE]
 > This is the shadeable version of the library. You do **not** need to put this in your plugin's folder.
+
+## Release Channels
+
+AppasUsefulThings uses three branches to provide different levels of stability:
+
+| Branch    | Description                                                                                                                                                 |
+|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `main`    | Contains version releases. Recommended for production use.                                                                                                  |
+| `stable`  | Contains the latest tested changes and is published automatically as a `stable-SNAPSHOT` through Jitpack.                                                   |
+| `develop` | Contains the latest changes and is published automatically as a `develop-SNAPSHOT` through JitPack. These changes may be completely untested or incomplete. |
+
+### Recommended Usage
+
+For most users, use the latest release from `main`:
+
+```gradle
+dependencies { 
+    implementation 'com.github.AppaYip:AppasUsefulThings:v<version>'
+}
+```
+
+For users who want the latest tested changes without waiting for a new release, use `stable`:
+
+```gradle
+dependencies {
+    implementation 'com.github.AppaYip:AppasUsefulThings:stable-SNAPSHOT'
+}
+```
+
+For development or testing against the newest changes, use `develop`:
+
+```gradle
+dependencies {
+    implementation 'com.github.AppaYip:AppasUsefulThings:develop-SNAPSHOT'
+}
+```
+
+Changes generally progress through the branches as follows:
+
+```
+develop -> stable -> main
+```
 
 ## Installation
 
