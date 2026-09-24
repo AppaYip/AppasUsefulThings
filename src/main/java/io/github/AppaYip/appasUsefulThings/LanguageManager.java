@@ -1,4 +1,4 @@
-package org.appa.appasUsefulThings;
+package io.github.AppaYip.appasUsefulThings;
 
 
 import lombok.NonNull;

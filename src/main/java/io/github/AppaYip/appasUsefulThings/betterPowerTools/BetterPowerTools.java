@@ -1,7 +1,7 @@
-package org.appa.appasUsefulThings.betterPowerTools;
+package io.github.AppaYip.appasUsefulThings.betterPowerTools;
 
 import lombok.Getter;
-import org.appa.appasUsefulThings.AppasUsefulThings;
+import io.github.AppaYip.appasUsefulThings.AppasUsefulThings;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;

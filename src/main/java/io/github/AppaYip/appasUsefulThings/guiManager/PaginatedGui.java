@@ -1,4 +1,4 @@
-package org.appa.appasUsefulThings.guiManager;
+package io.github.AppaYip.appasUsefulThings.guiManager;
 
 import lombok.NonNull;
 import org.bukkit.inventory.ItemStack;

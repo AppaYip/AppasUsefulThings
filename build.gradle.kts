@@ -4,7 +4,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "org.appa"
+group = "io.github.AppaYip"
 version = "3.0.0"
 
 repositories {
@@ -29,7 +29,6 @@ tasks {
     }
 
     shadowJar {
-        relocate("org.appa", "org.appa.relocated")
         archiveClassifier.set("")
     }
 

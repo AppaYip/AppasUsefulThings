@@ -1,9 +1,9 @@
-package org.appa.appasUsefulThings;
+package io.github.AppaYip.appasUsefulThings;
 
 import lombok.NonNull;
-import org.appa.appasUsefulThings.betterPowerTools.BetterPowerTools;
-import org.appa.appasUsefulThings.cooldownManager.CooldownManager;
-import org.appa.appasUsefulThings.guiManager.GuiManager;
+import io.github.AppaYip.appasUsefulThings.betterPowerTools.BetterPowerTools;
+import io.github.AppaYip.appasUsefulThings.cooldownManager.CooldownManager;
+import io.github.AppaYip.appasUsefulThings.guiManager.GuiManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;

@@ -1,4 +1,4 @@
-package org.appa.appasUsefulThings.cooldownManager;
+package io.github.AppaYip.appasUsefulThings.cooldownManager;
 
 import lombok.NonNull;
 import org.bukkit.entity.Entity;

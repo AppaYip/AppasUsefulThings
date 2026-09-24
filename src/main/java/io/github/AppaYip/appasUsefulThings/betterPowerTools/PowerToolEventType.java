@@ -1,4 +1,4 @@
-package org.appa.appasUsefulThings.betterPowerTools;
+package io.github.AppaYip.appasUsefulThings.betterPowerTools;
 
 public enum PowerToolEventType {
     LEFT,

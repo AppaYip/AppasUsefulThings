@@ -1,7 +1,7 @@
-package org.appa.appasUsefulThings.guiManager;
+package io.github.AppaYip.appasUsefulThings.guiManager;
 
 import lombok.NonNull;
-import org.appa.appasUsefulThings.AppasUsefulThings;
+import io.github.AppaYip.appasUsefulThings.AppasUsefulThings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

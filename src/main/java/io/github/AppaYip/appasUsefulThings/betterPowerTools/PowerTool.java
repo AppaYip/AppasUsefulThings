@@ -1,4 +1,4 @@
-package org.appa.appasUsefulThings.betterPowerTools;
+package io.github.AppaYip.appasUsefulThings.betterPowerTools;
 
 @FunctionalInterface
 public interface PowerTool {

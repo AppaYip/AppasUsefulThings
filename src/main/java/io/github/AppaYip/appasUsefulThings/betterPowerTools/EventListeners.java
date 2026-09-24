@@ -1,4 +1,4 @@
-package org.appa.appasUsefulThings.betterPowerTools;
+package io.github.AppaYip.appasUsefulThings.betterPowerTools;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

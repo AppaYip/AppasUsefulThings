@@ -1,4 +1,4 @@
-package org.appa.appasUsefulThings.betterPowerTools;
+package io.github.AppaYip.appasUsefulThings.betterPowerTools;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

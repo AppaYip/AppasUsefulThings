@@ -1,4 +1,4 @@
-package org.appa.appasUsefulThings.Items;
+package io.github.AppaYip.appasUsefulThings.items;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
