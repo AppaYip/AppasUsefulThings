@@ -84,7 +84,7 @@ plugins {
 }
 
 shadowJar {
-    relocate 'org.appa', 'your.plugin.package.appa'
+    relocate 'io.github.AppaYip.appasUsefulThings', 'your.plugin.package.AppasUsefulThings'
 }
 ```
 
